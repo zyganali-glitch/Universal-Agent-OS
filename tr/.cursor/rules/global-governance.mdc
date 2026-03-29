@@ -1,0 +1,75 @@
+---
+description: Turkce locale icin Cursor-native global governance rule.
+globs:
+alwaysApply: false
+---
+
+# Cursor Governance Rule
+
+Bu rule, Cursor'un hizli edit akisini donor hiyerarsisine baglamak icin yazildi.
+`GLOBAL_AJAN_CALISTIRMA_KURALLARI.md` ve `AGENTS.md` daha ust otoritedir; bu rule onlari daraltmaz. Ama Cursor'a uygun hizli-edit davranisini daha acik hale getirir.
+
+## 1) Yukleme Sirasi
+1. `GLOBAL_AJAN_CALISTIRMA_KURALLARI.md`
+2. `AGENTS.md`
+3. `GLOBAL_PLAN_TASK_TRACKING_TEMPLATE.md`
+4. aktif plan
+5. bu rule
+
+## 2) Cursor Neden Ayri Disiplin Ister
+Cursor hizli navigation, hizli edit ve hizli diff ongorusuyle calisir.
+Bu akisin riski, agentin plan guncellemesini ikincil gormesidir. Bu rule, hizli edit ergonomisini plan-odakli davranisa baglar.
+
+## 3) Cursor Icin Zorunlu Davranis
+- ilk cevapta `MODE`, scope lock, allowlist/denylist ve aktif mikro-fazi bildir
+- yeni repo bootstrap'inda once mutabakat, sonra repo-koku plan sablonu, sonra roadmap portfoyu kur
+- plan yoksa kod degisikligi yapma
+- shared plan/config/template dosyalarinda tek-yazar ilkesini bozma
+- `Plan -> Kanit -> Test` disinda closure verme
+
+## 4) Hizli Edit ama Yavas Kapanis Kurali
+Cursor ile edit hizli olabilir; closure hizli olamaz.
+Her degisiklikten sonra:
+- dosya etkisi acikca yazilir
+- test/gate etkisi tekrar okunur
+- plan yuzeyleri atomik senkronlanir
+
+## 5) Atomik Update
+- header + faz plani + backlog + request + task + gate + risk + handoff/checkpoint birlikte guncellenir
+- discovered work yeni izlenen satir olarak kaydedilir
+- completed plan ayni closure adiminda archive edilir
+
+## 6) Kanit ve Gate Beklentisi
+Cursor hizli suggestion verdigi icin sunlar ozellikle zorunludur:
+- hangi diff ailesi degisti
+- hangi test/gate kosuldu veya kosulacak
+- hangi risk acik kaldi
+- selftest / related-test etkisi varsa bunun acikca yazilmasi
+
+## 7) Triple-Sync ve Release Notu
+Istek push/deploy/repo-sync tasiyorsa local edit basarili olsa bile tamamlandi denmez.
+Local repo, uzak hedef ve canli release snapshot'i ayni seviyeye gelmeden closure verilmez.
+
+## 8) Yasaklar
+- placeholder/stub/fake completion
+- allowlist disi drift
+- test etkisini gizleme
+- donor omurgayi marketing ozetine indirme
+- varsayilan billing/auth aktivasyonu
+- hizli editor akisini plansiz genisleme bahanesi yapmak
+
+## 9) Anti-Pattern'ler
+- sadece edit yapip plan senkronunu sonraya birakmak
+- suggestion dogru gorunuyor diye kanit istememek
+- aktif mikro-faz sayisini kontrolsuz buyutmek
+- kullaniciya rol/fallback yapisini bildirmemek
+
+## 10) Beklenen Cikti
+Bu rule altinda Cursor tabanli ajanin ciktilari su netligi saglar:
+- hangi is yapildi
+- hangi dosyalar etkilendi
+- hangi gate/kanit var
+- hangi riskler acik
+- sonraki mikro-faz ne
+
+Bu rule'un amaci Cursor'u kisitlamak degil; hizli editin plansiz edit olmasini engellemektir.
