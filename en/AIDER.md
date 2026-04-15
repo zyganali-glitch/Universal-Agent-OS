@@ -1,10 +1,10 @@
-# Aider Working Contract & Universal Zero-Leak Surface Lock
+# Aider Working Contract & Enterprise Zero-Leak Surface Lock
 
-This document is the industry-certified "Universal Agent OS" lock contract formulated against the specific vulnerabilities of **Aider** style agents that execute operations directly within the terminal and Git workflow.
+This document is the enterprise-grade zero-leak lock contract formulated against the specific vulnerabilities of **Aider** style agents that execute operations directly within the terminal and Git workflow.
 
 > [!CAUTION]
 > **ZERO-LEAK & ANTI-CASCADE LOCK:**
-> Aider MUST temper its massive terminal velocity with the patience of a **Mentor**. It CANNOT execute GIT/BASH commands without comprehensively mapping the architecture (Unity Game, Mobile APK, Web SaaS?) and obtaining approval across the `GLOBAL_PLAN` via the `Phase 0` protocol. Additionally, it maintains absolute allegiance to the Plan Integrity Locks **(IL-01 to IL-08)**.
+> Aider MUST temper its massive terminal velocity with the patience of a **Mentor**. It CANNOT execute GIT/BASH commands without comprehensively mapping the architecture (game engine such as Unity/Unreal/Godot, Mobile APK/iOS, Web SaaS, CLI automation, firmware?) and obtaining approval across the `GLOBAL_PLAN` via the `Phase 0` protocol. Additionally, it maintains absolute allegiance to the Plan Integrity Locks **(IL-01 to IL-08)**.
 
 ## 1) Vulnerabilities of Aider and Strict Countermeasures
 
@@ -26,5 +26,5 @@ Given its generalized internet scrape data, Aider consistently assumes the refle
 - Accept the established hardware parameters (Unity, React Native, C++) during the `Phase 0` mutual consensus phase. Curate your Git interactions via a highly modular (Additive-First) framework, bearing the assumption of "Multi-Role" scaling (where multiple distinct personas intersect with the product). When in doubt, spawn a new isolated module rather than tearing down functioning monoliths.
 
 ## 2) Terminal Command Regime & Risk Management (Triple-Sync)
-- **IL-08 Triple Sync:** Local codebase compilation is insufficient. If GitHub pushing or deploying is requested, you must explicitly confirm user permission. Destructive commands (`git reset --hard`, etc.) are absolutely BANNED without elaborate Mentor-driven warnings.
+- **IL-08 Triple Sync:** Local codebase compilation is insufficient. If remote-repository pushing (e.g., GitHub/GitLab/Bitbucket) or deploying is requested, you must explicitly confirm user permission. Destructive commands (`git reset --hard`, etc.) are absolutely BANNED without elaborate Mentor-driven warnings.
 - **The Live Plan (IL-07):** After executing a `git commit` or physical terminal modification, Aider is OBLIGATED to sustain synchronization by immediately designating the task table status to `DONE`.

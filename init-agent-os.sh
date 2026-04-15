@@ -1,10 +1,9 @@
 #!/bin/bash
 # ==============================================================================
-# Universal Agent Governance OS - Zero-Leak Installer
+# Agent Governance OS - Locale Pack Installer
 # ==============================================================================
-# Bu script, Agent Governance OS'i herhangi bir yeni projeye "sızıntısız"
-# ve "Universal-OS derinliğinde" kurmak için tasarlanmıştır.
-# Kullanım: ./init-agent-os.sh /hedef/proje/yolu
+# Installs one locale pack into a target project directory.
+# Kullanim / Usage: ./init-agent-os.sh /target/project/path
 # ==============================================================================
 
 set -e
@@ -12,56 +11,76 @@ set -e
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="$1"
 
+get_available_locales() {
+    local locales=()
+    local dir
+    for dir in "$SOURCE_DIR"/*; do
+        if [ -d "$dir" ] && [ -f "$dir/AGENTS.md" ] && [ -f "$dir/AGENT_OS_RULES.md" ] && [ -f "$dir/AGENT_OS_PLAN_TEMPLATE.md" ]; then
+            locales+=("$(basename "$dir")")
+        fi
+    done
+    printf '%s\n' "${locales[@]}"
+}
+
+mapfile -t AVAILABLE_LOCALES < <(get_available_locales)
+
+if [ ${#AVAILABLE_LOCALES[@]} -eq 0 ]; then
+    echo "ERROR: No locale packs were found under $SOURCE_DIR"
+    exit 1
+fi
+
+DEFAULT_LOCALE="en"
+if [[ ! " ${AVAILABLE_LOCALES[*]} " =~ " ${DEFAULT_LOCALE} " ]]; then
+    DEFAULT_LOCALE="${AVAILABLE_LOCALES[0]}"
+fi
+
 echo "=========================================================="
-echo "🤖 Universal Agent Governance OS Kurulumu Başlıyor..."
+echo "Starting Agent Governance OS install..."
 echo "=========================================================="
 
-# Hedef dizin kontrolü
 if [ -z "$TARGET_DIR" ]; then
-    echo "❌ HATA: Hedef dizin belirtilmedi!"
-    echo "Kullanım: ./init-agent-os.sh /hedef/proje/yolu"
+    echo "ERROR: Target directory is required."
+    echo "Usage / Kullanim: ./init-agent-os.sh /target/project/path"
     exit 1
 fi
 
 if [ ! -d "$TARGET_DIR" ]; then
-    echo "❌ HATA: Hedef dizin bulunamadı: $TARGET_DIR"
+    echo "ERROR: Target directory was not found: $TARGET_DIR"
     exit 1
 fi
 
-# Dil Seçimi
-read -p "Dil seçimi (tr/en) [varsayılan: tr]: " LANG_CHOICE
-LANG_CHOICE=${LANG_CHOICE:-tr}
+AVAILABLE_DISPLAY=$(printf '%s, ' "${AVAILABLE_LOCALES[@]}")
+AVAILABLE_DISPLAY=${AVAILABLE_DISPLAY%, }
 
-if [[ "$LANG_CHOICE" != "tr" && "$LANG_CHOICE" != "en" ]]; then
-    echo "❌ HATA: Yalnızca 'tr' veya 'en' desteklenmektedir."
+read -r -p "Locale / Dil secimi [${AVAILABLE_DISPLAY}] [default: ${DEFAULT_LOCALE}]: " LANG_CHOICE
+LANG_CHOICE=${LANG_CHOICE:-$DEFAULT_LOCALE}
+
+if [[ ! " ${AVAILABLE_LOCALES[*]} " =~ " ${LANG_CHOICE} " ]]; then
+    echo "ERROR: Unsupported locale '${LANG_CHOICE}'. Available locales: ${AVAILABLE_DISPLAY}"
     exit 1
 fi
 
-echo "🔹 '$LANG_CHOICE' dil paketi yükleniyor..."
+echo "Installing locale pack: ${LANG_CHOICE}"
 
-# Kaynak klasör yolu
 OS_SOURCE="$SOURCE_DIR/$LANG_CHOICE"
 
 if [ ! -d "$OS_SOURCE" ]; then
-    echo "❌ HATA: Kaynak klasör bulunamadı: $OS_SOURCE"
+    echo "ERROR: Locale source directory was not found: $OS_SOURCE"
     exit 1
 fi
 
-# 1. Kopyalama işlemi
-echo "🔹 Temel Agent-OS dosyaları kopyalanıyor..."
-cp -r "$OS_SOURCE/." "$TARGET_DIR/"
+echo "Copying locale-pack files into target repo..."
+cp -R "$OS_SOURCE/." "$TARGET_DIR/"
 
-# 2. Plan klasörünü oluştur
-echo "🔹 Planlama dizini ve arşiv oluşturuluyor..."
+echo "Creating planning directories..."
 mkdir -p "$TARGET_DIR/plans/completed"
 
 echo "=========================================================="
-echo "✅ BAŞARILI: Agent Governance OS kuruldu!"
+echo "SUCCESS: Agent Governance OS locale pack installed."
 echo ""
-echo "Sonraki Adımlar (Mentor Tavsiyeleri):"
-echo "1. Hedef projenizde bir AI aracını açın."
-echo "2. Yeni sohbet başlatın ve ilk mesaj olarak şunu yazın:"
-echo "   'Lütfen kök dizindeki AGENTS.md ve .agent/workflows/session-bootstrap.md dosyasını oku.'"
-echo "3. Ajan sizinle İnteraktif Phase 0 mülakatına başlayacaktır."
+echo "Next Steps / Sonraki Adimlar:"
+echo "1. Open your target repo in the AI-enabled IDE or agent runtime of your choice."
+echo "2. Start a new session and ask the agent to read AGENTS.md and .agent/workflows/session-bootstrap.md."
+echo "3. Complete the Phase 0 interview before any implementation begins."
 echo "=========================================================="
 exit 0

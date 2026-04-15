@@ -11,10 +11,16 @@ Bu dosya ile birlikte ayni klasorde su reusable governance paketi yuzeyleri bulu
 - `.codex/AGENTS.md`
 - `.github/copilot-instructions.md`
 - `.github/instructions/global-agent.instructions.md`
+- `.github/instructions/_ARCHITECTURE.md`
+- `.github/instructions/_SCOPED_INSTRUCTION_REGISTRY.json`
+- `.github/agents/_AGENT_ROLE_REGISTRY.json`
+- `.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`
 - `.agent/rules/global-governance.md`
 - `.agent/skills/global-governance/SKILL.md`
+- `.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`
 - `.agent/workflows/session-bootstrap.md`
 - `.agent/workflows/devam.md`
+- `.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`
 - `AGENT_OS_PLAN_TEMPLATE.md`
 
 ---
@@ -70,10 +76,10 @@ Bu donor belge yeni projedeki global plan sablonuna asagidaki kilitlerin aynen v
 - Sonraki aktif mikro-faz plan notuna yazilir.
 
 **IL-12 / TSL-01: Uclu Senkron Kilidi**
-- Push/deploy/repo-sync talebinde local + GitHub + canli ayni snapshot olmadan kapanis yoktur.
+- Push/deploy/repo-sync talebinde local + uzak repo (orn. GitHub/GitLab/Bitbucket) + canli ayni snapshot olmadan kapanis yoktur.
 
 **IL-13: Canlı Dokümantasyon ve Dinamik README Kilidi (Live-Docs Sync)**
-- **Dinamik Master README:** Ajan, Phase-0 Mutabakatını (projenin amacı ve teknoloji yığınını) bitirdiği saniye, otomatik olarak kök dizinde projenin ana vitrini olan kapsamlı bir `README.md` dosyası YARATMAKLA MÜKELLEFTİR! Kuruluma (örn. npm'den pnpm'e geçiş) veya mimariye etki eden her yenilikte, bu Master `README.md` dosyası da Task tabloları gibi anlık (Live-Sync) GÜNCELLENECEKTİR! 
+- **Dinamik Master README:** Ajan, Phase-0 Mutabakatını (projenin amacı ve teknoloji yığınını) bitirdiği saniye, otomatik olarak kök dizinde projenin ana vitrini olan kapsamlı bir `README.md` dosyası YARATMAKLA MÜKELLEFTİR! Kuruluma (örn. bir paket yöneticisinden veya calistirma komutundan baska birine gecis) veya mimariye etki eden her yenilikte, bu Master `README.md` dosyası da Task tabloları gibi anlık (Live-Sync) GÜNCELLENECEKTİR! 
 - Diğer Dosyalar: Ajan, yaptığı değişiklikleri "Şu fonksiyonu şuna ekledim" diye *Changelog* gibi kaydedemez! Kılavuzlar (`PROJECT_STRUCTURE.md` ve `USER_GUIDE.md`) sadece **sistemin O ANKİ güncel ve çalışır halini (Live State)** yansıtmalıdır.
 - Yaşayan Ekosistem Önerileri (Opsiyonel ama önerilir): Uzmanların ve yatırımcıların okuması için proje büyüdükçe `TECH_DEBT_AND_SECURITY.md`, `BUSINESS_MODEL_AND_GOALS.md` veya `QUICK_START_DEPLOYMENT.md` dosyaları da yepyeni değişikliklere göre canlı yaşatılmalıdır.
 - "Projeyi yarın başka bir ajanın saniyede devralabileceği kadar berrak" bir canlı harita güncellenmeden Task/Faz KAPANMAZ!
@@ -119,6 +125,22 @@ Yeni projede ajan su sirayi uygular:
 12. Uygulamaya ancak plan olustuktan sonra gecer.
 13. Kapanista plani archive eder.
 
+### 1.1) Ajan Ekosistemi Tazeligi ve Uyarlanabilir Ajan Dosyasi Uretimi
+
+Bootstrap oturumu ajan-native dosyalar (`.agent.md`, adapter dosyalari, native prompt'lar, IDE-ozel instruction'lar) uretecekse, bu dosyalar dondurulmus bir set korlemesine kopyalanamaz.
+
+Zorunlu protokol:
+1. Hedef repo ve operator akisi icin hangi ajan ekosistemlerinin gercekten gerekli oldugunu tespit et.
+2. Ajan dosyalari uretilmeden once o an kullanilabilir agent-native surface'leri ve uyumluluk bilgisini tara.
+3. Tazelik kaynagi su sirayla kullanilir:
+  - yerelde kurulu/native platform metadatasi ve o an gorulebilen surface'ler
+  - bu framework ile birlikte gelen paketlenmis uyumluluk bilgisi
+  - kullanici veya ortam politikasi tarafindan acikca izin verilmis refresh girdileri
+4. Guncel ekosistem ilave ajan dosyalari, eksik adapter'lar veya ayrik rol dosyalari gerektiriyorsa bunlari uygulama baslamadan once uret.
+5. Uretilen ajan dosyalari kendi ekosistemine uygun guncel dil ve yapiyi kullanabilir; ancak donor omurgayi, plan disiplinini veya tek-yazar governance modelini zayiflatamaz.
+6. Kullanilan tazelik temeli ve uretim gerekcesi aktif plan veya mimari notlarda kayda girer.
+7. Sadece tazelik pesinde kosmak icin kor ag bagimliligi kurulamaz; offline-guvenli paketlenmis uyumluluk zorunlu kalir.
+
 Plan dosya formati icin evrensel onerilen desen:
 - `plans/PLAN_YYYYMMDD_<alan>_<hedef>.md`
 - cakisma varsa `_v02`, `_v03`
@@ -146,7 +168,7 @@ Ilk kullanici cevabinda bulunmasi gereken minimum ogeler:
 
 ### 2.1) Kapsamlı ve İnteraktif Proje Mutabakatı (Zorunlu Faz 0)
 
-Ajan, projeye başlarken veya kök kuralları oluştururken KESİNLİKLE KOD YAZAMAZ. Önce kodlama dünyasını hiç bilmeyen bir müşteriye veya acemi bir vibecoder'a yol gösteren şefkatli bir **Yazılım Mentoru** gibi, kullanıcıyı "İnteraktif Soru-Cevap Mülakatına" alır. Bu mülakatın amacı sadece Web Projesi yapmak değildir; ajanın asıl hedefi projenin donanımını, ruhunu ve platformunu (Örn: Web mi? Oyun mu? APK/iOS Mobil Uygulama mı? IoT/Gömülü mü? Veri Bilimi modeli mi?) anlamasıdır.
+Ajan, projeye başlarken veya kök kuralları oluştururken KESİNLİKLE KOD YAZAMAZ. Önce kodlama dünyasını hiç bilmeyen bir müşteriye veya kodlamaya yeni başlayan bir üreticiye yol gösteren şefkatli bir **Yazılım Mentoru** gibi, kullanıcıyı "İnteraktif Soru-Cevap Mülakatına" alır. Bu mülakatın amacı sadece Web Projesi yapmak değildir; ajanın asıl hedefi projenin donanımını, ruhunu ve platformunu (Örn: Web mi? Oyun mu? APK/iOS Mobil Uygulama mı? IoT/Gömülü mü? Veri Bilimi modeli mi?) anlamasıdır.
 
 Ajan, karmaşık teknik kavramları (veritabanı, framework, state yönetimi vb.) günlük hayat örnekleri ve sade alternatiflerle sunarak kararları kullanıcıya bıraktırmalıdır. Ancak asıl inisiyatifi alarak kendi uzman önerisini daima belirtir. Ajanın sorduğu her soruda:
 1. Basit ve evrensel (sadece tek alana sıkışmamış) seçenekler
@@ -157,20 +179,20 @@ mutlaka ama mutlaka yer almalıdır. Ajan tüm senaryoları öngörüp, olası r
 **Ajanın İnisiyatif ve Uyum Kuralı:** 
 Ajan sadece şablondaki standart soruları sormakla yetinemez. Projenin doğasını anlamak için inisiyatif almalı, soruları kullanıcının durumuna adapte etmelidir. Kullanıcının verdiği cevapların kendi arasında çelişmemesini sağlamalıdır (Örn: Hem tamamen offline bir mobil oyun isteyip hem de 'sunucu tabanlı REST senkronizasyonu' gibi ters cevaplar veren bir kullanıcıyı mentor edasıyla mantıklı yola çekmelidir). Ayrıca "Aklıma gelmeyen ama projeniz için çok kritik olan şu soruyu da sormak isterim..." diyerek sadece o projeye özel esnek ve tamamlayıcı soruları hardcore bir dayatma yapmadan sormalıdır.
 
-**Evrensel Mutabakat Soruları (Ajan bu mantıkla, projenin ruhuna uygun Universal OS derinliğinde yeni sorular üretebilir):**
+**Evrensel Mutabakat Soruları (Ajan bu mantıkla, projenin ruhuna uygun kurumsal duzeyde yeni sorular uretebilir):**
 
 1. **İletişim Tonu ve Dili:** "Projenize başlarken benim size nasıl hitap etmemi istersiniz? Resmi bir dille sadece kod mu yazayım, yoksa size yön gösteren ama son sözü her zaman size bırakan bir mentor gibi mi olayım?"
-2. **Proje Tipi ve Nihai Platform:** "Bu ürün günün sonunda tam olarak nerede çalışacak? Bir web tarayıcısında mı, cep telefonunda bir uygulama (APK/iOS) olarak mı, masaüstünde oynanacak bir oyun mu, yoksa arka planda çalışan bir veri motoru mu? *(Mentor Önerisi: Eğer projede mobil ağırlıklı bir tüketim varsa WebView/PWA karmasıyla yola çıkmak en masrafsızıdır; ancak yoğun animasyonlu oyunsanız yerel oyun motorlarını seçelim).* "
+2. **Proje Tipi ve Nihai Platform:** "Bu ürün günün sonunda tam olarak nerede çalışacak? Bir web tarayıcısında mı, cep telefonunda bir uygulama (APK/iOS) olarak mı, masaüstünde oynanacak bir oyun mu, bir CLI aracı mı, bir kutuphane/SDK mi, bir ML hattı mı, IaC/DevOps otomasyonu mu, firmware mi, akilli sozlesme sistemi mi, yoksa arka planda çalışan bir veri motoru mu? *(Mentor Önerisi: Eğer projede mobil ağırlıklı bir tüketim varsa WebView/PWA karmasıyla yola çıkmak en masrafsızıdır; ancak yoğun animasyonlu oyunsanız Unity, Unreal veya Godot gibi yerel oyun motorlarını seçelim).* "
 3. **Kullanıcı Etkileşimi (Cloud vs Offline):** "Uygulamanızı kimler kullanacak ve verileri nerede/nasıl saklayacağız? Kullanıcının cihazında (offline-first) bağımsız bir deneyim mi kuracağız, yoksa çok oyunculu/sosyal bir bulut hesabı mı (Cloud/SaaS) planlıyoruz?"
-4. **Altyapı (Framework/Engine) Stratejisi:** "Mimarimiz (iskeletimiz) nasıl olmalı? Çok sayfalı devasa veri gösterimleri mi yapacağız (Örn: Universal OS gibi geniş sistemlerde React/Vue), yoksa sadece telefon kamerasını açan spesifik bir mobil tool/oyun scripti mi yazacağız (Native/Vanilla)? *(Sade projelerde olabildiğince az paket (vanilla/native) öneririm, maliyeti inanılmaz düşürür).* "
+4. **Altyapı (Framework/Engine) Stratejisi:** "Mimarimiz (iskeletimiz) nasıl olmalı? Çok sayfalı devasa veri gösterimleri mi yapacağız (Örn: genis urun yuzeylerinde React/Vue), yoksa sadece telefon kamerasını açan spesifik bir mobil tool/oyun scripti mi yazacağız (Native/Vanilla)? *(Sade projelerde olabildiğince az paket (vanilla/native) öneririm, maliyeti inanılmaz düşürür).* "
 5. **Kayıt ve Yetkilendirme (Auth/Billing):** "İçeri girmek için kimlik (bilet) gerekecek mi? Uygulamamız gelecekte ücretli hale dönüşecekse, 'Üyelik Hazır' ama kapalı bir kurguyu baştan entegre etmemizi şiddetle öneririm."
 6. **Veri Hafızası ve State Yönetimi:** "Durumları (State) ve belleği nasıl yönetelim? Oyun ise Save/Load mekanizmalarını, Web ise Local/IndexedDB veya merkezi Redux/Zustand sistemlerini nasıl yapılandıralım?"
 7. **Tasarım ve Görsel Etkileşim:** "Arayüzde zenginleştirilmiş etkileşimler, 3D materyaller, Dark/Light mode gibi donanımlar istiyor muyuz, yoksa aşırı sade bir mühendislik/veri aracı mı yapıyoruz?"
-8. **Kalite, Test ve Sağlamlık (QA Rigor/Gates):** "Güvenlik ve sağlamlık testlerinde ne kadar katı olmalıyız? Universal OS derinliğinde zorunlu Gate (Selftest vs.) duvarları mı örelim, yoksa prototip üreteceğimiz için bu kuralları esnetelim mi?"
+8. **Kalite, Test ve Sağlamlık (QA Rigor/Gates):** "Güvenlik ve sağlamlık testlerinde ne kadar katı olmalıyız? Kurumsal duzeyde zorunlu Gate (Selftest vs.) duvarları mı örelim, yoksa prototip üreteceğimiz için bu kuralları esnetelim mi?"
 
 **Ajan İnisiyatifi ve Tamamlayıcılık (Hardcore Olmadan):** Ajan bu temel soruların dışında, projenin doğasına uygun kendi spesifik sorularını da yaratır. "Eğer oyun yapıyorsak; FPS türünde mi yoksa masa kutu oyunu tarzı mı olacak ki State yönetimini baştan buna göre kuralım?" diyerek vizyonu zenginleştirir.
 
-Ajan bu mülakat kararlarını aldıktan sonra, `AGENT_OS_PLAN_TEMPLATE.md` dosyasındaki şablona bunları esnek, tamamlayıcı ve Universal OS detayında (hardcoded ama kurallarla çatışmayan) sözleşme maddeleri olarak kaydeder. Kararlar projeye gömülmeden kodlama (implementation) asla ve kat'a başlamaz.
+Ajan bu mülakat kararlarını aldıktan sonra, `AGENT_OS_PLAN_TEMPLATE.md` dosyasındaki şablona bunları esnek, tamamlayıcı ve kurumsal duzeyde detayli (hardcoded ama kurallarla çatışmayan) sözleşme maddeleri olarak kaydeder. Kararlar projeye gömülmeden kodlama (implementation) asla ve kat'a başlamaz.
 
 ### 2.2) Baslangictan Sona Yol Haritasi ve Coklu Plan Portfoyu
 
@@ -219,6 +241,66 @@ Kurallar:
 - rol matrisi, aktif plan ve allowlist olmadan alt ajan kurgusu gecersizdir
 - child planlar master roadmap faz/bagimlilik matrisine ters dusemez
 - template ile role matrix birbirine baglidir; rol tanimlari template disinda keyfi degistirilemez
+
+### 3.2) Monorepo ve Coklu-Paket Governance
+
+Hedef repo bir monorepo veya coklu-paket calisma alaniysa governance daralmaz, genisler.
+
+Zorunlu kurallar:
+1. Tek bir kok governance omurgasi ve tek bir kok portfoy registrysi korunur.
+2. Kok roadmap altinda paket/app/service seviyesinde child execution planlari acilabilir.
+3. Paketler arasi bagimliliklar plan portfoyunde acikca izlenir.
+4. Shared root dosyalari, ortak config'ler ve ortak paket kontratlarinda tek-yazar ilkesi korunur.
+5. Bir paket, baska bir paketin bitmemis governance veya arayuz kontratina bagimliysa o bagimlilik gorunur ve planli hale gelmeden uygulama kilitli kalir.
+6. Ortak release, test ve migration yuzeyleri yerel paket detayi gibi gizlenmez; cross-package surface olarak yonetilir.
+- template ile role matrix birbirine baglidir; rol tanimlari template disinda keyfi degistirilemez
+
+### 3.3) Phase-1 Auto-Activation Mimarisi
+
+Paketin Phase-1 routing modeli kok-oncelikli ve registry-tabanlidir.
+
+Kanonik yukleme sirasi:
+1. `.github/instructions/_ARCHITECTURE.md`
+2. `.github/instructions/_SCOPED_INSTRUCTION_REGISTRY.json`
+3. `.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`
+4. `.github/agents/_AGENT_ROLE_REGISTRY.json`
+5. `.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`
+6. `.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`
+
+Dort-katmanli zincir su sekilde calisir:
+1. scoped instruction domain'leri dokunulan alani tespit eder
+2. skill registry eslesen derin yetkinlik yuzeyini cozer
+3. role registry sahiplik ve mandatory reading katmanini cozer
+4. prompt ve workflow routing dogru execution girisini secer
+
+Kurallar:
+- ortak domain kimlikleri tum registry'lerde hizali kalmalidir
+- locale pack ve adapter'lar wording'i ozellestirebilir ama ikinci bir routing modeli uretmez
+- hedef repolar bu zinciri korlemesine overwrite ile degil, additive sekilde devralir
+
+### 3.4) Skill Auto-Generation ve Uyarlanabilir Routing
+
+Proje analizi sadece klasor veya dosya tespiti ile bitmez. Skill, role, prompt ve workflow routing de ayni analizden beslenir.
+
+Asgari beklentiler:
+1. repo yapisi ve plan baglamindan aktif instruction domain'lerini tespit et
+2. skill registry uzerinden eslesen skill'leri cozumle
+3. role registry uzerinden birincil rollerin sahipligini cozumle
+4. prompt registry ve workflow routing haritasi uzerinden en dar workflow prompt'unu sec
+5. uyarlanabilir uretim veya freshness varsayimlarini aktif plan ya da mimari notlara kaydet
+
+Guncel proje sekli veya yerel ajan ekosistemi ilave rol dosyalari ya da prompt'lar gerektirirse bunlar base registry'lerden turetilir; paralel bir taksonomi olusturulamaz.
+
+### 3.5) Routing Degisiklikleri Icin Cascade Protokolu
+
+Routing kontratinda degisiklik varsa etkilenen yuzeyler ayni istekte birlikte guncellenir.
+
+Asgari cascade beklentileri:
+- instruction registry degisikligi -> skill registry, role registry, prompt registry, workflow routing ve ilgili doc/example yuzeyleri
+- role veya prompt registry degisikligi -> workflow routing ve eski zinciri anlatan doc/example yuzeyleri
+- workflow routing degisikligi -> kok workflow entry'leri ve startup/resume akisini anlatan doc/example yuzeyleri
+
+Paket bir routing zinciri anlatip registry veya workflow girislerinde baska bir zincir tasiyorsa kapanis iddiasi gecersizdir.
 
 ---
 
@@ -272,9 +354,9 @@ Her yeni veya degisen karar asagidaki rollerin tamamini ayni anda temsil eder:
 
 1. **Acemi Kullanıcı:** Basitlik, hız ve düşük karmaşıklık ister. Her düğmenin amacının net olmasını talep eder.
 2. **Firma/Kurumsal Kodçu (Maintainer):** "Aylar sonra projeyi açtığımda veya Junior birine devrettiğimde kolayca anlayıp sürdürebilir miyim? Klasör yapısı insan mantığına uygun mu?" diye hesap sorar.
-3. **Uzman Vibecoder (Geliştirici/Tasarımcı):** "Bana hızlı prototip ve pürüzsüz akış lazım. Saçma bağımlılıklar ve yavaşlıklar istemiyorum." vizyonunu savunur.
-4. **Silikon Vadisi Yazılımcısı (Architect):** "Bu altyapı ölçeklenir mi (Scale)? Yarın milyonlarca kullanıcı gelirse çöker mi? Kolaya kaçılan yerler `TECH_DEBT_AND_SECURITY.md` defterine o an işlendi mi?" diyerek projenin teknik genetiğini denetler.
-5. **Silikon Vadisi Yatırımcısı (Business & Monetization):** "Ürün pazara çıkmaya hazır mı? Premium/SaaS gibi Paraya Çevrilebilir (Monetizable) özellikleri neresinde tutacağız? Sürdürülebilir büyüme `BUSINESS_MODEL.md` haritasına yansıdı mı?" diyerek acımasız ticaret gözüyle bakar.
+3. **Hızlı Prototip Geliştirici (Geliştirici/Tasarımcı):** "Bana hızlı prototip ve pürüzsüz akış lazım. Saçma bağımlılıklar ve yavaşlıklar istemiyorum." vizyonunu savunur.
+4. **Yazılım Mimarı:** "Bu altyapı ölçeklenir mi (Scale)? Yarın milyonlarca kullanıcı gelirse çöker mi? Kolaya kaçılan yerler `TECH_DEBT_AND_SECURITY.md` defterine o an işlendi mi?" diyerek projenin teknik genetiğini denetler.
+5. **İş Stratejisi Değerlendiricisi:** "Ürün pazara çıkmaya hazır mı? Premium/SaaS gibi Paraya Çevrilebilir (Monetizable) özellikleri neresinde tutacağız? Sürdürülebilir büyüme `BUSINESS_MODEL.md` haritasına yansıdı mı?" diyerek acımasız ticaret gözüyle bakar.
 6. **Kalite Kontrol (QA) ve Siber Güvenlik Uzmanı:** Hiçbir açık bırakılmamasını, veri sızıntılarının kapanmasını zorunlu tutar.
 7. [Phase-0 Mülakatına Göre Ajanın OLUŞTURACAĞI Dinamik Rol 1]
 8. [Phase-0 Mülakatına Göre Ajanın OLUŞTURACAĞI Dinamik Rol 2]
@@ -485,7 +567,7 @@ Her reusable governance omurgasi su sorulari zorunlu kilar:
 - Bu degisiklik billing/membership etkisi tasiyor mu?
 - Admin panel veya control-plane etkisi var mi?
 - Push/deploy/repo-sync talebi var mi?
-- Varsa local + GitHub + canli ayni snapshot kanitlandi mi?
+- Varsa local + uzak repo (orn. GitHub/GitLab/Bitbucket) + canli ayni snapshot kanitlandi mi?
 
 ---
 
@@ -589,7 +671,7 @@ Klasor paketi uretim kalibi:
 
 "Yeni projeye uygulamaya atlamadan basla. Benimle soru-cevapli istisare yap; urunun amaci, modulleri, roller, billing/auth, diller, mobil/accessibility, deploy ve test beklentilerini netlestir. Sonra bu donor kurallara uygun sekilde proje kokunde repo-ozel `AGENT_OS_PLAN_TEMPLATE.md` yaz veya sertlestir. Ardindan tek plan degil, master roadmap + gerekli child execution planlarindan olusan hiyerarsik plan portfoyunu uret; bagimliliklarini, paralel yurutulebilecek dalgalari ve tek-yazar sinirlarini acik yaz. Planlar olusmadan kod degisikligine gecme."
 
-## 24.2) Vibecoding Icin Etkili ve Ekonomik Ajan Calistirma Yollari
+## 24.2) Hizli Prototipleme Icin Etkili ve Ekonomik Ajan Calistirma Yollari
 
 Bir ajan-ureticisi ve ajan platformu gelistiricisi perspektifinden varsayilan en etkili/ekonomik calisma modeli sudur:
 
@@ -598,7 +680,7 @@ Bir ajan-ureticisi ve ajan platformu gelistiricisi perspektifinden varsayilan en
 3. Tek yazar, cok okuyucu modeli: pahali merge/cakisma maliyetini dusurur.
 4. Read-only scout rolleri: pahali yazma operasyonu acmadan once riskler dusuk maliyetle toplanir.
 5. Evidence-first execution: speculative kod yerine once kanit/gap haritasi cikarilir, geri donus maliyeti azalir.
-6. Degismez contract once, uygulama sonra: naming, adapter contract, gate katalogu ve role matrix once sabitlenirse vibecoding hizlanir.
+6. Degismez contract once, uygulama sonra: naming, adapter contract, gate katalogu ve role matrix once sabitlenirse hizli prototipleme hizlanir.
 7. Full-suite yerine hedefli rerun matrisi: degisime gore en ucuz guvenli test paketi secilir; broad rerun sadece gerekli oldugunda yapilir.
 8. Paket-ici reusable donor set: her yeni projede sifirdan governance uretme maliyetini dusurur.
 9. Checkpoint zorunlulugu: context limitine carpmadan durmak, pahali yeniden kesif turlerini azaltir.

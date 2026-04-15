@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "system": "workflow-domain-routing",
+  "entryPoints": [
+    {
+      "id": "session-bootstrap",
+      "templatePath": ".agent/workflows/session-bootstrap.md",
+      "usesPromptIds": [
+        "new-feature",
+        "skill-generation"
+      ]
+    },
+    {
+      "id": "continue",
+      "templatePath": ".agent/workflows/continue.md",
+      "usesPromptIds": [
+        "gate-check",
+        "plan-closure"
+      ]
+    }
+  ],
+  "domains": [
+    {
+      "id": "frontend",
+      "instructionDomain": "frontend",
+      "skillId": "frontend",
+      "roleId": "ui-developer",
+      "promptIds": [
+        "new-feature",
+        "gate-check"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    },
+    {
+      "id": "backend",
+      "instructionDomain": "backend",
+      "skillId": "backend",
+      "roleId": "api-developer",
+      "promptIds": [
+        "new-feature",
+        "gate-check"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    },
+    {
+      "id": "data",
+      "instructionDomain": "data",
+      "skillId": "data",
+      "roleId": "data-engineer",
+      "promptIds": [
+        "new-feature",
+        "skill-generation"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    },
+    {
+      "id": "game",
+      "instructionDomain": "game",
+      "skillId": "game",
+      "roleId": "game-developer",
+      "promptIds": [
+        "new-feature",
+        "gate-check"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    },
+    {
+      "id": "mobile",
+      "instructionDomain": "mobile",
+      "skillId": "mobile",
+      "roleId": "mobile-developer",
+      "promptIds": [
+        "new-feature",
+        "gate-check"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    },
+    {
+      "id": "deploy",
+      "instructionDomain": "deploy",
+      "skillId": "deploy",
+      "roleId": "deploy-operator",
+      "promptIds": [
+        "deploy-sequence",
+        "gate-check"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    },
+    {
+      "id": "testing",
+      "instructionDomain": "testing",
+      "skillId": "qa-testing",
+      "roleId": "qa-tester",
+      "promptIds": [
+        "gate-check",
+        "plan-closure"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    },
+    {
+      "id": "i18n",
+      "instructionDomain": "i18n",
+      "skillId": "i18n",
+      "roleId": "i18n-reviewer",
+      "promptIds": [
+        "new-feature",
+        "gate-check"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    },
+    {
+      "id": "plans",
+      "instructionDomain": "plans",
+      "skillId": "plan-lifecycle",
+      "roleId": "plan-reviewer",
+      "promptIds": [
+        "new-feature",
+        "plan-closure"
+      ],
+      "workflowEntryIds": [
+        "session-bootstrap",
+        "continue"
+      ]
+    }
+  ]
+}

@@ -1,14 +1,23 @@
 # Global Workspace Rule: Governance / No-New-Debt
 
-Bu rule dosyasi Antigravity ekosistemindeki ajanlar icin hizli rehber degil, davranis kilididir.
+Bu rule dosyasi bu ajan ekosistemindeki ajanlar icin hizli rehber degil, davranis kilididir.
 Canli repodaki `AGENTS.md` ile cakisirsa `AGENTS.md` kazanir.
-Bu paketteki kanonik donor kaynak `AGENT_OS_RULES.md` dosyasidir; bu rule onu Antigravity'nin rule surface'ine tercume eder.
+Bu paketteki kanonik donor kaynak `AGENT_OS_RULES.md` dosyasidir; bu rule onu bu ajan ekosisteminin rule surface'ine tercume eder.
 
 ## 1) Yukleme Sirasi
 1. `AGENT_OS_RULES.md`
 2. `AGENTS.md`
 3. aktif plan
 4. bu rule
+
+## 1.1) Routing Zinciri
+Implementasyon routing'inden once ortak paket registry'lerini su sirayla kullan:
+1. `.github/instructions/_ARCHITECTURE.md`
+2. `.github/instructions/_SCOPED_INSTRUCTION_REGISTRY.json`
+3. `.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`
+4. `.github/agents/_AGENT_ROLE_REGISTRY.json`
+5. `.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`
+6. `.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`
 
 ## 2) Non-Negotiables
 - Plan -> Kanit -> Test
@@ -27,6 +36,7 @@ Bu paketteki kanonik donor kaynak `AGENT_OS_RULES.md` dosyasidir; bu rule onu An
 - Yeni repo veya zayif governance durumunda kullaniciyla soru-cevapli mutabakat yap.
 - Repo kokunde `AGENT_OS_PLAN_TEMPLATE.md` dosyasini donor omurgaya gore yaz veya sertlestir.
 - Uygulamadan once master roadmap + child execution plan portfoyu kur.
+- Aktif domain'i ortak registry zinciri uzerinden eslesen skill, role ve workflow prompt'larina cozumlemeden implementasyona gecme.
 
 ## 4) Plan ve Closure Disiplini
 - Her yeni is once `/AGENT_OS_PLAN_TEMPLATE.md` baz alinarak planlanir.
@@ -35,7 +45,7 @@ Bu paketteki kanonik donor kaynak `AGENT_OS_RULES.md` dosyasidir; bu rule onu An
 - `FAIL` veya `NOT_RUN` gate varken `DONE` yoktur.
 - Shared governance/template/config dosyalarinda paralel writer yoktur.
 
-## 5) Antigravity Role Modeli
+## 5) Ajan Ekosistemi Rol Modeli
 - Rule dosyasi tek basina yetmez; skill ve workflow yuzeyleriyle birlikte calisir.
 - Varsayilan roller: canli sorun avi, plan challenger, test/gate verifier.
 - Opsiyonel roller: i18n, accessibility, security, performance, docs, release, domain.

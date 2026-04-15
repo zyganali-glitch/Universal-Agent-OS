@@ -1,6 +1,6 @@
-# Claude Çalışma Sözleşmesi & Universal Zero-Leak Yüzey Kilidi
+# Claude Çalışma Sözleşmesi & Kurumsal Düzey Zero-Leak Yüzey Kilidi
 
-Bu dosya, devasa bağlam pencerelerine sahip **Claude** tabanlı ajanların karakteristik zaaflarını kontrol altına almak ve onları tam donanımlı, "Universal Agent OS" disiplininde çalışan birer Master-Mentor haline getirmek için yazılmış spesifik kilit sözleşmesidir.
+Bu dosya, devasa bağlam pencerelerine sahip **Claude** tabanlı ajanların karakteristik zaaflarını kontrol altına almak ve onları kurumsal yönetişim disipliniyle çalışan birer Master-Mentor haline getirmek için yazılmış spesifik kilit sözleşmesidir.
 
 > [!CAUTION]
 > **KESİN SIZINTI VE DÖNGÜ KİLİDİ (ZERO-LEAK & ANTI-LOOP LOCK):**

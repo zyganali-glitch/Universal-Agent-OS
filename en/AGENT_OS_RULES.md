@@ -13,10 +13,16 @@ This package includes the following reusable governance surfaces:
 - `.codex/AGENTS.md`
 - `.github/copilot-instructions.md`
 - `.github/instructions/global-agent.instructions.md`
+- `.github/instructions/_ARCHITECTURE.md`
+- `.github/instructions/_SCOPED_INSTRUCTION_REGISTRY.json`
+- `.github/agents/_AGENT_ROLE_REGISTRY.json`
+- `.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`
 - `.agent/rules/global-governance.md`
 - `.agent/skills/global-governance/SKILL.md`
+- `.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`
 - `.agent/workflows/session-bootstrap.md`
 - `.agent/workflows/continue.md`
+- `.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`
 - `AGENT_OS_PLAN_TEMPLATE.md`
 
 Packaging note:
@@ -74,6 +80,22 @@ For a new repository or a weak governance surface, the agent does the following 
 12. Only then start implementation.
 13. Archive plans honestly at closure.
 
+### 1.1) Agent Ecosystem Freshness and Adaptive Agent-File Generation
+
+When the bootstrap session needs agent-native files (`.agent.md`, adapter files, native prompts, IDE-specific instructions), the interviewing/bootstrap agent must not blindly copy a frozen set.
+
+Required protocol:
+1. Detect which agent ecosystems actually matter for the target repo and operator flow.
+2. Scan the currently available agent-native surfaces and compatibility information before generating agent files.
+3. Use the freshest approved source available in this order:
+    - locally installed/native platform metadata and currently available surfaces
+    - packaged compatibility knowledge shipped with this framework
+    - approved refresh inputs explicitly allowed by the user or environment policy
+4. If the current ecosystem requires additional agent files, missing adapters, or split role files, generate them before implementation begins.
+5. Generated agent files may adapt their language and structure to the current agent ecosystem, but they may not weaken the donor spine, plan discipline, or single-writer governance model.
+6. Record the freshness basis and generation rationale in the active plan or architecture notes.
+7. No blind network dependency is allowed merely to chase freshness; offline-safe packaged compatibility remains mandatory.
+
 Recommended filename pattern:
 - `plans/PLAN_YYYYMMDD_<area>_<target>.md`
 - add `_v02`, `_v03` if needed
@@ -100,7 +122,7 @@ Minimum first response contents:
 
 ### 2.1) Comprehensive Interactive Project Agreement (Mandatory Phase 0)
 
-If the product is new or the repo spirit is unclear, the agent CANNOT WRITE CODE immediately. The agent must first conduct an "Interactive Question-and-Answer Interview" with the user, acting as a compassionate, guiding **Software Mentor**, whether the user is an absolute novice vibecoder or an expert. This interview's purpose isn't just to make "a web project"; its ultimate goal is to understand the hardware, the spirit, and the core platform (e.g., Is it Web? Is it a Game? Is it a mobile APK/iOS app? An Embedded IoT System? A Data Science pipeline?).
+If the product is new or the repo spirit is unclear, the agent CANNOT WRITE CODE immediately. The agent must first conduct an "Interactive Question-and-Answer Interview" with the user, acting as a compassionate, guiding **Software Mentor**, whether the user is a complete beginner builder or an expert practitioner. This interview's purpose isn't just to make "a web project"; its ultimate goal is to understand the hardware, the spirit, and the core platform (e.g., Is it Web? Is it a Game? Is it a mobile APK/iOS app? An Embedded IoT System? A Data Science pipeline?).
 
 The agent must translate complex technical concepts (databases, frameworks, state management, etc.) into everyday analogies and simple alternatives, ensuring the user always makes the final call. Yet, the agent must proactively state its own professional recommendation. In every question asked, the agent must include:
 1. Options explained in simple, universal (not strictly web-bound) language.
@@ -110,20 +132,20 @@ The agent must translate complex technical concepts (databases, frameworks, stat
 **Agent's Initiative and Consistency Rule:** 
 The agent must not robotically ask the exact standard template questions. It must take the initiative to understand the true nature of the project and adapt its questions to the user's specific context. It must ensure the user's answers are logically consistent (e.g., politely steering a user back to sanity if they request a "completely offline, single-player mobile game" but paradoxically ask for "real-time cloud server synchronization"). Additionally, the agent must inject its own initiative by asking: "I'd also like to ask a critical question I derived specifically for your project nature..." taking calculated initiative without turning into a hardcore, exclusionary gatekeeper.
 
-**Universal Agreement Questions (Agent can generate more Universal-depth questions using this logic):**
+**Universal Agreement Questions (Agent can generate more enterprise-grade depth questions using this logic):**
 
 1. **Communication Tone and Persona:** "How would you like me to address you as we begin our project? Do you want me to write code formally without chatter, or would you prefer a mentor who guides you but always leaves the final decision up to you?"
-2. **Project Type and Final Platform:** "Where exactly will the product we are envisioning run at the end of the day? In a web browser, as an application on a mobile phone (APK/iOS), as a desktop game, or as a background data engine? *(Mentor's Recommendation: If targeting mobile, thinking of a WebView-hybrid or PWA protects the investment early on; but if we're building a highly-animated immersive game, let's focus directly on native game engines).* "
+2. **Project Type and Final Platform:** "Where exactly will the product we are envisioning run at the end of the day? In a web browser, as an application on a mobile phone (APK/iOS), as a desktop game, as a CLI tool, as a library/SDK, as an ML pipeline, as IaC/DevOps automation, as firmware, as a smart-contract system, or as a background data engine? *(Mentor's Recommendation: If targeting mobile, thinking of a WebView-hybrid or PWA protects the investment early on; but if we're building a highly animated game, let's focus directly on a native engine such as Unity, Unreal, or Godot).* "
 3. **User Interaction & Privacy (Cloud vs Offline):** "Who will use your application and how confidential is the data? Should we build a fully offline-first logic living solely on the user's device, or should we prepare a massive multiplayer/social cloud infrastructure (Cloud/SaaS)?"
 4. **Architectural (Framework/Engine) Strategy:** "What kind of framework/engine should we lay down? Are we building massive data views across multiple pages (e.g., React/Vue or complex engine UI frameworks), or a very specific, lightweight tool/game script opening just the camera (Native/Vanilla)? *(For low-dependency simple projects, I strongly recommend Vanilla JS to cut massive integration costs).* "
 5. **Authentication and Monetization (Auth/Billing):** "Will users need a ticket to enter? Meaning, do we need login/registration systems? Even if it's free now, I highly advise putting an 'Membership-Ready' but dormant lock on the architecture for the future."
 6. **Data Storage and State Management:** "How should we memory-manage states and data? If a game, how do we structure Save/Load mechanics? If web, do we lean on Local/IndexedDB, or central Redux/Zustand systems?"
 7. **Design and Visual Interaction:** "Do we want highly enriched interactions, 3D materials, or Dark/Light modes, or is this a hyper-utilitarian, distraction-free engineering or data tool?"
-8. **Quality Assurance and Robustness (QA Rigor/Gates):** "How strict should our quality control walls be? Do we want unbreakable verification tests (Selftest gates) matching an Universal-depth philosophy, or are we spinning up a rapid MVP where we can bend these rules slightly?"
+8. **Quality Assurance and Robustness (QA Rigor/Gates):** "How strict should our quality control walls be? Do we want unbreakable verification tests (Selftest gates) matching an enterprise-grade governance philosophy, or are we spinning up a rapid MVP where we can bend these rules slightly?"
 
 **Agent Initiative & Complementary Probing (Non-Hardcore):** Beyond these basics, the agent creates highly specific, project-tailored queries. "If we are making a game, is it an FPS or a tabletop simulation? Let's establish the State management logic based on this early," empowering the user without overwhelming them.
 
-Once the agent collects these alignment decisions, it permanently ingests them as flexible, complementary but Universal OS-detailed contract elements into the `AGENT_OS_PLAN_TEMPLATE.md`. Implementation (coding) NEVER begins before these boundaries are locked into the repo.
+Once the agent collects these alignment decisions, it permanently ingests them as flexible, complementary, enterprise-grade contract elements into the `AGENT_OS_PLAN_TEMPLATE.md`. Implementation (coding) NEVER begins before these boundaries are locked into the repo.
 
 ### 2.2) Roadmap Portfolio
 
@@ -157,6 +179,65 @@ The agent creates:
 7. Workflow and skill files
 
 Lower layers may not weaken upper layers.
+
+### 3.2) Monorepo and Multi-Package Governance
+
+If the target repository is a monorepo or multi-package workspace, governance must expand rather than collapse.
+
+Required rules:
+1. Keep one root governance spine and one root portfolio registry.
+2. Allow package/app/service-level child execution plans beneath the root roadmap.
+3. Track cross-package dependencies explicitly in the plan portfolio.
+4. Preserve the single-writer rule on shared root files, shared configs, and shared package contracts.
+5. If one package depends on another package's unfinished governance or interface contract, implementation remains blocked until that dependency is planned and visible.
+6. Shared release, test, and migration surfaces must be governed as cross-package surfaces, not hidden as local package details.
+
+### 3.3) Phase-1 Auto-Activation Architecture
+
+The package's Phase-1 routing model is root-first and registry-driven.
+
+Canonical load order:
+1. `.github/instructions/_ARCHITECTURE.md`
+2. `.github/instructions/_SCOPED_INSTRUCTION_REGISTRY.json`
+3. `.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`
+4. `.github/agents/_AGENT_ROLE_REGISTRY.json`
+5. `.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`
+6. `.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`
+
+The four-layer chain works like this:
+1. scoped instruction domains identify the touched area
+2. skill registry resolves the matching deep-capability surface
+3. role registry resolves ownership and mandatory reading
+4. prompt plus workflow routing selects the correct execution entry
+
+Rules:
+- shared domain IDs must stay aligned across all registries
+- locale packs and adapters may specialize wording, but not invent a second routing model
+- target repositories inherit this chain additively rather than by blind overwrite
+
+### 3.4) Skill Auto-Generation and Adaptive Routing
+
+Project analysis does not stop at detecting file paths. It must also drive skill, role, prompt, and workflow routing.
+
+Minimum expectations:
+1. detect active instruction domains from repo structure and plan context
+2. resolve matching skills through the skill registry
+3. resolve primary roles through the role registry
+4. select the narrowest workflow prompt through the prompt registry and workflow routing map
+5. record any adaptive-generation or freshness assumptions in the active plan or architecture notes
+
+Extra role files or prompts may be synthesized when the current project shape or current local agent ecosystem requires them, but they must compose from the base registries instead of creating a parallel taxonomy.
+
+### 3.5) Cascade Protocol for Routing Changes
+
+If any routing contract changes, the affected surfaces must be updated in the same request.
+
+Minimum cascade expectations:
+- instruction registry change -> skill registry, role registry, prompt registry, workflow routing, and affected docs/examples
+- role or prompt registry change -> workflow routing plus any docs/examples describing the old chain
+- workflow routing change -> root workflow entries plus docs/examples that describe startup or resume flow
+
+No closure claim is valid if the package describes one routing chain while the registries or workflow entries encode another.
 
 ---
 
@@ -215,9 +296,9 @@ No code changes without explicit implementation intent.
 Every meaningful change should satisfy these rich perspectives simultaneously:
 1. **Novice User:** Demands simplicity, speed, and low cognitive load. Every button's purpose must be obvious.
 2. **Corporate Maintainer / Coder:** Asks, "Will I or a junior dev easily understand and maintain this project months from now? Is the folder structure logical?"
-3. **Expert Vibecoder (Developer/Designer):** Demands rapid prototyping and smooth workflow without bloated dependencies and slow build times.
-4. **Silicon Valley Developer (Architect):** Inspects the technical genetics: "Does this scale? Are we accumulating severe tech-debt? Are the shortcuts documented instantly in `TECH_DEBT_AND_SECURITY.md`?"
-5. **Silicon Valley Investor (Business & Monetization):** Examines with a ruthless commercial eye: "Is the product market-ready? Where are the premium/SaaS features mapped? Is the `BUSINESS_MODEL.md` living and updated?"
+3. **Rapid Prototyper (Developer/Designer):** Demands rapid prototyping and smooth workflow without bloated dependencies and slow build times.
+4. **Software Architect:** Inspects the technical genetics: "Does this scale? Are we accumulating severe tech-debt? Are the shortcuts documented instantly in `TECH_DEBT_AND_SECURITY.md`?"
+5. **Business Strategy Reviewer:** Examines with a commercial eye: "Is the product market-ready? Where are the premium/SaaS features mapped? Is the `BUSINESS_MODEL.md` living and updated?"
 6. **QA and Cybersecurity Specialist:** Enforces leak prevention, data security, and CORS/Auth hygiene.
 7. [Phase-0 Generated Role 1]
 8. [Phase-0 Generated Role 2]
@@ -405,7 +486,7 @@ Every reusable governance spine must ask:
 - Does this change affect billing or membership?
 - Does it affect the admin panel or control-plane?
 - Is push/deploy/repo-sync in scope?
-- If yes, were local, GitHub, and live snapshots proven identical?
+- If yes, were local, remote-repo (e.g., GitHub/GitLab/Bitbucket), and live snapshots proven identical?
 
 ---
 
@@ -503,7 +584,7 @@ Folder-package pattern:
 
 "Do not jump into implementation. Start with a question-and-answer alignment round covering the product goal, modules, roles, billing/auth, languages, mobile/accessibility, deploy, and test expectations. Then write or harden the repo-root `AGENT_OS_PLAN_TEMPLATE.md` from this donor package. After that, create not one plan but a hierarchical portfolio made of a master roadmap plus child execution plans with explicit dependencies, parallelism limits, and single-writer boundaries. Do not start code changes before the plans exist."
 
-### 24.2) Effective and Economic Vibecoding Operations
+### 24.2) Effective and Economic Rapid-Prototyping Operations
 
 From the perspective of an agent-platform builder and a senior automation engineer, the default efficient model is:
 1. keep canonical files thin but strict

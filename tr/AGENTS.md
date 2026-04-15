@@ -31,6 +31,9 @@ Bu pakette ilk okunacak kanonik donor kaynak `AGENT_OS_RULES.md` dosyasidir.
 - Multi-Role Review Stack zorunludur.
 - Yeni proje baslangicinda ajan, kullaniciyla soru-cevapli mutabakat yapar ve repo kokunde proje-ozel `AGENT_OS_PLAN_TEMPLATE.md` yazar veya sertlestirir.
 - Uygulama oncesi master roadmap + child execution planlarindan olusan hiyerarsik plan portfoyu uretimi zorunludur.
+- Phase-1 auto-activation routing kok-onceliklidir: instruction registry -> skill registry -> role registry -> prompt registry -> workflow routing registry.
+- Skill, role ve prompt routing ayni domain kimlikleri uzerinden hizali kalir; yerelde ikinci bir routing taksonomisi uretilemez.
+- Bir routing registry degisirse etkilenen registry'ler, workflow entry'leri ve eski zinciri anlatan doc/example yuzeyleri ayni istekte guncellenir.
 - Ana ajan orkestrasyonu zorunludur: sohbet ajani ana ajandir, tek yazar/owner olarak varsayilir, en fazla 2-3 aktif mikro-faz tasir.
 - Gercek alt ajan destegi yoksa ayni disiplin `fallback-to-sequential` ile korunur.
 - Integrity Lock (IL-01 to IL-12), IL-13 (Live-Docs Sync) ve completed-plan archive kuralı zorunludur.
@@ -49,6 +52,36 @@ Varsayilan `QA/INCELEME`'dir.
 - Bu pakette `AGENT_OS_RULES.md` ana donor kurallari tasir.
 - Bu dosya, o donor kaynagi operasyonel governance omurgasina cevirir.
 - Adapter, workflow ve skill dosyalari donor kaynagi daraltamaz.
+
+## 1.2) Phase-1 Auto-Activation Zinciri
+- Kok registry yukleme sirasi:
+	1. `.github/instructions/_ARCHITECTURE.md`
+	2. `.github/instructions/_SCOPED_INSTRUCTION_REGISTRY.json`
+	3. `.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`
+	4. `.github/agents/_AGENT_ROLE_REGISTRY.json`
+	5. `.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`
+	6. `.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`
+- Workflow katmani bu registry'leri `.agent/workflows/session-bootstrap.md` ve `.agent/workflows/continue.md` uzerinden tuketir.
+- Uretilen hedef repolar ayni zinciri additive sekilde devralir; locale pack ve adapter'lar wording'i ozellestirebilir ama routing mantigini budayamaz.
+
+## 1.3) Skill Routing Tablosu
+
+| Instruction Domain | Skill ID | Primary Role ID | Varsayilan Prompt ID'leri |
+|---|---|---|---|
+| `frontend` | `frontend` | `ui-developer` | `new-feature`, `gate-check` |
+| `backend` | `backend` | `api-developer` | `new-feature`, `gate-check` |
+| `data` | `data` | `data-engineer` | `new-feature`, `skill-generation` |
+| `game` | `game` | `game-developer` | `new-feature`, `gate-check` |
+| `mobile` | `mobile` | `mobile-developer` | `new-feature`, `gate-check` |
+| `deploy` | `deploy` | `deploy-operator` | `deploy-sequence`, `gate-check` |
+| `testing` | `qa-testing` | `qa-tester` | `gate-check`, `plan-closure` |
+| `i18n` | `i18n` | `i18n-reviewer` | `new-feature`, `gate-check` |
+| `plans` | `plan-lifecycle` | `plan-reviewer` | `new-feature`, `plan-closure` |
+
+## 1.4) Auto-Generation ve Cascade Sync
+- Proje analizi once instruction registry'den domain secer, sonra ortak registry zinciri uzerinden eslesen skill, role ve prompt'lari cozer.
+- Hedef-repo uretimi additive kalir; mevcut governance korlemesine overwrite edilmez, sertlestirilir veya genisletilir.
+- Domain haritasi degisirse etkilenen registry dosyalari, workflow routing entry'leri ve eski zinciri anlatan doc/example yuzeyleri ayni istekte guncellenir.
 
 ## 2) Ana Ajan ve Alt Ajan Orkestrasyon Protokolu
 - Ana ajan = kullanicinin sohbet ettigi ajan.

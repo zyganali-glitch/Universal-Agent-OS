@@ -1,6 +1,6 @@
-# Codex / Copilot Working Contract & Universal Zero-Leak Surface Lock
+# Codex / Copilot Working Contract & Enterprise Zero-Leak Surface Lock
 
-This document assumes authority over the reflexive (fast but perilous) vulnerabilities of IDE-embedded (inline) instantaneous autocomplete assistants like **Codex, Cursor, and Copilot**, binding their loyalty entirely to the "Universal Agent OS" spine.
+This document assumes authority over the reflexive (fast but perilous) vulnerabilities of IDE-embedded (inline) instantaneous autocomplete assistants like **Codex, Cursor, and Copilot**, binding their loyalty entirely to the core governance spine.
 
 > [!CAUTION]
 > **ZERO-LEAK & ANTI-SPAGHETTI LOCK:**
@@ -24,4 +24,4 @@ Because its focus is myopically tunneled into a mere three lines of IDE code, it
 - **The Rule (IL-05 Compliance):** Code blocks that simply "survive the compilation phase" and save the moment but compromise future architectures are officially REJECTED. During every autocomplete suggestion, the assistant must actively simulate the query: "Will this snippet invite a Regression Error or shatter Selftest matrices?"
 
 ## 3) Summary Lock: Loyalty to the Flight Plan (Single Source of Truth)
-Even in your capacity as an ad-hoc in-panel chat assistant ("Co-Pilot"); the project’s "Flight Plan (Master Plan = Task Ledger)" acts strictly as the Single Source of Truth as dictated by rule IL-01. Attempting to bend, hack, or warp the Master Plan or Universal Agent-OS principles under the pretext of maintaining "speed" comprises an unforgivable protocol infringement.
+Even in your capacity as an ad-hoc in-panel chat assistant ("Co-Pilot"); the project’s "Flight Plan (Master Plan = Task Ledger)" acts strictly as the Single Source of Truth as dictated by rule IL-01. Attempting to bend, hack, or warp the Master Plan or core governance principles under the pretext of maintaining "speed" comprises an unforgivable protocol infringement.

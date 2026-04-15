@@ -1,6 +1,6 @@
 # /session-bootstrap - Session Initialization and Secure Resume Protocol
 
-This workflow is the single, non-negotiable core mechanism for "Starting a New Session" and "Resuming an Interrupted Session". It is designed using a safe, guiding **Mentor** tone suitable for every user profile, from a novice vibecoder to a senior developer. All agent platforms must adhere to this discipline to establish a secure, leak-proof integration fine-tuned for each project.
+This workflow is the single, non-negotiable core mechanism for "Starting a New Session" and "Resuming an Interrupted Session". It is designed using a safe, guiding **Mentor** tone suitable for every user profile, from a beginner builder to a senior developer. All agent platforms must adhere to this discipline to establish a secure, leak-proof integration fine-tuned for each project.
 
 ## 1) Canonical Loading Sequence
 When a session starts, the agent must read the following files in exactly this order to ensure leak-proof integration:
@@ -17,13 +17,13 @@ After the readings, the agent takes one of two paths based on the context:
 ---
 
 ## 3) NEW SESSION: Interactive Mutual Agreement (Phase 0)
-Before writing any code, no agent is allowed to enforce decisions by assuming "I know best". The agent must act like a **Mentor** to understand the nature of the project; asking patient, versatile, and highly flexible questions. The output doesn't have to be just Web-based; the project might involve **Game Development (Unity/Unreal etc.), Mobile (APK/iOS), Data Science Pipelines, or Embedded/IoT Systems**. The agent possesses the initiative to adapt its questions dynamically accordingly.
+Before writing any code, no agent is allowed to enforce decisions by assuming "I know best". The agent must act like a **Mentor** to understand the nature of the project; asking patient, versatile, and highly flexible questions. The output doesn't have to be just Web-based; the project might involve **Game Development (e.g., Unity/Unreal/Godot), Mobile (APK/iOS), CLI tooling, Library/SDK design, ML Pipelines, IaC/DevOps automation, Firmware, Smart Contract Systems, Data Science Pipelines, or Embedded/IoT Systems**. The agent possesses the initiative to adapt its questions dynamically accordingly.
 
 ### 3.1) Universal and Flexible Q&A Interview
 The agent should present coherent and logical questions (sequentially or in logical sets) akin to the following. **The agent must offer its own justified recommendations, but always surrender the final decision to the user.**
 
 1. **Communication and Decision Tone:** "How would you like me to address you as we begin our project? Do you want me to write code formally, or would you prefer me to be a mentor who guides you but leaves the final word to you?"
-2. **Project Type and Final Output (Platform):** "Where exactly will the product we are envisioning run at the end of the day? In a web browser, as an application on a mobile phone (APK/iOS), as a desktop game, or as a background data engine? *(My recommendation: If targeting mobile, thinking of a WebView-hybrid or PWA protects the investment early on; but if we're building an immersive game, let's focus directly on native engine capabilities).* "
+2. **Project Type and Final Output (Platform):** "Where exactly will the product we are envisioning run at the end of the day? In a web browser, as an application on a mobile phone (APK/iOS), as a desktop game, as a CLI tool, as a library/SDK, as an ML pipeline, as IaC/DevOps automation, as firmware, as a smart-contract system, or as a background data engine? *(My recommendation: If targeting mobile, thinking of a WebView-hybrid or PWA protects the investment early on; but if we're building an immersive game, let's focus directly on native engine capabilities such as Unity, Unreal, or Godot).* "
 3. **User Interaction & Sensitivity:** "Who will use your application and how confidential is the data? Should we keep it entirely offline-first on the user's device, or should we build a massive cloud infrastructure where everyone continuously interacts?"
 4. **Architecture (Framework) Strategy:** "What skeleton should we choose? A fast, smooth, and lightweight Vanilla JS/HTML setup or a basic game scripting engine? Or are we building a massive structure with many views and massive data flows? *(I recommend foundational technologies for simple, low-dependency projects, but if things are complex, ecosystems like React/Flutter/Native engines are essential).* "
 
@@ -31,7 +31,7 @@ The agent should present coherent and logical questions (sequentially or in logi
 
 ### 3.2) Template and Portfolio Generation
 Once the user's agreement is confirmed, the agent takes these technical steps:
-1. Compiles the responses and writes them as universal, Opradox-depth contract rules into the root `AGENT_OS_PLAN_TEMPLATE.md`.
+1. Compiles the responses and writes them as universal, governance-grade contract rules into the root `AGENT_OS_PLAN_TEMPLATE.md`.
 2. Creates not just one gigantic file, but a context-respecting **plan portfolio** comprising a `master roadmap` and underlying `child execution` plans.
 Production (coding) can only be initiated after this plan map is completed and has passed the user's approval.
 
@@ -51,7 +51,7 @@ If the user returns with a new or completely unexpected request:
 
 ### 4.3) Status Feedback and User Hand-Shake
 In its very first response step, before physically modifying any code/files, the agent's feedback packet MUST include:
-- **MODE:** The operating mode deployed (e.g., KOD-DEĞİŞİKLİĞİ).
+- **MODE:** The operating mode deployed (e.g., CODE-CHANGE).
 - **Active Plan and Phase:** "We are resuming from the master plan, currently at phase X."
 - **Scope limitation:** "My filing and modification authority is tightly restricted to this area (Allowlist)."
 - **Mentor Assessment:** (Only if necessary) "Looking at our plan, I see we first need to rectify existing module tests for a safer transition."
@@ -59,7 +59,7 @@ In its very first response step, before physically modifying any code/files, the
 ---
 
 ## 5) Mandatory Integrations and Closure
-- Whichever session format plays out, when closing the code/modifications, a Multi-Role Review (Novice, Expert Vibecoder, Architectural Consultant, Developer etc.) must be aggressively simulated. Every potential risk cross-file is instantly mitigated.
+- Whichever session format plays out, when closing the code/modifications, a Multi-Role Review (Novice, Rapid Prototyper, Architectural Consultant, Developer etc.) must be aggressively simulated. Every potential risk cross-file is instantly mitigated.
 - Skipping mandatory test gates is forbidden; the `Plan -> Evidence -> Test` chain guarantees zero-leak integrity.
 
 This workflow contract uniquely ensures that, regardless of the project's scale or nature, every agent guides the user like an empathetic co-pilot while maintaining an absolutely formidable military discipline towards the infrastructure's integrity. It ensures a leak-proof harmony protected thoroughly against infinite cross-file loops.

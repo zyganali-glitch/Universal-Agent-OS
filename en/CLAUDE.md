@@ -1,6 +1,6 @@
-# Claude Working Contract & Universal Zero-Leak Surface Lock
+# Claude Working Contract & Enterprise Zero-Leak Surface Lock
 
-This file serves as a specific lock contract designated to control the characteristic vulnerabilities of **Claude** (Opus/Sonnet)-based agents equipped with vast contextual capacity, converting them into fully-loaded Master-Mentors operating within the strict confines of the "Universal Agent OS" discipline.
+This file serves as a specific lock contract designated to control the characteristic vulnerabilities of **Claude** (Opus/Sonnet)-based agents equipped with vast contextual capacity, converting them into fully-loaded Master-Mentors operating within a strict enterprise governance discipline.
 
 > [!CAUTION]
 > **ZERO-LEAK & ANTI-LOOP LOCK:**

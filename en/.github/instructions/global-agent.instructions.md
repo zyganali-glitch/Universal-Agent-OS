@@ -12,6 +12,7 @@ It is intentionally richer than a shell checklist so the donor spine survives ac
 - Read `/AGENTS.md` and `/.github/copilot-instructions.md` before proposing or editing code.
 - `/AGENTS.md` is the single source of truth.
 - The root `/AGENT_OS_PLAN_TEMPLATE.md` is the canonical plan template.
+- Load the shared registry chain before implementation routing: `/_ARCHITECTURE.md`, `/_SCOPED_INSTRUCTION_REGISTRY.json`, `/.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`, `/.github/agents/_AGENT_ROLE_REGISTRY.json`, `/.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`, `/.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`.
 
 ## Do not continue if any of the following is missing
 - an active or newly created plan in `/plans/`
@@ -35,6 +36,7 @@ It is intentionally richer than a shell checklist so the donor spine survives ac
 - Write or harden the repo-root planning template before coding.
 - Track discovered work explicitly instead of hiding it in prose.
 - Keep shared governance, plan, and config files single-writer.
+- Resolve domain -> skill -> role -> prompt through the shared registries instead of improvising local routing logic.
 
 ## When live behavior contradicts a static PASS
 - reopen the task honestly

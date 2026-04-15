@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "generator": "scoped-instruction-template-generator",
+  "outputDirectory": ".github/instructions",
+  "templateSections": [
+    "Purpose",
+    "Mandatory Reading",
+    "Domain Rules",
+    "Architecture Constraints",
+    "Testing/Gates",
+    "Common Drift Risks"
+  ],
+  "domains": [
+    {
+      "id": "frontend",
+      "outputFile": "frontend.instructions.md",
+      "skillId": "frontend",
+      "agentRoleId": "ui-developer",
+      "applyTo": [
+        "frontend/**",
+        "src/components/**",
+        "src/pages/**",
+        "src/views/**",
+        "app/**"
+      ],
+      "triggers": [
+        "frontend",
+        "src/components",
+        "src/pages",
+        "src/views",
+        "app"
+      ]
+    },
+    {
+      "id": "backend",
+      "outputFile": "backend.instructions.md",
+      "skillId": "backend",
+      "agentRoleId": "api-developer",
+      "applyTo": [
+        "backend/**",
+        "src/api/**",
+        "routes/**",
+        "controllers/**",
+        "server/**"
+      ],
+      "triggers": [
+        "backend",
+        "src/api",
+        "routes",
+        "controllers",
+        "server"
+      ]
+    },
+    {
+      "id": "data",
+      "outputFile": "data.instructions.md",
+      "skillId": "data",
+      "agentRoleId": "data-engineer",
+      "applyTo": [
+        "data/**",
+        "src/data/**",
+        "src/models/**",
+        "migrations/**",
+        "notebooks/**"
+      ],
+      "triggers": [
+        "data",
+        "src/data",
+        "src/models",
+        "migrations",
+        "notebooks"
+      ]
+    },
+    {
+      "id": "game",
+      "outputFile": "game.instructions.md",
+      "skillId": "game",
+      "agentRoleId": "game-developer",
+      "applyTo": [
+        "game/**",
+        "assets/**",
+        "scenes/**",
+        "ProjectSettings/**"
+      ],
+      "triggers": [
+        "game",
+        "assets",
+        "scenes",
+        "ProjectSettings"
+      ]
+    },
+    {
+      "id": "mobile",
+      "outputFile": "mobile.instructions.md",
+      "skillId": "mobile",
+      "agentRoleId": "mobile-developer",
+      "applyTo": [
+        "android/**",
+        "ios/**",
+        "mobile/**",
+        "lib/**"
+      ],
+      "triggers": [
+        "android",
+        "ios",
+        "mobile",
+        "lib"
+      ]
+    },
+    {
+      "id": "deploy",
+      "outputFile": "deploy.instructions.md",
+      "skillId": "deploy",
+      "agentRoleId": "deploy-operator",
+      "applyTo": [
+        "deploy/**",
+        "infra/**",
+        "scripts/**",
+        ".github/workflows/**",
+        "Dockerfile",
+        "docker-compose.yml"
+      ],
+      "triggers": [
+        "deploy",
+        "infra",
+        "scripts",
+        ".github/workflows",
+        "Dockerfile",
+        "docker-compose.yml"
+      ]
+    },
+    {
+      "id": "testing",
+      "outputFile": "testing.instructions.md",
+      "skillId": "qa-testing",
+      "agentRoleId": "qa-tester",
+      "applyTo": [
+        "tests/**",
+        "__tests__/**",
+        "spec/**",
+        "**/*test*",
+        "**/*spec*"
+      ],
+      "triggers": [
+        "tests",
+        "__tests__",
+        "spec"
+      ]
+    },
+    {
+      "id": "i18n",
+      "outputFile": "i18n.instructions.md",
+      "skillId": "i18n",
+      "agentRoleId": "i18n-reviewer",
+      "applyTo": [
+        "locales/**",
+        "i18n/**",
+        "translations/**",
+        "**/*Texts.*"
+      ],
+      "triggers": [
+        "locales",
+        "i18n",
+        "translations"
+      ]
+    },
+    {
+      "id": "plans",
+      "outputFile": "plans.instructions.md",
+      "skillId": "plan-lifecycle",
+      "agentRoleId": "plan-reviewer",
+      "applyTo": [
+        "plans/**"
+      ],
+      "triggers": [
+        "plans"
+      ]
+    }
+  ]
+}

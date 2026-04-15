@@ -12,6 +12,7 @@ Kisa checklist degil; donor omurganin her dosyada hangi disiplinle korunacagini 
 - Kod onermeden veya patch yazmadan once `/AGENTS.md` ve `/.github/copilot-instructions.md` dosyalarini oku.
 - `/AGENTS.md` tek kaynak otoritedir.
 - Root `/AGENT_OS_PLAN_TEMPLATE.md` tek kanonik plan sablonudur.
+- Implementasyon routing'inden once ortak registry zincirini yukle: `/_ARCHITECTURE.md`, `/_SCOPED_INSTRUCTION_REGISTRY.json`, `/.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`, `/.github/agents/_AGENT_ROLE_REGISTRY.json`, `/.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`, `/.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`.
 
 ## Do not continue if any of the following is missing
 - `/plans/` altinda aktif veya yeni olusturulmus plan
@@ -35,6 +36,7 @@ Kisa checklist degil; donor omurganin her dosyada hangi disiplinle korunacagini 
 - Uygulama oncesi master roadmap + child plan hiyerarsisini kur.
 - Her discovered work satirini planda izle.
 - Shared plan/config/template dosyalarinda ikinci writer yaratma.
+- Domain -> skill -> role -> prompt cozumunu ortak registry zinciri uzerinden yap; yerel routing mantigi uydurma.
 
 ## When live behavior contradicts a static PASS
 - gorevi durustce geri ac

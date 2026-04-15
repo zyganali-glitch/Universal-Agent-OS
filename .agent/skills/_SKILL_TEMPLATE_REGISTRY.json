@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "library": "skill-template-library",
+  "templateRoot": ".agent/skills/templates",
+  "templateSections": [
+    "Use This Skill When",
+    "Required Inputs",
+    "Responsibilities",
+    "Expected Outputs",
+    "Gates/Validation Focus",
+    "Common Drift Risks",
+    "Generation Placeholders"
+  ],
+  "domains": [
+    {
+      "id": "frontend",
+      "templatePath": ".agent/skills/templates/frontend/SKILL.md",
+      "sourceInstructionDomain": "frontend"
+    },
+    {
+      "id": "backend",
+      "templatePath": ".agent/skills/templates/backend/SKILL.md",
+      "sourceInstructionDomain": "backend"
+    },
+    {
+      "id": "data",
+      "templatePath": ".agent/skills/templates/data/SKILL.md",
+      "sourceInstructionDomain": "data"
+    },
+    {
+      "id": "game",
+      "templatePath": ".agent/skills/templates/game/SKILL.md",
+      "sourceInstructionDomain": "game"
+    },
+    {
+      "id": "mobile",
+      "templatePath": ".agent/skills/templates/mobile/SKILL.md",
+      "sourceInstructionDomain": "mobile"
+    },
+    {
+      "id": "deploy",
+      "templatePath": ".agent/skills/templates/deploy/SKILL.md",
+      "sourceInstructionDomain": "deploy"
+    },
+    {
+      "id": "qa-testing",
+      "templatePath": ".agent/skills/templates/qa-testing/SKILL.md",
+      "sourceInstructionDomain": "testing"
+    },
+    {
+      "id": "i18n",
+      "templatePath": ".agent/skills/templates/i18n/SKILL.md",
+      "sourceInstructionDomain": "i18n"
+    },
+    {
+      "id": "plan-lifecycle",
+      "templatePath": ".agent/skills/templates/plan-lifecycle/SKILL.md",
+      "sourceInstructionDomain": "plans"
+    }
+  ]
+}

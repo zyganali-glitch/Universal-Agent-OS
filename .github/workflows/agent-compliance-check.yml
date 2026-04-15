@@ -11,18 +11,31 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Verify Governance Files Exist
+      - name: Verify Package Core Files Exist
         run: |
-          echo "🔍 Checking for Agent Governance OS Core Files..."
-          if [ ! -f "AGENTS.md" ]; then
-            echo "❌ ERROR: Core governance file AGENTS.md is missing!"
-            exit 1
-          fi
-          if [ ! -f "GLOBAL_PLAN_TASK_TRACKING_TEMPLATE.md" ]; then
-            echo "❌ ERROR: Plan tracking template is missing!"
-            exit 1
-          fi
-          echo "✅ Core Agent-OS files found."
+          echo "🔍 Checking packaged locale-pack governance files..."
+          required_files=(
+            "README.md"
+            "VERSION"
+            "CHANGELOG.md"
+            "VERSIONING.md"
+            "LICENSING.md"
+            "en/AGENTS.md"
+            "en/AGENT_OS_RULES.md"
+            "en/AGENT_OS_PLAN_TEMPLATE.md"
+            "tr/AGENTS.md"
+            "tr/AGENT_OS_RULES.md"
+            "tr/AGENT_OS_PLAN_TEMPLATE.md"
+          )
+
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ ERROR: Required package file is missing: $file"
+              exit 1
+            fi
+          done
+
+          echo "✅ Core locale-pack files found."
 
       - name: Multi-Language & Hardcoded String Verification (Anti-Hack)
         run: |

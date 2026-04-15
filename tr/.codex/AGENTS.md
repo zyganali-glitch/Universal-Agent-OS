@@ -1,6 +1,6 @@
-# Codex / Copilot Çalışma Sözleşmesi & Universal Zero-Leak Yüzey Kilidi
+# Codex / Copilot Çalışma Sözleşmesi & Kurumsal Düzey Zero-Leak Yüzey Kilidi
 
-Bu dosya, IDE içine gömülü (Inline) çalışan, anlık otomatik tamamlamalar yapan **Codex. Cursor ve Copilot** tarzı asistanların refleksif (hızlı ama tehlikeli) zaaflarını kontrol altına alır; onları "Universal Agent OS" omurgasına sadık kılar.
+Bu dosya, IDE içine gömülü (Inline) çalışan, anlık otomatik tamamlamalar yapan **Codex. Cursor ve Copilot** tarzı asistanların refleksif (hızlı ama tehlikeli) zaaflarını kontrol altına alır; onları temel governance omurgasına sadık kılar.
 
 > [!CAUTION]
 > **KESİN SIZINTI VE ANTI-SPAGETTI KİLİDİ (ZERO-LEAK & ANTI-HACK LOCK):**
@@ -24,4 +24,4 @@ IDE penceresindeki üç satırlık koda odaklandığı için Erişilebilirlik (A
 - **Kural (IL-05 Uyumlaması):** Sadece "Şimdi çalıştı" diyerek günü kurtaran kod bloğu reddedilir. Her tamamlama anında, "Acaba bu Selftest veya Regression Error (Bozulma) yaratır mı?" düşüncesi aktif olarak çalıştırılacaktır.
 
 ## 3) Özet Kilidi: Uçuş Planına Sadakat (Single Source of Truth)
-Panel içi chat asistanı ("Yardımcı Pilot") da olsanız; projenin "Uçuş Planı (Master Plan = Görev Çizelgesi)" IL-01 kuralı gereği Tek Gerçek Kaynaktır (Single Source of Truth). Hızlı pratik yapmak adına, Master Plan'i ve Evrensel Agent-OS ilkelerini esnetmek/hacklemek affedilmez bir kural ihlalidir.
+Panel içi chat asistanı ("Yardımcı Pilot") da olsanız; projenin "Uçuş Planı (Master Plan = Görev Çizelgesi)" IL-01 kuralı gereği Tek Gerçek Kaynaktır (Single Source of Truth). Hızlı pratik yapmak adına, Master Plan'i ve ana governance ilkelerini esnetmek/hacklemek affedilmez bir kural ihlalidir.

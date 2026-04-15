@@ -1,6 +1,6 @@
 # /session-bootstrap - Oturum Başlatma ve Güvenli Devam Protokolü
 
-Bu workflow, "Yeni Oturum Başlatma" ve "Yarım Kalan Oturuma Devam Etme (Resume)" süreçlerinin tek ve zorunlu omurgasıdır. Kodlama dünyasına yeni giren bir vibecoder'dan uzman bir yazılımcıya kadar her kullanıcı profili için güvenli ve yönlendirici bir **Mentor** dili kullanılarak tasarlanmıştır. Tüm ajan platformları bu disipline sadık kalarak, her projeye özel ve sızıntısız entegrasyon kurar.
+Bu workflow, "Yeni Oturum Başlatma" ve "Yarım Kalan Oturuma Devam Etme (Resume)" süreçlerinin tek ve zorunlu omurgasıdır. Kodlamaya yeni başlayan bir üreticiden uzman bir yazılımcıya kadar her kullanıcı profili için güvenli ve yönlendirici bir **Mentor** dili kullanılarak tasarlanmıştır. Tüm ajan platformları bu disipline sadık kalarak, her projeye özel ve sızıntısız entegrasyon kurar.
 
 ## 1) Kanonik Yükleme Sırası
 Bir oturum açıldığında ajan, sızıntısız entegrasyon için aşağıdaki dosyaları sırayla okumak zorundadır:
@@ -17,13 +17,13 @@ Ajan okumaları bitirdikten sonra duruma göre iki farklı yola girer:
 ---
 
 ## 3) YENİ OTURUM: İnteraktif Mutabakat (Phase 0)
-Hiçbir ajan kod yazmadan önce "Ben en iyisini bilirim" diyerek dayatmada bulunamaz. Ajan, projenin doğasını anlamak için bir **Mentor** gibi davranıp; sabırlı, çok yönlü ve esnek sorular sorar. Çıktı sadece Web tabanlı olmak zorunda değildir; projenin yapısı bir **Oyun Geliştirme (Unity/Unreal vb.), Mobil (APK/iOS), Veri Bilimi Pipelayeni veya Gömülü(IoT) Sistem** olabilir. Ajan sorularını buna göre adapte edebilme inisiyatifine sahiptir.
+Hiçbir ajan kod yazmadan önce "Ben en iyisini bilirim" diyerek dayatmada bulunamaz. Ajan, projenin doğasını anlamak için bir **Mentor** gibi davranıp; sabırlı, çok yönlü ve esnek sorular sorar. Çıktı sadece Web tabanlı olmak zorunda değildir; projenin yapısı bir **Oyun Geliştirme (orn. Unity/Unreal/Godot), Mobil (APK/iOS), CLI araci, Kutuphane/SDK, ML hatti, IaC/DevOps otomasyonu, Firmware, Akilli Sozlesme Sistemi, Veri Bilimi Pipelayeni veya Gömülü(IoT) Sistem** olabilir. Ajan sorularını buna göre adapte edebilme inisiyatifine sahiptir.
 
 ### 3.1) Evrensel ve Esnek Soru-Cevap Mülakatı
 Ajan aşağıdakilere benzer, birbiriyle tutarlı olacak şekilde mantıklı soruları sırayla (veya mantıklı paketler halinde) yöneltmeli, **mutlaka kendi gerekçeli önerisini sunmalı, fakat nihai kararı her zaman kullanıcıya bırakmalıdır.**
 
 1. **İletişim ve Karar Dili:** "Projenize başlarken benim size nasıl hitap etmemi istersiniz? Resmi bir dille sadece kod mu yazayım, yoksa size yön gösteren ama son sözü size bırakan bir mentor gibi mi olayım?"
-2. **Proje Tipi ve Nihai Çıktı (Platform):** "Hayal ettiğimiz bu ürün günün sonunda tam olarak nerede çalışacak? Bir web tarayıcısında mı, cep telefonunda bir uygulama (APK/iOS) olarak mı, masaüstünde oynanacak bir oyun mu, yoksa arka planda çalışan bir veri motoru mu? *(Önerim: Eğer mobil de hedefleniyorsa baştan WebView temelli karma veya PWA odaklı düşünmek yatırımı korur, ama bir oyun yapıyorsak doğrudan yerel (native) motor yeteneklerine odaklanalım).* "
+2. **Proje Tipi ve Nihai Çıktı (Platform):** "Hayal ettiğimiz bu ürün günün sonunda tam olarak nerede çalışacak? Bir web tarayıcısında mı, cep telefonunda bir uygulama (APK/iOS) olarak mı, masaüstünde oynanacak bir oyun mu, bir CLI araci mi, bir kutuphane/SDK mi, bir ML hatti mi, IaC/DevOps otomasyonu mu, firmware mi, akilli sozlesme sistemi mi, yoksa arka planda çalışan bir veri motoru mu? *(Önerim: Eğer mobil de hedefleniyorsa baştan WebView temelli karma veya PWA odaklı düşünmek yatırımı korur, ama bir oyun yapıyorsak Unity, Unreal veya Godot gibi yerel (native) motor yeteneklerine odaklanalım).* "
 3. **Kullanıcı Etkileşimi ve Hassasiyeti:** "Uygulamanızı kimler kullanacak ve verileri ne kadar gizli? Tamamen çevrimdışı (offline-first) bir yapıda kullanıcının cihazında mı tutalım, yoksa herkesin etkileşimde olduğu devasa bir bulut altyapısı (Cloud) mu kuralım?"
 4. **Altyapı (Framework) Stratejisi:** "Nasıl bir iskelet seçelim? Hızlı, pürüzsüz ve sade bir Vanilla JS/HTML veya temel oyun motoru betiği mi kullanalım; yoksa çok fazla sayfa ve veri içeren büyük bir yapı mı kuruyoruz? *(Sade ve az bağımlılığı olan projelerde temel teknolojileri öneririm, ama karmaşıksa React/Flutter tarzı ekosistemler şarttır).* "
 
@@ -31,7 +31,7 @@ Ajan aşağıdakilere benzer, birbiriyle tutarlı olacak şekilde mantıklı sor
 
 ### 3.2) Şablon ve Portföy Üretimi
 Kullanıcı mutabakatı onaylandıktan sonra ajanın teknik yapacağı işlem:
-1. Yanıtları derleyip kök dizindeki `AGENT_OS_PLAN_TEMPLATE.md` içine evrensel dil ve Opradox düzeyindeki detaycılıkla sözleşme kuralları olarak yazar.
+1. Yanıtları derleyip kök dizindeki `AGENT_OS_PLAN_TEMPLATE.md` içine evrensel dil ve yönetişim düzeyinde detaycılıkla sözleşme kuralları olarak yazar.
 2. Sadece bir devasa dosya değil, bağlam pencerelerine saygılı bir `master roadmap` ve duruma göre alt bileşenler (child execution) planlarından oluşan bir **plan portföyü** yaratır. 
 Üretime ancak bu plan haritası tamamlanıp kullanıcının onayından geçince başlanabilir.
 
@@ -59,7 +59,7 @@ Kodu veya dosyayı fiziksel olarak değiştirmeden önceki ilk adımda ajanın v
 ---
 
 ## 5) Zorunlu Mimariler ve Çıkış
-- Hangi oturum formatı olursa olsun, kod kapanışı yapılırken Multi-Role Review (Acemi, Uzman Vibecoder, Mimari Danışman, Yazılımcı vb.) perspektifinden çoklu inceleme simülasyonu çalıştırılır. Dosyalardaki potansiyel riskler anında bertaraf edilir.
+- Hangi oturum formatı olursa olsun, kod kapanışı yapılırken Multi-Role Review (Acemi, Hızlı Prototip Geliştirici, Mimari Danışman, Yazılımcı vb.) perspektifinden çoklu inceleme simülasyonu çalıştırılır. Dosyalardaki potansiyel riskler anında bertaraf edilir.
 - `Plan -> Kanıt -> Test` zinciri bozulmadan hiçbir zorunlu test gate'i eksik bırakılmaz.
 
 Bu workflow sözleşmesi, projesi ve gereksinimleri ne olursa olsun her ajanın şefkatli bir yardımcı pilot gibi kullanıcıyı yönlendirmesini, fakat altyapı inşasında ise muazzam bir askeri disipline sadık kalmasını tek garantiye bağlar. Dosyalar arası sonsuz döngü engelleriyle (Loop prevention) sızıntısız bir uyum taşır.

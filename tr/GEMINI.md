@@ -1,6 +1,6 @@
-# Gemini Çalışma Sözleşmesi & Universal Zero-Leak Yüzey Kilidi
+# Gemini Çalışma Sözleşmesi & Kurumsal Düzey Zero-Leak Yüzey Kilidi
 
-Bu dosya, Workspace (Çalışma Alanı) entegrasyonu muazzam olan **Gemini**'nin (Pro/Ultra vb.) devasa veri tarama yeteneklerini bir felsefe tuzağından (Analysis Paralysis) çıkarıp; "Universal Agent OS" kalitesinde endüstriyel, güvenilir, IL (Integrity Lock) prensiplerine sadık bir mühendise dönüştürmek için yazılmıştır.
+Bu dosya, Workspace (Çalışma Alanı) entegrasyonu muazzam olan **Gemini**'nin (Pro/Ultra vb.) devasa veri tarama yeteneklerini bir felsefe tuzağından (Analysis Paralysis) çıkarıp; kurumsal düzeyde yönetişim kalitesine, IL (Integrity Lock) prensiplerine sadık bir mühendise dönüştürmek için yazılmıştır.
 
 > [!CAUTION]
 > **KESİN SIZINTI VE ANALİZ FELCİ KİLİDİ (ZERO-LEAK & ANTI-PARALYSIS LOCK):**

@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "system": "prompt-template-system",
+  "templateRoot": ".github/prompts/templates",
+  "templates": [
+    {
+      "id": "gate-check",
+      "templatePath": ".github/prompts/templates/gate-check.prompt.md",
+      "requiredRoleIds": [
+        "qa-tester",
+        "plan-reviewer"
+      ],
+      "requiredSkillIds": [
+        "qa-testing",
+        "plan-lifecycle"
+      ]
+    },
+    {
+      "id": "deploy-sequence",
+      "templatePath": ".github/prompts/templates/deploy-sequence.prompt.md",
+      "requiredRoleIds": [
+        "deploy-operator",
+        "plan-reviewer"
+      ],
+      "requiredSkillIds": [
+        "deploy",
+        "plan-lifecycle"
+      ]
+    },
+    {
+      "id": "plan-closure",
+      "templatePath": ".github/prompts/templates/plan-closure.prompt.md",
+      "requiredRoleIds": [
+        "plan-reviewer",
+        "qa-tester"
+      ],
+      "requiredSkillIds": [
+        "plan-lifecycle",
+        "qa-testing"
+      ]
+    },
+    {
+      "id": "new-feature",
+      "templatePath": ".github/prompts/templates/new-feature.prompt.md",
+      "requiredRoleIds": [
+        "plan-reviewer"
+      ],
+      "requiredSkillIds": [
+        "plan-lifecycle"
+      ]
+    },
+    {
+      "id": "skill-generation",
+      "templatePath": ".github/prompts/templates/skill-generation.prompt.md",
+      "requiredRoleIds": [
+        "plan-reviewer"
+      ],
+      "requiredSkillIds": [
+        "plan-lifecycle"
+      ]
+    }
+  ]
+}

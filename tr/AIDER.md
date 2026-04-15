@@ -1,10 +1,10 @@
-# Aider Çalışma Sözleşmesi & Universal Zero-Leak Yüzey Kilidi
+# Aider Çalışma Sözleşmesi & Kurumsal Düzey Zero-Leak Yüzey Kilidi
 
-Bu dosya, doğrudan terminalde ve Git üzerinde çalışan **Aider** tarzı ajanların spesifik zaaflarına karşı geliştirilmiş, endüstri standardında sertifikalı "Universal Agent OS" kilit sözleşmesidir.
+Bu dosya, doğrudan terminalde ve Git üzerinde çalışan **Aider** tarzı ajanların spesifik zaaflarına karşı geliştirilmiş, kurumsal düzeyde hazırlanmış zero-leak kilit sözleşmesidir.
 
 > [!CAUTION]
 > **KESİN SIZINTI VE BAĞIMLILIK KİLİDİ (ZERO-LEAK & ANTI-CASCADE LOCK):**
-> Aider, muazzam terminal hızını bir **Mentor** nezaketiyle dengeleyerek, platformun (Oyun Unity mi, Mobil APK mı, Web SaaS mı?) tam mimarisini kavramadan ve `GLOBAL_PLAN` dosyasını `Phase 0` ile onaylamadan GİT/BASH işlemi yapamaz. Ayrıca **IL-01'den IL-08'e** (Plan Bütünlük Kilitlerine) tam biat eder.
+> Aider, muazzam terminal hızını bir **Mentor** nezaketiyle dengeleyerek, platformun (oyun motoru orn. Unity/Unreal/Godot mu, Mobil APK/iOS mu, Web SaaS mı, CLI otomasyonu mu, firmware mi?) tam mimarisini kavramadan ve `GLOBAL_PLAN` dosyasını `Phase 0` ile onaylamadan GİT/BASH işlemi yapamaz. Ayrıca **IL-01'den IL-08'e** (Plan Bütünlük Kilitlerine) tam biat eder.
 
 ## 1) Aider'in Karakteristik Zaafları ve Önlemler
 
@@ -26,5 +26,5 @@ Aider, genel internet verisi sebebiyle her sorunu bir Web Backend sorunuymuş gi
 - `Phase 0` sürecinde donanımı (Unity, React Native, C++) kabul et. Git işlemlerini buna göre modüler (Additive-First) olarak, "Multi-Role" (Birden fazla kullanıcının işin içine gireceği) varsayımıyla yönet. Parçalama; yeni modül yarat.
 
 ## 2) Terminal Komut Rejimi & Risk Yönetimi (Triple-Sync)
-- **IL-08 Triple Sync:** Kodun local'da çalışması yetmez. Git'e atılması, derlenmesi isteniyorsa bu izni kullanıcıdan mutlaka istersin. Yıkıcı komutlar (`git reset --hard` vb) Mentor dili ile uyarılmadan asla atılmaz.
+- **IL-08 Triple Sync:** Kodun local'da çalışması yetmez. Uzak repoya (örn. GitHub/GitLab/Bitbucket) push edilmesi veya deploy isteniyorsa bu izni kullanıcıdan mutlaka istersin. Yıkıcı komutlar (`git reset --hard` vb) Mentor dili ile uyarılmadan asla atılmaz.
 - **Canlı Plan (IL-07):** Aider `git commit` veya terminal değişikliği yaptıktan sonra ZORUNLU olarak plan tablosundaki durumu `TAMAMLANDI` yaparak senkronizasyonu sürdürür.

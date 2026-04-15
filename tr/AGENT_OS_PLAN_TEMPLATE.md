@@ -23,10 +23,10 @@ Her yeni platformda (Web, Mobil, Oyun, Gömülü vb.) ve her yeni özellik taleb
 
 ### 0.1) Plan Bütünlük Kilidi (Integrity Lock — Pazarlık Edilemez)
 
-Bu bölüm, Ajanların sonsuz döngüye düşmesini ve plan içi tutarsızlıkları ("leak") engellemek için evrensel zorunlu kuralları tanımlar. Kural ihlali planı anında `BLOCKED` yapar.
+Bu bölüm, Ajanların sonsuz döngüye düşmesini ve plan içi tutarsızlıkları ("leak") engellemek için evrensel zorunlu kuralları tanımlar. IL-01..IL-12 ve GFL-01 birlikte uygulanır; kural ihlali planı anında `BLOCKED` yapar.
 
 **IL-01: Tek Gerçek Kaynağı (Single Source of Truth)**
-- Görev Takip Çizelgesi (Bölüm 11) planın TEK resmi ilerleme kaynağıdır. Ajan, kafasına göre "hallettim" diyemez. Yalnızca çizelgedeki duruma göre hareket edebilir.
+- Görev Takip Çizelgesi (Bölüm 6) planın TEK resmi ilerleme kaynağıdır. Ajan, kafasına göre "hallettim" diyemez. Yalnızca çizelgedeki duruma göre hareket edebilir.
 - Çizelge ile başka bir bölüm arasında durum çarpışması varsa, çizelge doğrudur.
 
 **IL-02: Atomik Güncelleme Zorunluluğu**
@@ -50,7 +50,35 @@ Bu bölüm, Ajanların sonsuz döngüye düşmesini ve plan içi tutarsızlıkla
 - Ajan bir koda dokunmadan ONCE ilgili satırı DEVAM olarak işaretlemekle yükümlüdür. Bittiğinde kanıtla beraber TAMAMLANDI'ya güncelleriz. Toplu güncelleme yapmak yasaktır.
 
 **IL-08: Triple-Sync Kilidi (Local, Remote, Live)**
-- Hedeflenen işin "bitti" denmesi için (istenmişse), kodun lokal makinede çalışması, uzak sunucuya (GitHub vb.) push edilmesi ve platform yayıncısında (Live Deploy) doğrulanmış olması gerekir. Sadece yerel çalışan kodu "bitirdim" diye raporlamak IL-08 ihlalidir.
+- Hedeflenen işin "bitti" denmesi için (istenmişse), kodun lokal makinede çalışması, uzak repoya (örn. GitHub/GitLab/Bitbucket) push edilmesi ve platform yayıncısında (Live Deploy) doğrulanmış olması gerekir. Sadece yerel çalışan kodu "bitirdim" diye raporlamak IL-08 ihlalidir.
+
+**IL-09: Tablolar-Arası Parite Denetimi (Cross-Table Parity Audit)**
+- Bir iş kaleminin durumu, kapsamı veya bağımlılığı bir yerde değiştiyse; aynı kalemi izleyen tüm bölümler (Header, Faz Planı, Mikro-Faz Backlog'u, Görev Çizelgesi, Gate'ler, Riskler ve Devir kaydı) aynı turda senkronize edilmek zorundadır.
+- Plan içinde aynı işe dair çelişkili durum, bağımlılık veya kapsam beyanı kalırsa yürütme `BLOCKED` olur.
+
+**IL-10: Otomatik Doğrulama ve Faz Geçiş Kilidi (Auto-Validation + Phase-Transition Lock)**
+- Bir görev, faz veya plan yalnızca anlatısal beyanla ileri taşınamaz. Ajan eldeki en ucuz ilgili doğrulamayı çalıştırmalı, sonucu kaydetmeli ve kanıtı yazmalıdır.
+- Bir önceki faz için kayıtlı doğrulama kanıtı yokken yeni faza geçmek yasaktır.
+
+**IL-11: Durum Geri Çekme Yasağı (Status Rollback Prohibition)**
+- `TAMAMLANDI` veya `BLOKE` olmuş bir kayıt sessizce temiz bir tarihe çevrilemez. Yeniden açma, geri alma veya düzeltme ihtiyacı varsa neden, zaman damgası ve bağımlı kalem etkisi açıkça kaydedilir.
+- Eski kanıtı silmek, önceki sonucu yok saymak veya yeniden açılmış bir adımı hiç kapanmamış gibi göstermek yasaktır.
+
+**IL-12: Kademeli Keşfedilen-İş Blokajı (Cascading Discovered-Work Block)**
+- Keşfedilen yeni iş, mevcut adımın, üst kalemin veya bağımlı fazın kapanış kriterini etkiliyorsa; bu zincir, yeni iş açıkça kaydedilip planlanana kadar bloklanır.
+- Gerekli takip işi yeni keşfedilmiş ama hâlâ kayıtsız ya da çözülmemiş durumdayken üst kalem `TAMAMLANDI` olarak kalamaz.
+
+**GFL-01: Artefakt ve Dokümantasyon Tazelik Kilidi (Artifact and Documentation Freshness Lock)**
+- Bir değişiklik yaşayan governance artefaktlarını (ör. README, mimari dökümanları, workflow'lar, template'ler, adapter dosyaları veya üretilmiş instruction'lar) etkiliyorsa, bu yüzeyler aynı istekte closure öncesi güncellenmek zorundadır.
+- Bayat rehber, bayat mimari anlatı veya eski surface referansları bloklayıcı kusur sayılır.
+
+### 0.2) Kesitler-Arası Atomik Güncelleme ve Arşive Taşıma Protokolü
+
+- Her durum geçişi, tek edit turunda şu minimum senkron seti güncellemek zorundadır: Belge Kimliği, aktif Faz Planı satırı, etkilenen Mikro-Faz Backlog satırı, etkilenen Görev Çizelgesi satırı, etkilenen Gate satırları ve varsa güncel devir/checkpoint bloğu.
+- Bu yüzeylerden biri belirli plan örneğinde uygulanmıyorsa `N/A` ile açıkça işaretlenir; eski fazdan taşınmış bayat durum bırakmak yasaktır.
+- `TAMAMLANDI` kapanışı atomiktir: gate durumu doğrulanır, completion evidence kaydedilir, gerekirse aktif/arşiv yol referansları güncellenir ve finalize plan dosyası aynı kapanış işleminde `plans/` içinden `plans/completed/` içine taşınır.
+- Tamamlanmış plan, yaşayan tek kaynak olarak aktif `plans/` dizininde bırakılamaz. BLOKE, beklemede veya devam eden planlar `plans/` içinde kalır; yalnızca bitmiş planlar arşive geçer.
+- Arşivlenmiş bir iş yeniden başlatılacaksa açık bir aktif revizyon veya takip planı olarak geri alınır. Arşiv dosyasını sessizce yerinde diriltmek yasaktır.
 
 ## 1) Universal Mutabakat Çıktısı (Phase 0)
 
@@ -106,7 +134,7 @@ Her özellik, bulunduğu platforma uygun olarak self-teste tabidir.
 ## 6) Görev Takip Çizelgesi (TEK RESMİ KAYNAK)
 
 > [!CAUTION]
-> **IL-08/13 CANLI ÇİZELGE VE README KİLİDİ:** Görev takip tablosundaki hiçbir adım, anlık olarak ajan tarafından `IN_PROGRESS` (Devam Ediyor) veya `DONE` (Bitti) durumuna getirilmeden (ve yanındaki kanıtlar yazılmadan) kod COMMIT edilemez veya diğer mikro faza geçilemez! Ajanın sadece kod üretmesi yetmez; her ufak değişikliği anlık (Live-State) olarak bu tabloya ve yaşattığı şablon belgelerine İŞLEMESİ ZORUNLUDUR!
+> **IL-07/GFL-01 CANLI ÇİZELGE VE README KİLİDİ:** Görev takip tablosundaki hiçbir adım, anlık olarak ajan tarafından `IN_PROGRESS` (Devam Ediyor) veya `DONE` (Bitti) durumuna getirilmeden (ve yanındaki kanıtlar yazılmadan) kod COMMIT edilemez veya diğer mikro faza geçilemez! Ajanın sadece kod üretmesi yetmez; her ufak değişikliği anlık (Live-State) olarak bu tabloya ve yaşattığı şablon belgelerine İŞLEMESİ ZORUNLUDUR!
 > **DİKKAT:** Görev kapatırken "Bu yaptığım mimari, kurulum veya özellik değişikliği projenin ana vitrini olan **`README.md`** dosyasını etkiliyor mu?" diye KONTROL EDİLECEK. Etkiliyorsa `README.md` de o an güncellenmeden o görev asla KAPANAMAZ!
 
 | Adım | Açıklama | Durum | Üst ID | Ajan | Başlangıç | Tamamlanma | Notlar(Kanıt) |
@@ -122,8 +150,8 @@ Her özellik, bulunduğu platforma uygun olarak self-teste tabidir.
 |---|---|---|---|---|---|
 | **Platform Smoke**| Uygulamanın veya Oyunun çökmeden açılması | `{{run_command / build vb}}` | PASS | `{{...}}` | `{{...}}` |
 | **No-UI-Regression**| Karanlık/Aydınlık mod, Mobil ekran taşması, i18n dilleri | `{{Görsel test veya lint}}` | PASS | `{{...}}` | `{{...}}` |
-| **Integrity-Lock**| IL-01..11 İçi Plan Tutarlılığı ve Tarih doğruluğu | Plan Parity Check | PASS | `{{...}}` | `{{...}}` |
-| **Triple-Sync** | Local, Repo (GitHub vb.) ve Live Platform Deployment paritesi | `git/deploy logları` | PASS | `{{...}}` | `{{...}}` |
+| **Integrity-Lock**| IL-01..IL-12 + GFL-01 içi plan tutarlılığı ve tarih doğruluğu | Plan Parity Check | PASS | `{{...}}` | `{{...}}` |
+| **Triple-Sync** | Local, Repo (örn. GitHub/GitLab/Bitbucket) ve Live Platform Deployment paritesi | `git/deploy logları` | PASS | `{{...}}` | `{{...}}` |
 | **[{{Ajanın Projeye Göre Üreteceği Dinamik Gate 1}}]**| `{{Sektöre Özel Gate Amacı}}` | `{{Sektöre Özel Denetim Komutu}}` | PASS | `{{...}}` | `{{...}}` |
 | **[{{Ajanın Projeye Göre Üreteceği Dinamik Gate 2}}]**| `{{Sektöre Özel Gate Amacı}}` | `{{Sektöre Özel Denetim Komutu}}` | PASS | `{{...}}` | `{{...}}` |
 

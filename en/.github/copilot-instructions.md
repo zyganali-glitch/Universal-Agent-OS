@@ -19,19 +19,22 @@ Its job is to keep Copilot from collapsing a strong governance system into shall
 
 ## Required workflow
 1. Start from `/AGENTS.md`, the root plan template, and the active plan in `/plans/`.
-2. Do not implement before the plan exists.
-3. Update header + phase plan + backlog + request table + task table + gates + risks + handoff/checkpoint atomically.
-4. Stay inside the explicit allowlist.
-5. Record discovered work honestly.
-6. Archive completed plans into `/plans/completed/` in the same closure edit.
-7. If the request includes push/deploy/repo-sync, enforce Triple-Sync Lock.
-8. Define the main-agent/subagent role matrix in the plan; if no real subagents exist, record `fallback-to-sequential`.
+2. Load the shared routing chain in this order: `/.github/instructions/_ARCHITECTURE.md`, `/_SCOPED_INSTRUCTION_REGISTRY.json`, `/.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`, `/.github/agents/_AGENT_ROLE_REGISTRY.json`, `/.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`, `/.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`.
+3. Resolve the touched domain into matching skills, roles, and prompts through the shared registries before implementation.
+4. Do not implement before the plan exists.
+5. Update header + phase plan + backlog + request table + task table + gates + risks + handoff/checkpoint atomically.
+6. Stay inside the explicit allowlist.
+7. Record discovered work honestly.
+8. Archive completed plans into `/plans/completed/` in the same closure edit.
+9. If the request includes push/deploy/repo-sync, enforce Triple-Sync Lock.
+10. Define the main-agent/subagent role matrix in the plan; if no real subagents exist, record `fallback-to-sequential`.
 
 ## Copilot execution discipline
 - State `MODE`, scope lock, allowlist/denylist, active micro-phase, and test/gate strategy up front.
 - In a new repo, align with the user before freezing the roadmap portfolio.
 - Write or harden the repo-root planning template before implementation.
 - Preserve the single-writer default on shared governance surfaces.
+- Do not invent a second domain-routing model inside Copilot prompts or prose; reuse the shared registries.
 
 ## Non-negotiables
 - No-New-Debt

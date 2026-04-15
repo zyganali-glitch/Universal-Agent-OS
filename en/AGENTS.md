@@ -31,6 +31,9 @@ The first file to read in this package is `AGENT_OS_RULES.md`.
 - Multi-role review parity is mandatory.
 - For new projects, the agent must align with the user, then write or harden the repo-root `AGENT_OS_PLAN_TEMPLATE.md`.
 - Before implementation, the agent must create a hierarchical portfolio made of a master roadmap plus child execution plans.
+- Phase-1 auto-activation routing is root-first: instruction registry -> skill registry -> role registry -> prompt registry -> workflow routing registry.
+- Skill, role, and prompt routing must stay aligned by shared domain IDs; no second routing taxonomy may be invented locally.
+- If one routing registry changes, the affected registries, workflow entries, and docs/examples must be updated in the same request.
 - The chat-facing agent is the main agent and default single writer, with at most 2-3 active micro-phases.
 - If real subagents do not exist, preserve the same discipline with `fallback-to-sequential`.
 - Integrity Lock (IL-01 to IL-12), IL-13 (Live-Docs Sync), and completed-plan archive are mandatory.
@@ -49,6 +52,36 @@ Default is review mode.
 - `AGENT_OS_RULES.md` carries the donor rules in this package.
 - This file turns that donor into an operational governance spine.
 - Adapter, workflow, and skill files may not weaken the donor.
+
+## 1.2) Phase-1 Auto-Activation Chain
+- Root registry load order:
+	1. `.github/instructions/_ARCHITECTURE.md`
+	2. `.github/instructions/_SCOPED_INSTRUCTION_REGISTRY.json`
+	3. `.agent/skills/_SKILL_TEMPLATE_REGISTRY.json`
+	4. `.github/agents/_AGENT_ROLE_REGISTRY.json`
+	5. `.github/prompts/_PROMPT_TEMPLATE_REGISTRY.json`
+	6. `.agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json`
+- The workflow layer consumes these registries through `.agent/workflows/session-bootstrap.md` and `.agent/workflows/continue.md`.
+- Generated target repositories inherit the same chain additively; locale packs and adapters may specialize wording, but not the routing logic.
+
+## 1.3) Skill Routing Table
+
+| Instruction Domain | Skill ID | Primary Role ID | Default Prompt IDs |
+|---|---|---|---|
+| `frontend` | `frontend` | `ui-developer` | `new-feature`, `gate-check` |
+| `backend` | `backend` | `api-developer` | `new-feature`, `gate-check` |
+| `data` | `data` | `data-engineer` | `new-feature`, `skill-generation` |
+| `game` | `game` | `game-developer` | `new-feature`, `gate-check` |
+| `mobile` | `mobile` | `mobile-developer` | `new-feature`, `gate-check` |
+| `deploy` | `deploy` | `deploy-operator` | `deploy-sequence`, `gate-check` |
+| `testing` | `qa-testing` | `qa-tester` | `gate-check`, `plan-closure` |
+| `i18n` | `i18n` | `i18n-reviewer` | `new-feature`, `gate-check` |
+| `plans` | `plan-lifecycle` | `plan-reviewer` | `new-feature`, `plan-closure` |
+
+## 1.4) Auto-Generation and Cascade Sync
+- Project analysis selects domains from the instruction registry, then resolves the matching skills, roles, and prompts through the shared registries.
+- Target-repo generation must stay additive; existing governance is hardened or extended, never blindly overwritten.
+- When any domain map changes, update the affected registry files, workflow routing entries, and any docs/examples that describe the old chain in the same request.
 
 ## 2) Main-Agent and Supporting-Role Orchestration
 - The main agent is the one chatting with the user.

@@ -23,7 +23,7 @@ It MUST be initialized and configured as a task-specific plan for every new repo
 
 ### 0.1) Integrity Lock (IL) — Non-Negotiable
 
-This section establishes universal, ironclad rules to prevent agentic infinite loops and internal tracking leaks. Any protocol violation immediately triggers a `BLOCKED` status.
+This section establishes universal, ironclad rules to prevent agentic infinite loops and internal tracking leaks. IL-01..IL-12 and GFL-01 are enforced together; any protocol violation immediately triggers a `BLOCKED` status.
 
 **IL-01: Single Source of Truth**
 - The Task Tracking Ledger (Section 6) is the SOLE official arbiter of progress. An agent cannot simply state "I finished it." It must only execute and report based off the Ledger's coordinates.
@@ -49,7 +49,35 @@ This section establishes universal, ironclad rules to prevent agentic infinite l
 - Prior to touching any file, the agent designates the line item as `IN_PROGRESS`. Immediately after execution, it amends it to `DONE` fortified with evidence. Batch-updating progress at the end of the session is banned.
 
 **IL-08: Triple-Sync Lock (Local, Remote, Live)**
-- If deployment is requested, declaring "mission accomplished" requires parity across Local functionality, Remote repository (e.g. GitHub) push success, and Live Platform verified deployment.
+- If deployment is requested, declaring "mission accomplished" requires parity across Local functionality, Remote repository (e.g., GitHub/GitLab/Bitbucket) push success, and Live Platform verified deployment.
+
+**IL-09: Cross-Table Parity Audit**
+- Any progress or scope update that changes one planning surface MUST be reconciled across every section that tracks the same unit of work (Header, Phase Plan, Micro-Phase Backlog, Ledger, Gates, Risks, and Handoff records).
+- A contradictory status, dependency, or scope statement anywhere in the plan is an integrity failure and blocks execution until parity is restored.
+
+**IL-10: Auto-Validation and Phase-Transition Lock**
+- A task, phase, or plan cannot transition forward on narrative claims alone. The agent MUST run the cheapest relevant validation available, record the result, and attach the evidence before advancing to the next execution state.
+- Entering a new phase while the prior phase lacks recorded validation evidence is prohibited.
+
+**IL-11: Status Rollback Prohibition**
+- A completed or blocked record cannot be silently rewritten into a cleaner history. Any reopening, downgrade, or corrective move MUST be logged explicitly with reason, timestamp, and impact on dependent items.
+- Deleting evidence, erasing prior outcomes, or disguising a reopened step as if it was never closed is forbidden.
+
+**IL-12: Cascading Discovered-Work Block**
+- If discovered work changes the closure criteria of the current step, parent, or dependent phase, the affected chain is blocked until that discovered work is registered and planned explicitly.
+- A parent record cannot remain `DONE` while newly discovered required follow-up work is still untracked or unresolved.
+
+**GFL-01: Artifact and Documentation Freshness Lock**
+- When a change affects living governance artifacts (for example README, architecture docs, workflows, templates, adapter files, or generated instructions), those artifacts MUST be updated in the same request before closure.
+- Stale guidance, stale architecture narratives, or stale generated-surface references are treated as blocking defects.
+
+### 0.2) Cross-Section Atomic Update and Archive Cutover Protocol
+
+- Any status transition MUST update the minimum synchronized set in one edit pass: Document Identity, the active Phase Plan row, the affected Micro-Phase Backlog row, the affected Ledger row, impacted Gate rows, and the current handoff/checkpoint block when present.
+- If one of those surfaces is not applicable in a specific plan instance, it must be marked `N/A`; stale state copied forward from an earlier phase is forbidden.
+- A `DONE` closure is atomic: confirm the gate state, record completion evidence, update active/archive path references if needed, and move the finalized plan file from `plans/` to `plans/completed/` in the same closure action.
+- A completed plan cannot remain in the active `plans/` directory as the living source of truth. Blocked, paused, and in-progress plans remain in `plans/`; only finished plans cross the archive cutover.
+- If archived work must be resumed, reopen it as an explicit active revision or follow-up plan. Never silently resurrect an archived file in place.
 
 ## 1) Universal Consensus Variables (Phase 0)
 
@@ -105,7 +133,7 @@ Every feature bows to self-testing compliant with its platform.
 ## 6) The Task Tracking Ledger (SINGLE SOURCE OF TRUTH)
 
 > [!CAUTION]
-> **IL-08/13 LIVE TRACKING & README LOCK:** No code can be committed and no task can be closed unless the Agent INSTANTLY updates this tracking ledger to `IN_PROGRESS` and eventually `DONE`, detailing the evidence. The Agent's singular duty is not just writing code; they MUST reflect every micro-change LIVE onto this table and the corresponding living documents `(e.g., TECH_DEBT, USER_GUIDE)`!
+> **IL-07/GFL-01 LIVE TRACKING & README LOCK:** No code can be committed and no task can be closed unless the Agent INSTANTLY updates this tracking ledger to `IN_PROGRESS` and eventually `DONE`, detailing the evidence. The Agent's singular duty is not just writing code; they MUST reflect every micro-change LIVE onto this table and the corresponding living documents `(e.g., TECH_DEBT, USER_GUIDE)`!
 > **ATTENTION:** Before closing any task, the Agent MUST ask: *"Does this new feature, dependency, or architecture change affect the master **`README.md`**?"*. If so, the task CANNOT be closed until the `README.md` is updated (Live-Sync)!
 
 | Step | Description | Status | Parent ID | Agent | Started | Completed | Evidence/Notes |
@@ -121,8 +149,8 @@ Every feature bows to self-testing compliant with its platform.
 |---|---|---|---|---|---|
 | **Platform Smoke**| Verifies Crash-Free Startup | `{{build/run_command}}` | PASS | `{{...}}` | `{{...}}` |
 | **No-UI-Regression**| Theme (Dark/Light) / i18n (Based on Phase-0) | `{{Visual / linter}}` | PASS | `{{...}}` | `{{...}}` |
-| **Integrity-Lock**| Date fidelity & IL-01..11 synchronization | Plan Parity Check | PASS | `{{...}}` | `{{...}}` |
-| **Triple-Sync** | Local, Repo (GitHub), and Live State parity | `git/deploy logs` | PASS | `{{...}}` | `{{...}}` |
+| **Integrity-Lock**| Date fidelity & IL-01..IL-12 + GFL-01 synchronization | Plan Parity Check | PASS | `{{...}}` | `{{...}}` |
+| **Triple-Sync** | Local, Repo (e.g., GitHub/GitLab/Bitbucket), and Live State parity | `git/deploy logs` | PASS | `{{...}}` | `{{...}}` |
 | **[{{Agent GENERATED Dynamic Gate 1}}]**| `{{Sector-Specific Goal}}` | `{{Sector-Specific Audit Command}}` | PASS | `{{...}}` | `{{...}}` |
 | **[{{Agent GENERATED Dynamic Gate 2}}]**| `{{Sector-Specific Goal}}` | `{{Sector-Specific Audit Command}}` | PASS | `{{...}}` | `{{...}}` |
 

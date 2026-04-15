@@ -16,7 +16,7 @@ Product name: Agent Governance OS Starter Kit
 
 ## Compatibility Notes
 - Locale packs should stay structurally parallel whenever possible.
-- The Turkish donor may lead conceptually, but English must not lag structurally.
+- No locale pack may drift structurally without the same release explicitly documenting and closing the parity gap.
 - Example repo and onboarding docs should be updated whenever startup flow changes.
 
 ## Current Release

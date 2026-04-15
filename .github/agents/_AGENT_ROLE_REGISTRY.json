@@ -1,0 +1,152 @@
+{
+  "version": 2,
+  "system": "agent-role-template-system",
+  "templateRoot": ".github/agents/templates",
+  "adaptiveGeneration": {
+    "freshnessSnapshotFile": ".github/agents/_AGENT_FILE_FRESHNESS_SNAPSHOT.json",
+    "requiredSnapshotFields": [
+      "generatedAt",
+      "generatorVersion",
+      "roleRegistryVersion",
+      "detectedAgentSurfaces",
+      "detectedDomainIds",
+      "generatedBaseRoleIds",
+      "generatedAdaptiveRoleIds",
+      "compatibilityNotes",
+      "offlineSafe"
+    ],
+    "extraRoleFamilies": [
+      {
+        "id": "security-reviewer",
+        "composeFrom": [
+          "api-developer",
+          "qa-tester"
+        ],
+        "synthesisWhen": [
+          "the target repo exposes auth, billing, secret-management, or compliance-sensitive surfaces"
+        ]
+      },
+      {
+        "id": "monorepo-coordinator",
+        "composeFrom": [
+          "plan-reviewer"
+        ],
+        "synthesisWhen": [
+          "the target repo contains multiple packages, apps, services, or nested workspace roots"
+        ]
+      },
+      {
+        "id": "docs-steward",
+        "composeFrom": [
+          "plan-reviewer",
+          "i18n-reviewer"
+        ],
+        "synthesisWhen": [
+          "the target repo has a docs site, a large docs surface, or operator-facing onboarding complexity"
+        ]
+      },
+      {
+        "id": "release-manager",
+        "composeFrom": [
+          "deploy-operator",
+          "plan-reviewer"
+        ],
+        "synthesisWhen": [
+          "the target repo distributes versioned artifacts across multiple package channels or release surfaces"
+        ]
+      }
+    ]
+  },
+  "roles": [
+    {
+      "id": "ui-developer",
+      "templatePath": ".github/agents/templates/ui-developer.agent.md",
+      "primaryInstructionDomain": "frontend",
+      "primarySkillId": "frontend",
+      "activationSignals": [
+        "frontend folders or UI components are present",
+        "the plan declares user-facing surfaces or interaction-heavy work"
+      ]
+    },
+    {
+      "id": "api-developer",
+      "templatePath": ".github/agents/templates/api-developer.agent.md",
+      "primaryInstructionDomain": "backend",
+      "primarySkillId": "backend",
+      "activationSignals": [
+        "backend routes, controllers, or server logic are present",
+        "the plan declares API contracts, validation, or service orchestration"
+      ]
+    },
+    {
+      "id": "data-engineer",
+      "templatePath": ".github/agents/templates/data-engineer.agent.md",
+      "primaryInstructionDomain": "data",
+      "primarySkillId": "data",
+      "activationSignals": [
+        "data folders, model pipelines, notebooks, or migrations are present",
+        "the plan declares schema, lineage, or transformation work"
+      ]
+    },
+    {
+      "id": "game-developer",
+      "templatePath": ".github/agents/templates/game-developer.agent.md",
+      "primaryInstructionDomain": "game",
+      "primarySkillId": "game",
+      "activationSignals": [
+        "game-engine folders, scene assets, or gameplay systems are present",
+        "the plan declares performance-sensitive interactive systems"
+      ]
+    },
+    {
+      "id": "mobile-developer",
+      "templatePath": ".github/agents/templates/mobile-developer.agent.md",
+      "primaryInstructionDomain": "mobile",
+      "primarySkillId": "mobile",
+      "activationSignals": [
+        "android, ios, flutter, react-native, or mobile-only app surfaces are present",
+        "the plan declares device lifecycle, permissions, or offline-mobile work"
+      ]
+    },
+    {
+      "id": "deploy-operator",
+      "templatePath": ".github/agents/templates/deploy-operator.agent.md",
+      "primaryInstructionDomain": "deploy",
+      "primarySkillId": "deploy",
+      "activationSignals": [
+        "deploy, infra, workflow, or packaging surfaces are present",
+        "the plan declares release, parity, or environment-handling work"
+      ]
+    },
+    {
+      "id": "qa-tester",
+      "templatePath": ".github/agents/templates/qa-tester.agent.md",
+      "primaryInstructionDomain": "testing",
+      "primarySkillId": "qa-testing",
+      "activationSignals": [
+        "test folders or explicit verification surfaces are present",
+        "the plan requires gate verification, smoke checks, or selftest discipline"
+      ]
+    },
+    {
+      "id": "i18n-reviewer",
+      "templatePath": ".github/agents/templates/i18n-reviewer.agent.md",
+      "primaryInstructionDomain": "i18n",
+      "primarySkillId": "i18n",
+      "activationSignals": [
+        "locale folders, translation files, or multilingual surfaces are present",
+        "the plan declares visible-text parity or localization work"
+      ]
+    },
+    {
+      "id": "plan-reviewer",
+      "templatePath": ".github/agents/templates/plan-reviewer.agent.md",
+      "primaryInstructionDomain": "plans",
+      "primarySkillId": "plan-lifecycle",
+      "activationSignals": [
+        "the target repo uses plan-driven execution",
+        "the plan requires integrity-lock, archive, or closure discipline"
+      ]
+    }
+  ]
+}
