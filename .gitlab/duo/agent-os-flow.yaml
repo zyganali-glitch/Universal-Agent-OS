@@ -1,0 +1,34 @@
+name: Universal Agent OS Core Flow
+description: "Orchestrates the Phase-0 Alignment, Collective Memory Retrieval, Code Generation, and Silicon Valley Review."
+
+trigger:
+  type: issue_comment
+  command: /agentos_run
+
+steps:
+  - name: Phase-0 Alignment and Context Gathering
+    action: prompt
+    agent: universal_agent
+    prompt: |
+      Extract requirements from the issue description.
+      Execute the /agentos_memory skill to load the Collective Memory context.
+      Ensure the constraints from AGENT_ARCHITECTURE_AND_PATTERNS.md are loaded.
+
+  - name: Implementation with Integrity Locks
+    action: generate_code
+    agent: universal_agent
+    depends_on: [Phase-0 Alignment and Context Gathering]
+    instructions: |
+      Generate the code changes.
+      Enforce IL-08 (Live Tracking Lock) by drafting an update to the task tracking files.
+      Enforce IL-13 (Live-Docs) by updating the PROJECT_STRUCTURE.md if architecture changed.
+
+  - name: Silicon Valley Architect Review
+    action: review
+    agent: strict_architect_agent
+    depends_on: [Implementation with Integrity Locks]
+    prompt: |
+      Act as the 'Silicon Valley Architect' and 'Strict Corporate Maintainer' personas from Universal Agent OS.
+      Review the generated code against the rules in AGENT_MEMORY_AND_LESSONS.md.
+      If the code violates any established architecture, reject it with feedback.
+      If approved, create a comment summarizing the changes.
