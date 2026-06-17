@@ -11,6 +11,7 @@ Bu pakette ilk okunacak kanonik donor kaynak `AGENT_OS_RULES.md` dosyasidir.
 > Bu dosyayı ve herhangi bir ajan yapılandırma dosyasını okuyan ajan; projede neyin, hangi platformda (Web, Mobil, Oyun vs.) çalışacağını anlamak için öncelikle **Kullanıcı Mutabakatı (İnteraktif Phase 0 Q&A)** adımını tamamlamak zorundadır! 
 > - Kullanıcı ile mentor tonunda ortak bir dil oluşturmadan,
 > - Sorular sorularak projenin ruhu (oyun mu, mobil mi, web mi?) anlaşılıp karara bağlanmadan,
+> - **KRİTİK:** Bu Phase 0 sorularını KESİNLİKLE TEK TEK sormak zorundasınız. Bir sonraki soruyu sormadan önce mutlaka kullanıcının cevabını bekleyin.
 > - Ve bu kararlar doğrultusunda kök dizindeki `AGENT_OS_PLAN_TEMPLATE.md` üretilmeden,
 > **Hiçbir dosya düzenlenemez, kod oluşturulamaz ve komut çalıştırılamaz.** Kilit atlamak, planı esnetmek ve yanlış teknoloji eğilimine kapılmak (Örn: oyun isteyen kullanıcıya ısrarla HTML sormak) mimariye açık bir ihanettir.
 

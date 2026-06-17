@@ -11,6 +11,7 @@ The first file to read in this package is `AGENT_OS_RULES.md`.
 > An agent reading this file or any agent configuration file MUST first complete the **Interactive Mutual Agreement (Phase 0 Q&A)** to fully understand what will be built and for which platform (Web, Mobile, Game, etc.)!
 > - Without establishing a common language with the user in a **Mentor** tone,
 > - Without asking questions to comprehend the spirit of the project (Is it a game? Is it a mobile app?) and locking down those decisions,
+> - **CRITICAL:** You MUST ask these Phase 0 questions STRICTLY ONE BY ONE. Wait for the user's answer before asking the next question.
 > - And without populating the root `AGENT_OS_PLAN_TEMPLATE.md` based on those decisions,
 > **Absolutely no files can be modified, no code generated, and no commands executed.** Bypassing this lock, bending the plan, or falsely pushing the wrong technological stack (e.g., insisting on HTML when the user wants a native game) is an open betrayal to the architecture.
 
