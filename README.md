@@ -2,7 +2,7 @@
 
 **The Premier Governance & Collective Memory Framework for Autonomous AI Agents**
 
-Universal Agent OS is a revolutionary "Sell-As-Is" framework designed to orchestrate, constrain, and empower AI coding agents (like Claude, Gemini, Aider, Copilot). It replaces chaotic, trial-and-error AI loops with a **Predictable, Secure, and Collective Memory-Driven Generation Lifecycle.**
+Universal Agent OS is a revolutionary "Sell-As-Is" framework designed to orchestrate, constrain, and empower AI coding agents (like **GitLab Duo**, Claude, Gemini, Aider, Copilot). It replaces chaotic, trial-and-error AI loops with a **Predictable, Secure, and Collective Memory-Driven Generation Lifecycle.**
 
 ---
 
@@ -41,7 +41,8 @@ The core of this OS is the unyielding rulebook. Included are the legendary locks
 The starter kit comes with everything you need to bind your agents:
 - `tr/AGENT_OS_RULES.md` & `en/AGENT_OS_RULES.md` -> The canonical donor laws.
 - `tr/AGENT_OS_PLAN_TEMPLATE.md` & `en/AGENT_OS_PLAN_TEMPLATE.md` -> The Universal Planning Templates heavily armed with IL locks.
-- `.agent/rules/`, `.codex/`, `.github/` -> Drop-in instructions for your favorite agent platforms.
+- `.gitlab/duo/` & `AGENTS.md` -> **[NEW]** Native integration for the **GitLab Duo Agent Platform** (Agent, Skill, and Flow definitions for the Transcend Hackathon).
+- `.agent/rules/`, `.codex/`, `.github/` -> Drop-in instructions for other agent platforms.
 
 ## 🏁 Getting Started
 
