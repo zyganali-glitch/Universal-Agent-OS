@@ -1,0 +1,4 @@
+include:
+  - component: $CI_SERVER_HOST/components/ai-catalog/catalog-sync@0.0.1
+    # inputs:
+    #   group_id: "GRUP_ID_BURAYA" # Eger proje bir grupta oldugu icin yetki hatasi verirse basindaki # isaretlerini kaldirip grubun id'sini yazabilirsin.
