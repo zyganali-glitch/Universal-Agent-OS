@@ -1,5 +1,7 @@
 # Universal Agent OS
 
+[![Demo Video](https://img.youtube.com/vi/5NhIS0996zI/0.jpg)](https://www.youtube.com/watch?v=5NhIS0996zI)
+
 Universal Agent OS is a consultation-first governance framework for AI coding agents.
 
 This repository is the source package for that framework. Its job is to turn loose agent sessions into a governed delivery model: interview first, plan before code, track evidence, force explicit validation, and keep cross-session memory and routing surfaces aligned.
