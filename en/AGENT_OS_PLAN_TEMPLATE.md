@@ -21,41 +21,26 @@ It MUST be initialized and configured as a task-specific plan for every new repo
   3. API/Env Boundary Memory: `AGENT_ENVIRONMENT_AND_API.md`
   4. User Preferences: `AGENT_USER_PREFERENCES.md` (Do not violate the user's documented communication style, prompt rules, and tone!)
 
-### 0.1) Integrity Lock (IL) — Non-Negotiable
+### 0.1) Master Integrity Lock (IL) Registry — Non-Negotiable
 
 This section establishes universal, ironclad rules to prevent agentic infinite loops and internal tracking leaks. Any protocol violation immediately triggers a `BLOCKED` status.
 
-**IL-01: Single Source of Truth**
-- The Task Tracking Ledger (Section 6) is the SOLE official arbiter of progress. An agent cannot simply state "I finished it." It must only execute and report based off the Ledger's coordinates.
-
-**IL-02: Atomic Update Imperative**
-- Whenever a state transitions (e.g., IN_PROGRESS → DONE), the Phase Plan, Header, and Micro-Phase Backlog MUST be updated SYNCHRONOUSLY. A partial update (modifying one section while abandoning another) is an INTEGRITY VIOLATION.
-
-**IL-03: Cascading Closure Lock**
-- A parent task cannot reach `DONE` status until ALL of its dependent sub-tasks are successfully closed.
-- Any bugs or supplemental requirements uncovered (Discovered Work) must be appended as child items and resolved before the parent can be closed.
-
-**IL-04: Date Fidelity and Concrete Records**
-- Documenting `DONE` with a future date is prohibited. Absolute chronological enforcement is required: `date <= today`.
-
-**IL-05: Universal Gate Closure System**
-- No plan transitions to Completion unless ALL testing gates defined internally report a `PASS` or possess an official Exception Record. Remaining `NOT_RUN` gates signify absolute `BLOCKAGE`.
-
-**IL-06: Discovered Work Anti-Scope Drift**
-- If an agent stumbles upon an existing defect while executing a targeted mission; it cannot branch off and rewrite the architecture (spaghetti code).
-- The anomaly MUST be registered as an isolated line item prefixed with `[DISCOVERED]` in the ledger and parked until the current task completes.
-
-**IL-07: Real-Time Accounting**
-- Prior to touching any file, the agent designates the line item as `IN_PROGRESS`. Immediately after execution, it amends it to `DONE` fortified with evidence. Batch-updating progress at the end of the session is banned.
-
-**IL-08: Triple-Sync Lock (Local, Remote, Live)**
-- If deployment is requested, declaring "mission accomplished" requires parity across Local functionality, Remote repository (e.g. GitHub) push success, and Live Platform verified deployment.
-
-**IL-09: Cross-Surface Parity Lock (Anti-Fragmentation)**
-- When a module, function signature, or interface is modified, the Agent MUST simultaneously update ALL dependent files, imports, and cross-references. A task cannot be closed if it leaves broken dependencies elsewhere.
-
-**IL-10: Anti-Loop / Timebox Lock (Token Protection)**
-- If the Agent attempts to fix the exact same bug/test 3 consecutive times and fails, it MUST stop, revert the file to the last working state, log the error as `[BLOCKED]`, and request human intervention. Endless hallucination loops are strictly forbidden.
+- **IL-01** Single source of truth (Task table)
+- **IL-02** Atomic updates
+- **IL-03** Staged closure
+- **IL-04** Date integrity
+- **IL-05** Gate closure lock
+- **IL-06** Header/task sync
+- **IL-07** Discovered-work blocking
+- **IL-08** Live task-table operation
+- **IL-09** Status rollback protocol
+- **IL-10** Cross-table parity audit
+- **IL-11** Automated validation plus next-phase notice
+- **IL-12** Triple-Sync Lock
+- **IL-13** Live-Docs Sync (Dynamic README & Ecosystem)
+- **IL-14** Adapter Currency Lock
+- **IL-15** Master Roadmap & Coding Lock
+- **IL-16** Continuous Sync & Collective Memory Lock
 
 ## 1) Universal Consensus Variables (Phase 0)
 

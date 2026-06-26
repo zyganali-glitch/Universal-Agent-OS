@@ -18,7 +18,7 @@ jobs:
             echo "❌ ERROR: Core governance file AGENTS.md is missing!"
             exit 1
           fi
-          if [ ! -f "GLOBAL_PLAN_TASK_TRACKING_TEMPLATE.md" ]; then
+          if [ ! -f "AGENT_OS_PLAN_TEMPLATE.md" ]; then
             echo "❌ ERROR: Plan tracking template is missing!"
             exit 1
           fi

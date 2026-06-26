@@ -21,42 +21,26 @@ Her yeni platformda (Web, Mobil, Oyun, Gömülü vb.) ve her yeni özellik taleb
   3. Dış API ve Env Bağlantıları: `AGENT_ENVIRONMENT_AND_API.md`
   4. Kullanıcı Tarzı (Preferences): `AGENT_USER_PREFERENCES.md` (Kullanıcının sana emrettiği ve alıştığı iletişim/kod üslubunu ASLA bozma!)
 
-### 0.1) Plan Bütünlük Kilidi (Integrity Lock — Pazarlık Edilemez)
+### 0.1) Master Integrity Lock (IL) Registry — Pazarlık Edilemez
 
 Bu bölüm, Ajanların sonsuz döngüye düşmesini ve plan içi tutarsızlıkları ("leak") engellemek için evrensel zorunlu kuralları tanımlar. Kural ihlali planı anında `BLOCKED` yapar.
 
-**IL-01: Tek Gerçek Kaynağı (Single Source of Truth)**
-- Görev Takip Çizelgesi (Bölüm 11) planın TEK resmi ilerleme kaynağıdır. Ajan, kafasına göre "hallettim" diyemez. Yalnızca çizelgedeki duruma göre hareket edebilir.
-- Çizelge ile başka bir bölüm arasında durum çarpışması varsa, çizelge doğrudur.
-
-**IL-02: Atomik Güncelleme Zorunluluğu**
-- Herhangi bir durum değişikliği yapıldığında (Örn: DEVAM→TAMAMLANDI), Faz Planı, Header ve Mikro-Faz Backlog'u AYNI ANDA güncellenir. Kısmi güncelleme (sadece bir yeri değiştirip diğerini unutmak) = INTEGRITY VIOLATION.
-
-**IL-03: Kademeli Kapatma Kilidi (Cascading Closure Lock)**
-- Bir üst görevin TAMAMLANDI olabilmesi için, kendisine bağlı alt görevlerin TAMAMI kapatılmış olmalıdır.
-- Tespit edilen hatalar/yeni ihtiyaçlar (Discovered Work) alt kalem olarak eklenir ve çözülmeden üst kalem kapatılmaz.
-
-**IL-04: Tarih Bütünlüğü ve Reel Kayıt**
-- Gelecek tarihe `TAMAMLANDI` yazılamaz. `tarih <= bugunun_tarihi` zorunludur.
-
-**IL-05: Evrensel Gate Kapatma Kilidi (Gate Closure Lock)**
-- Planda tanımlanan tüm test kapıları (Gate'ler) PASS veya özel İstisna Kaydı almadan plan tamamlanamaz. `NOT_RUN` gate'ler AÇIK BLOKAJ sayılır.
-
-**IL-06: Keşfedilen İş Bloklama Kuralı (Anti-Scope Drift)**
-- Yürütme sırasında ajan yeni bir hataya/eksikliğe rastlarsa; ana işi bölüp (spagetti kod üreterek) oraya dalamaz!
-- Bu hata Görev Çizelgesine yeni satır olarak `[DISCOVERED]` ön ekiyle eklenir, mevcut iş bitene kadar bekletilir.
-
-**IL-07: Canlı Çizelge İşlem Zorunluluğu (Real-Time Tracking)**
-- Ajan bir koda dokunmadan ONCE ilgili satırı DEVAM olarak işaretlemekle yükümlüdür. Bittiğinde kanıtla beraber TAMAMLANDI'ya güncelleriz. Toplu güncelleme yapmak yasaktır.
-
-**IL-08: Triple-Sync Kilidi (Local, Remote, Live)**
-- Hedeflenen işin "bitti" denmesi için (istenmişse), kodun lokal makinede çalışması, uzak sunucuya (GitHub vb.) push edilmesi ve platform yayıncısında (Live Deploy) doğrulanmış olması gerekir. Sadece yerel çalışan kodu "bitirdim" diye raporlamak IL-08 ihlalidir.
-
-**IL-09: Çapraz Yüzey Bütünlük Kilidi (Cross-Surface Parity Lock)**
-- Bir modül, fonksiyon veya arayüz (interface) değiştirildiğinde, Ajan bu yapıya bağımlı olan TÜM çapraz dosyaları, importları ve referansları eşzamanlı olarak güncellemek ZORUNDADIR. Kırık bir bağımlılık bırakarak görev kapatılamaz.
-
-**IL-10: Anti-Loop / Zaman Sınırı Kilidi (Token Koruması)**
-- Ajan aynı hatayı/testi art arda 3 kez düzeltmeye çalışıp başarısız olursa; DURMAK, dosyayı çalışan son haline geri almak, durumu `[BLOKE]` olarak işaretlemek ve insan müdahalesi istemek ZORUNDADIR. Sonsuz halüsinasyon döngülerine girip token yakmak kesinlikle yasaktır.
+- **IL-01** Tek Gerçek Kaynağı (Görev Tablosu)
+- **IL-02** Atomik güncellemeler
+- **IL-03** Kademeli kapatma kilidi
+- **IL-04** Tarih bütünlüğü
+- **IL-05** Gate kapatma kilidi
+- **IL-06** Header/görev senkronizasyonu
+- **IL-07** Keşfedilen iş bloklama
+- **IL-08** Canlı görev tablosu işlemi
+- **IL-09** Durum geri alma protokolü
+- **IL-10** Çapraz tablo tutarlılık denetimi
+- **IL-11** Otomatik doğrulama ve sonraki aşama bildirimi
+- **IL-12** Triple-Sync Lock
+- **IL-13** Canlı Dokümantasyon Kilidi (Live-Docs Sync)
+- **IL-14** Adaptör Güncellik Kilidi
+- **IL-15** Ana Yol Haritası ve Kodlama Kilidi
+- **IL-16** Sürekli Senkronizasyon ve Kolektif Hafıza Kilidi
 
 ## 1) Universal Mutabakat Çıktısı (Phase 0)
 

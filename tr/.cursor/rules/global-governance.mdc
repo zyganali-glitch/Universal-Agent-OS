@@ -12,7 +12,7 @@ Bu rule, Cursor'un hizli edit akisini donor hiyerarsisine baglamak icin yazildi.
 ## 1) Yukleme Sirasi
 1. `GLOBAL_AJAN_CALISTIRMA_KURALLARI.md`
 2. `AGENTS.md`
-3. `GLOBAL_PLAN_TASK_TRACKING_TEMPLATE.md`
+3. `AGENT_OS_PLAN_TEMPLATE.md`
 4. aktif plan
 5. bu rule
 

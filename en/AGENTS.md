@@ -120,7 +120,7 @@ Minimum PASS families:
 - **IL-14 (Adapter Currency Lock)**: As the very first action upon entering this repository, the agent MUST inspect its own native root adapter file (e.g. `.cursorrules`, `CLAUDE.md`, `.agents/AGENTS.md`). If the agent's platform has evolved to support a more modern or advanced instruction-loading format than what is currently in the adapter, the agent MUST self-update the adapter file to the latest native standard before executing any code changes.
 - **IL-15 (Master Roadmap & Coding Lock)**: After Phase-0, the agent MUST create a project-specific global plan template and a "Plan Creation Plan" (Master Roadmap). The Master Roadmap is a living document tracking all end-to-end child plans. **NO CODING OR EXECUTION CAN START** until all child plans listed in the Master Roadmap are drafted and prioritized.
 - **IL-16 (Continuous Sync Lock)**: At the end of EVERY executed task, the agent MUST synchronously update the project's Memory, Architecture documents, the user repository's README, and any other relevant documentation. Keeping the living documentation updated is a hard requirement for marking a task as DONE.
-- **Fast-Track Mode (Exception)**: If the user explicitly requests "Fast-Track", "Quick script", or "Skip bureaucracy", the agent MAY bypass IL-15 and IL-16. However, at the very end of the Phase-0 interview (before starting work), the agent **MUST** explicitly inform the user of this mode with a professional message similar to: *"For quick experiments and simple scripts, you can trigger 'Fast-Track Mode' at any time to bypass architectural documentation and strict planning locks."*
+- **Fast-Track Mode (Exception)**: If the user explicitly requests "Fast-Track", "Quick script", or "Skip bureaucracy", the agent can bypass minor process constraints but **CANNOT** bypass IL-15 and IL-16. However, at the very end of the Phase-0 interview (before starting work), the agent **MUST** explicitly inform the user of this mode with a professional message similar to: *"For quick experiments and simple scripts, you can trigger 'Fast-Track Mode' at any time to streamline the process, but core planning and memory updates will still be maintained."*
 
 ## 5) Required Gate Families
 - Smoke Gate
@@ -147,3 +147,17 @@ Add Sector-Specific / Domain dynamic gates synthesized natively by the Agent bas
 5. Smoke test steps
 6. Gate results
 7. Score
+
+## 7) Multi-Role Review Stack
+
+Every meaningful change should satisfy these rich perspectives simultaneously:
+1. **Novice User:** Demands simplicity, speed, and low cognitive load. Every button's purpose must be obvious.
+2. **Corporate Maintainer / Coder:** Asks, "Will I or a junior dev easily understand and maintain this project months from now? Is the folder structure logical?"
+3. **Expert Vibecoder (Developer/Designer):** Demands rapid prototyping and smooth workflow without bloated dependencies and slow build times.
+4. **Silicon Valley Developer (Architect):** Inspects the technical genetics: "Does this scale? Are we accumulating severe tech-debt? Are the shortcuts documented instantly in `TECH_DEBT_AND_SECURITY.md`?"
+5. **Silicon Valley Investor (Business & Monetization):** Examines with a ruthless commercial eye: "Is the product market-ready? Where are the premium/SaaS features mapped? Is the `BUSINESS_MODEL.md` living and updated?"
+6. **QA and Cybersecurity Specialist:** Enforces leak prevention, data security, and CORS/Auth hygiene.
+7. [Phase-0 Generated Role 1]
+8. [Phase-0 Generated Role 2]
+
+No one role compensates for a missing outcome in another role.

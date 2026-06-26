@@ -117,7 +117,7 @@ Asgari PASS aileleri:
 - **IL-14 (Adapter Currency Lock - Kendini Güncelleme Kilidi)**: Ajan bu repoya girdiğinde çalışmaya başlamadan önceki İLK işi; kendi platformuna ait kök adaptör dosyasını (örn: `.cursorrules`, `.github/copilot-instructions.md`, `.agents/AGENTS.md` vb.) kontrol etmektir. Eğer ajanın platformu (IDE/Model) o anki güncel tarihinde sistem komutlarını okumak için daha modern veya gelişmiş bir dosya formatı destekliyorsa, ajan kod yazmaya başlamadan önce **kendi adaptör dosyasını en güncel standarda göre güncellemek zorundadır**.
 - **IL-15 (Master Roadmap & Coding Lock - Kodlama Kilidi)**: Phase-0 bittikten sonra ajanın yapacağı İLK İŞ projeye özel global plan şablonunu oluşturmak ve projenin uçtan uca bitmesi için gereken tüm planları listeleyen bir "Plan Oluşturma Planı" (Master Roadmap) yapmaktır. Bu plan yaşayan bir plandır. Master Roadmap içinde listelenen tüm planlar hazırlanmadan ve işe göre öncelik sırası belirlenmeden **KESİNLİKLE KODLAMAYA VEYA İCRAYA BAŞLANAMAZ.**
 - **IL-16 (Continuous Sync Lock - Sürekli Senkronizasyon)**: Ajan tamamladığı **HER İŞTEN SONRA** (sadece faz kapanışında değil); projeye ait Hafıza (Memory), Mimari (Architecture), kullanıcı repo README'si ve ilgili tüm dokümanları eşzamanlı olarak güncellemek zorundadır. Yaşayan dokümantasyonu güncellemeden hiçbir görev DONE (Tamamlandı) yapılamaz.
-- **Fast-Track Mode (Hızlı Mod İstisnası)**: Kullanıcı açıkça "Hızlı Mod", "Fast-Track", "Basit bir script istiyorum" diyerek bürokrasiyi atlamak isterse ajan IL-15 ve IL-16 kilitlerini esnetebilir. Ancak ajan, Phase-0 mülakatının en sonunda (işe başlamadan hemen önce) kullanıcıya şu bilgiyi vermek ZORUNDADIR: *"Hızlı denemeler ve basit scriptler için, mimari dokümantasyonu ve sıkı planlama kilitlerini atlamak isterseniz dilediğiniz zaman 'Hızlı Mod / Fast-Track' özelliğini tetikleyebilirsiniz."*
+- **Fast-Track Mode (Hızlı Mod İstisnası)**: Kullanıcı açıkça "Hızlı Mod", "Fast-Track", "Basit bir script istiyorum" diyerek bürokrasiyi atlamak isterse ajan ufak prosedürleri atlayabilir ancak IL-15 ve IL-16 kilitlerini **KESİNLİKLE ESNETEMEZ**. Ajan, Phase-0 mülakatının en sonunda (işe başlamadan hemen önce) kullanıcıya şu bilgiyi vermek ZORUNDADIR: *"Hızlı denemeler ve basit scriptler için süreci hızlandırmak isterseniz dilediğiniz zaman 'Hızlı Mod / Fast-Track' özelliğini tetikleyebilirsiniz, ancak temel planlama ve hafıza güncellemeleri korunacaktır."*
 
 ## 5) Zorunlu Gate Aileleri
 - Smoke Gate
@@ -144,3 +144,17 @@ Repo ihtiyacina gore Sektörel/Domain-Spesifik Gate'ler Ajan tarafından dinamik
 5. Smoke test adimlari
 6. Gate sonuclari
 7. Skor
+
+## 7) Çoklu Rol İnceleme Yığını (Multi-Role Review Stack)
+
+Yapılan her anlamlı değişiklik, şu perspektiflerin tamamını aynı anda tatmin etmelidir:
+1. **Acemi Kullanıcı:** Basitlik, hız ve düşük karmaşıklık ister. Her düğmenin amacının net olmasını talep eder.
+2. **Firma/Kurumsal Kodçu (Maintainer):** "Aylar sonra projeyi açtığımda veya Junior birine devrettiğimde kolayca anlayıp sürdürebilir miyim? Klasör yapısı insan mantığına uygun mu?" diye hesap sorar.
+3. **Uzman Vibecoder (Geliştirici/Tasarımcı):** "Bana hızlı prototip ve pürüzsüz akış lazım. Saçma bağımlılıklar ve yavaşlıklar istemiyorum." vizyonunu savunur.
+4. **Silikon Vadisi Yazılımcısı (Architect):** "Bu altyapı ölçeklenir mi (Scale)? Yarın milyonlarca kullanıcı gelirse çöker mi? Kolaya kaçılan yerler `TECH_DEBT_AND_SECURITY.md` defterine o an işlendi mi?" diyerek projenin teknik genetiğini denetler.
+5. **Silikon Vadisi Yatırımcısı (Business & Monetization):** "Ürün pazara çıkmaya hazır mı? Premium/SaaS gibi Paraya Çevrilebilir (Monetizable) özellikleri neresinde tutacağız? Sürdürülebilir büyüme `BUSINESS_MODEL.md` haritasına yansıdı mı?" diyerek acımasız ticaret gözüyle bakar.
+6. **Kalite Kontrol (QA) ve Siber Güvenlik Uzmanı:** Hiçbir açık bırakılmamasını, veri sızıntılarının kapanmasını zorunlu tutar.
+7. [Phase-0 Mülakatına Göre Ajanın Üreteceği Rol 1]
+8. [Phase-0 Mülakatına Göre Ajanın Üreteceği Rol 2]
+
+Hiçbir rol, diğerinin eksikliğini telafi edemez. Tüm rollerde başarı zorunludur.

@@ -72,21 +72,18 @@ Bu donor belge yeni projedeki global plan sablonuna asagidaki kilitlerin aynen v
 **IL-12 / TSL-01: Uclu Senkron Kilidi**
 - Push/deploy/repo-sync talebinde local + GitHub + canli ayni snapshot olmadan kapanis yoktur.
 
-**IL-13: Canlı Dokümantasyon ve Dinamik README Kilidi (Live-Docs Sync)**
-- **Dinamik Master README:** Ajan, Phase-0 Mutabakatını (projenin amacı ve teknoloji yığınını) bitirdiği saniye, otomatik olarak kök dizinde projenin ana vitrini olan kapsamlı bir `README.md` dosyası YARATMAKLA MÜKELLEFTİR! Kuruluma (örn. npm'den pnpm'e geçiş) veya mimariye etki eden her yenilikte, bu Master `README.md` dosyası da Task tabloları gibi anlık (Live-Sync) GÜNCELLENECEKTİR! 
-- Diğer Dosyalar: Ajan, yaptığı değişiklikleri "Şu fonksiyonu şuna ekledim" diye *Changelog* gibi kaydedemez! Kılavuzlar (`PROJECT_STRUCTURE.md` ve `USER_GUIDE.md`) sadece **sistemin O ANKİ güncel ve çalışır halini (Live State)** yansıtmalıdır.
-- Yaşayan Ekosistem Önerileri (Opsiyonel ama önerilir): Uzmanların ve yatırımcıların okuması için proje büyüdükçe `TECH_DEBT_AND_SECURITY.md`, `BUSINESS_MODEL_AND_GOALS.md` veya `QUICK_START_DEPLOYMENT.md` dosyaları da yepyeni değişikliklere göre canlı yaşatılmalıdır.
-- "Projeyi yarın başka bir ajanın saniyede devralabileceği kadar berrak" bir canlı harita güncellenmeden Task/Faz KAPANMAZ!
+**IL-13: Canlı Dokümantasyon Kilidi (Live-Docs Sync)**
+- **Dinamik Master README:** Ajan, Phase-0 Mutabakatını bitirdiği saniye, otomatik olarak `README.md` dosyasını yaratır ve günceller. Kurulum veya mimari değişimlerde de anlık (Live-Sync) güncellenir.
+- **Diğer Dosyalar:** `PROJECT_STRUCTURE.md` ve `USER_GUIDE.md` sistemin güncel halini yansıtmalıdır. Yaşayan ekosistem dosyaları sürekli güncellenir.
 
-**IL-14: Kolektif Ajan Hafızası (Collective Memory / Lessons Learned)**
-- Ajanlar hata yapabilir fakat AYNI HATAYI iki kere yapamaz! Ajan bir framework kısıtlamasına, versiyon çakışmasına veya spesifik bir teknik duvara ("Örn: xyz modülü sunucuda patlıyor, yerine zyx kullan") çarparsa; çözümü bulduğu saniye bu durumu kök dizindeki **`AGENT_MEMORY_AND_LESSONS.md`** dosyasına "Çıkarılan Ders (Lesson Learned)" olarak İŞLEMEK ZORUNDADIR!
-- Bu veya başka bir planı sonradan devralan her yeni Ajanın (sistemin), ilk işi kendi görevlerine bakmadan önce bu Kolektif Hafıza dosyasını okuyup projenin mayın tarlalarını (bug history) öğrenmektir. Ortak hafızaya işlenmeyen her hata/çözüm "Sızıntı (Leak)" kabul edilir.
+**IL-14: Adaptör Güncellik Kilidi (Adapter Currency Lock)**
+- Repoya girildiği anda ajan, kendi native root adaptör dosyasını (`.cursorrules`, `CLAUDE.md` vb.) denetlemelidir. Daha güncel bir yükleme formatı varsa kod yazmadan önce kendini güncellemelidir.
 
-**IL-15: Genişletilmiş Bağlam ve Profil Zekası (Extended Context & Profile Memory)**
-- Ajanların Context (Bağlam) limitlerini aşabilmeleri ve projeye karakter/mimari uydurabilmeleri için sadece hataları (IL-14) değil, şu 3 Kolektif Hafızayı da canlı (live-state) tutmaları ve her fazda güncellemeleri **ZORUNDADIR:**
-  1. `AGENT_ARCHITECTURE_AND_PATTERNS.md` (Mimari Hafıza): Hangi stil (BEM, Tailwind vd.) kullanıldı? React'te class mı hook mu yazıldı? Repozitori pattern mi var? Yeni ajan eski kod ruhunu bozamaz.
-  2. `AGENT_ENVIRONMENT_AND_API.md` (Ortam Hafızası): Localhost portları, AWS/Firebase/Stripe bağlantıları ve CORS sınırları gibi dış bağlantı kuralları (veya deployment tüyoları) bu belgede yaşar.
-  3. `AGENT_USER_PREFERENCES.md` (Kullanıcı Tarzı Hafızası): Kullanıcının sevdiği/istediği iletişim tonu (Örn: "Uzun açıklama yapma, detaysız kod ver"), renk ve üslup tercihleri anında buraya işlenip diğer ajanlara kalıtım (inherit) yoluyla aktarılır.
+**IL-15: Ana Yol Haritası ve Kodlama Kilidi (Master Roadmap & Coding Lock)**
+- Phase-0'dan sonra ajan, projeye özel bir global plan şablonu ve "Ana Yol Haritası" (Master Roadmap) oluşturmak ZORUNDADIR. Yol haritasındaki tüm alt planlar oluşturulup önceliklendirilmeden HİÇBİR KODLAMA VEYA ÇALIŞTIRMA BAŞLAYAMAZ.
+
+**IL-16: Sürekli Senkronizasyon ve Kolektif Hafıza Kilidi (Continuous Sync & Collective Memory Lock)**
+- YAPILDI olarak işaretlenen her görevin sonunda ajan; projenin Kolektif Hafızasını (`AGENT_MEMORY_AND_LESSONS.md`, `AGENT_ARCHITECTURE_AND_PATTERNS.md`, vb.), README'yi ve belgeleri senkronize şekilde EŞZAMANLI güncellemek zorundadır. Hatalar yapıldığında dersler anında Kolektif Hafızaya kaydedilmelidir. Yeni bir ajan eski kod ruhunu bozamaz.
 
 ### 0.2) Cross-Section Atomik Guncelleme ve Archive Cutover
 

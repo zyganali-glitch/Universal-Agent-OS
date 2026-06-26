@@ -12,7 +12,7 @@ This rule binds Cursor's fast editing flow to the donor hierarchy.
 ## 1) Load Order
 1. `GLOBAL_AGENT_OPERATING_RULES.md`
 2. `AGENTS.md`
-3. `GLOBAL_PLAN_TASK_TRACKING_TEMPLATE.md`
+3. `AGENT_OS_PLAN_TEMPLATE.md`
 4. the active plan
 5. this rule
 

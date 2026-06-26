@@ -36,6 +36,9 @@ async function writeMemory(data) {
   if (data.technical_debt && data.technical_debt.length > MAX_ITEMS) {
     data.technical_debt = data.technical_debt.slice(-MAX_ITEMS);
   }
+  if (data.architectural_patterns && data.architectural_patterns.length > MAX_ITEMS) {
+    data.architectural_patterns = data.architectural_patterns.slice(-MAX_ITEMS);
+  }
   
   await fs.writeFile(MEMORY_FILE, JSON.stringify(data, null, 2), 'utf-8');
 }
@@ -79,6 +82,20 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           required: ["debt"],
         },
       },
+      {
+        name: "agent_os_report_pattern",
+        description: "Appends a string to architectural_patterns array in agent_memory.json",
+        inputSchema: {
+          type: "object",
+          properties: {
+            pattern: {
+              type: "string",
+              description: "The architectural pattern to report",
+            },
+          },
+          required: ["pattern"],
+        },
+      },
     ],
   };
 });
@@ -115,6 +132,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     if (request.params.name === "agent_os_report_debt") {
       const debt = request.params.arguments.debt;
       const data = await readMemory();
+      if (!data.technical_debt) data.technical_debt = [];
       data.technical_debt.push(debt);
       await writeMemory(data);
       return {
@@ -122,6 +140,22 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           {
             type: "text",
             text: `Technical debt reported successfully: ${debt}`,
+          },
+        ],
+      };
+    }
+
+    if (request.params.name === "agent_os_report_pattern") {
+      const pattern = request.params.arguments.pattern;
+      const data = await readMemory();
+      if (!data.architectural_patterns) data.architectural_patterns = [];
+      data.architectural_patterns.push(pattern);
+      await writeMemory(data);
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Architectural pattern reported successfully: ${pattern}`,
           },
         ],
       };
