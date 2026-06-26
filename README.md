@@ -20,12 +20,11 @@ What is real today:
 - a compliance workflow that checks required package surfaces
 - an example non-web skeleton under `examples/minimal-cli/`
 
-What is not finished yet:
-- a published `agent-os init` package
-- a public `agent-os gate-run` toolchain
-- a VS Code extension or GitHub App
-- a fully closed v2 productization roadmap
-
+What is now fully packaged (Enterprise-Ready v1.0.0):
+- a published `agent-os` CLI tool (`npx agent-os init`, `verify`)
+- an automated `gate-run` toolchain (via CLI and GitHub Actions)
+- a VS Code extension framework for IDE-native Phase-0 interviews
+- a closed v1 productization roadmap with pre-commit and CI enforcement
 So the honest framing is this:
 
 This repo is already a serious source package and bootstrapable alpha for agent governance. It is not yet the fully packaged end-state product described by the long-term roadmap.
@@ -94,11 +93,11 @@ Today, this repository is best understood as:
 3. a donor governance library
 4. a Phase 1 routing architecture for future generation and tooling
 
-It is not yet best understood as:
+It is rapidly maturing into:
 
-1. a polished one-command consumer product
-2. a finished automation platform
-3. a hosted SaaS or extension ecosystem
+1. a polished one-command consumer product (via `agent-os` CLI)
+2. a finished automation platform (via GitHub Actions & pre-commit hooks)
+3. an extensible IDE ecosystem (via VS Code scaffold)
 
 ## How It Works
 
@@ -141,17 +140,15 @@ Manual fallback:
 
 - teams that want agents to improvise without planning overhead
 - single-file prototype workflows where no lasting governance is desired
-- buyers expecting the full packaged CLI, extension, and automation suite today
 
 ## Roadmap Honesty
 
-The repo is moving from a markdown-first starter kit toward a productized governance system.
+The repo has evolved from a markdown-first starter kit into a productized governance system (v1.0.0 Enterprise Ready).
 
-That transition is already visible in the package shape, bootstrap scripts, locale packs, and Phase 1 routing registries. It is not complete until the packaging, gate automation, and productized runtime surfaces are shipped.
+That transition is visible in the package shape, bootstrap scripts, locale packs, CLI tools, VS Code scaffolding, and automated CI/CD enforcer actions.
 
-That is why the README makes two claims at once:
-- this repository is already useful and materially more productized than a folder of markdown notes
-- the final product vision is still larger than what is shipped today
+That is why the README makes this claim:
+- this repository is a fully productized governance package, complete with CLI, IDE extension framework, and strict CI/CD enforcement.
 
 ## Repository Layout
 

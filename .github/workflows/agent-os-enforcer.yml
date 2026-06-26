@@ -1,0 +1,31 @@
+name: Universal Agent OS Enforcer
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  governance-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Agent OS CLI locally
+        run: npm link
+
+      - name: Run Verification Gate
+        run: npx agent-os verify
+
+      - name: Check Evidence Manifest
+        run: |
+          if ! grep -q "Tech-Debt Delta = 0" docs/EVIDENCE_MANIFEST_TEMPLATE.md; then
+            echo "❌ Evidence Manifest missing required debt declarations."
+            exit 1
+          fi
+          echo "✅ Evidence Manifest check passed."

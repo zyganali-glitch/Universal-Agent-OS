@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 - 2026-06-26
+- Promoted Universal Agent OS to full Enterprise release.
+- Added `agent-os` CLI (`npx agent-os init`, `verify`) for programmatic interactions.
+- Added `.github/workflows/agent-os-enforcer.yml` for automated CI/CD PR enforcement.
+- Created VS Code extension scaffold (`extensions/vscode/`) for IDE-native Phase-0 workflows.
+- Updated `LICENSE` ownership context to Mehmet Aydoğan.
+- Updated `README.md` to reflect the transition from Starter Kit to Enterprise product.
+
 ## 0.2.0 - 2026-06-26
 - Harvested and merged cross-platform best practices from derived repositories.
 - Added `init-agent-os.ps1` for Windows bootstrap support.

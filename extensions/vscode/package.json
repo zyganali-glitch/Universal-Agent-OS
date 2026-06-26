@@ -1,0 +1,33 @@
+{
+  "name": "universal-agent-os-vscode",
+  "displayName": "Universal Agent OS",
+  "description": "Enterprise IDE extension for the Universal Agent OS consultation-first governance framework.",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "agent-os.startPhase0",
+        "title": "Agent OS: Start Phase-0 Interview"
+      },
+      {
+        "command": "agent-os.verifyGovernance",
+        "title": "Agent OS: Verify Governance Gate"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.1.3"
+  }
+}
