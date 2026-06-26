@@ -8,10 +8,11 @@ if (command === 'init') {
   require('./verify.js')(args);
 } else {
   console.log(`
-Universal Agent OS CLI (v1.0.0)
+Universal Agent OS CLI (v1.1.0)
 
 Usage:
-  npx agent-os init     - Initialize the Agent OS governance framework in the current repo.
-  npx agent-os verify   - Run the governance gate verification check.
+  npx agent-os init           - Initialize the Agent OS governance framework in the current repo.
+  npx agent-os init --legacy  - Initialize in Legacy/Brownfield mode (skips Phase-0, creates quarantine).
+  npx agent-os verify         - Run the governance gate verification check.
 `);
 }

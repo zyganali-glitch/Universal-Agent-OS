@@ -15,6 +15,9 @@
     "Other"
   ],
   "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "contributes": {
     "commands": [
       {
@@ -25,7 +28,17 @@
         "command": "agent-os.verifyGovernance",
         "title": "Agent OS: Verify Governance Gate"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Universal Agent OS",
+      "properties": {
+        "agentOS.antiMonolithLimit": {
+          "type": "number",
+          "default": 400,
+          "description": "Line limit before Agent OS triggers Anti-Monolith warning."
+        }
+      }
+    }
   },
   "scripts": {
     "compile": "tsc -p ./",

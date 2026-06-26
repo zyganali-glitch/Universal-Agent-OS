@@ -63,6 +63,11 @@ This repository is already usable, but it is not finished in every dimension.
 - A VS Code extension scaffold for IDE-native Phase-0 interviews
 - GitLab CI and GitHub Actions enforcement pipelines
 
+**What is new in v1.1.0 (Runtime Kernel Transition):**
+- **Legacy Onboarding Mode:** `npx agent-os init --legacy` to integrate cleanly into existing messy projects without triggering restrictive Phase-0 logic.
+- **MCP Server (Model Context Protocol):** A built-in `mcp-server` that exposes the `agent_memory.json` bus so agents can read/write architecture and lessons natively via tool calls.
+- **VSCode Runtime Enforcement:** The extension actively monitors saved files and issues diagnostics (Anti-Monolith size limits & Zombie Code detection).
+
 **What is ahead:**
 - Publishing the VS Code extension to the Marketplace
 - Publishing the CLI to public NPM
@@ -218,8 +223,9 @@ Both scripts accept an optional locale parameter (`en` or `tr`). Default is `en`
 
 ```bash
 npm link
-npx agent-os init      # Initialize governance in current directory
-npx agent-os verify    # Run governance gate verification
+npx agent-os init          # Initialize governance in current directory
+npx agent-os init --legacy # Initialize in Legacy/Brownfield mode (skips Phase-0, creates quarantine)
+npx agent-os verify        # Run governance gate verification
 ```
 
 ---

@@ -13,6 +13,7 @@ set -e
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="$1"
 LOCALE="${2:-en}"
+LEGACY_FLAG="${3:-}"
 
 echo "=========================================================="
 echo "🤖 Universal Agent Governance OS — Installation Starting..."
@@ -54,6 +55,22 @@ cp -r "$OS_SOURCE/." "$TARGET_DIR/"
 # 2. Create plans directory structure
 echo "🔹 Creating planning directory and archive..."
 mkdir -p "$TARGET_DIR/plans/completed"
+
+if [ "$LEGACY_FLAG" == "--legacy" ]; then
+    echo "🔹 Applying Legacy/Brownfield Quarantine..."
+    cat << 'EOF' > "$TARGET_DIR/TECH_DEBT_AND_SECURITY.md"
+# Legacy Quarantine & Tech Debt
+
+> [!WARNING]
+> This project was onboarded as a Brownfield project via Phase-X.
+> The existing codebase is quarantined. Do not refactor existing spaghetti code unless explicitly requested.
+> ALL NEW code must adhere strictly to Universal Agent OS IL-01 to IL-16 rules.
+
+## Known Legacy Systems
+(Agent: Run a full project scan to populate this section with existing architectural patterns and debt)
+EOF
+    echo "   -> Created TECH_DEBT_AND_SECURITY.md quarantine template."
+fi
 
 echo "=========================================================="
 echo "✅ SUCCESS: Agent Governance OS installed!"

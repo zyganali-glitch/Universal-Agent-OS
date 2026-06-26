@@ -13,7 +13,10 @@ param(
 
     [Parameter(Mandatory = $false, HelpMessage = "Locale pack to install (en or tr)")]
     [ValidateSet("en", "tr")]
-    [string]$Locale = "en"
+    [string]$Locale = "en",
+
+    [Parameter(Mandatory = $false)]
+    [switch]$Legacy
 )
 
 $ErrorActionPreference = "Stop"
@@ -63,6 +66,24 @@ try {
 catch {
     Write-Error "ERROR: Failed to create plans directory: $_"
     exit 1
+}
+
+if ($Legacy) {
+    Write-Host "🔹 Applying Legacy/Brownfield Quarantine..."
+    $TechDebtFile = Join-Path $TargetDir "TECH_DEBT_AND_SECURITY.md"
+    $LegacyContent = @"
+# Legacy Quarantine & Tech Debt
+
+> [!WARNING]
+> This project was onboarded as a Brownfield project via Phase-X.
+> The existing codebase is quarantined. Do not refactor existing spaghetti code unless explicitly requested.
+> ALL NEW code must adhere strictly to Universal Agent OS IL-01 to IL-16 rules.
+
+## Known Legacy Systems
+(Agent: Run a full project scan to populate this section with existing architectural patterns and debt)
+"@
+    Set-Content -Path $TechDebtFile -Value $LegacyContent
+    Write-Host "   -> Created TECH_DEBT_AND_SECURITY.md quarantine template."
 }
 
 Write-Host "=========================================================="

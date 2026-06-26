@@ -1,35 +1,51 @@
 import * as vscode from 'vscode';
-import { exec } from 'child_process';
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Universal Agent OS extension is now active.');
+    console.log('Universal Agent OS is now active!');
 
-    let startInterview = vscode.commands.registerCommand('agent-os.startPhase0', () => {
-        vscode.window.showInformationMessage('Starting Phase-0 Interview...');
-        // Future integration: launch terminal and run interactive python script
-        const terminal = vscode.window.createTerminal('Agent OS');
-        terminal.show();
-        terminal.sendText('python examples/phase0-interview/phase0_interview.py');
-    });
+    const collection = vscode.languages.createDiagnosticCollection('agentOS');
+    context.subscriptions.push(collection);
 
-    let verifyGate = vscode.commands.registerCommand('agent-os.verifyGovernance', () => {
-        const workspaceFolders = vscode.workspace.workspaceFolders;
-        if (!workspaceFolders) {
-            vscode.window.showErrorMessage('No workspace folder found.');
+    vscode.workspace.onDidSaveTextDocument(document => {
+        if (document.languageId === 'Log' || document.fileName.endsWith('.md')) {
             return;
         }
 
-        const cwd = workspaceFolders[0].uri.fsPath;
-        exec('npx agent-os verify', { cwd }, (error, stdout, stderr) => {
-            if (error) {
-                vscode.window.showErrorMessage(`Governance Gate Failed: ${stderr}`);
-                return;
-            }
-            vscode.window.showInformationMessage(`Governance Gate Passed: ${stdout}`);
-        });
-    });
+        const config = vscode.workspace.getConfiguration('agentOS');
+        const limit = config.get<number>('antiMonolithLimit', 400);
 
-    context.subscriptions.push(startInterview, verifyGate);
+        const diagnostics: vscode.Diagnostic[] = [];
+
+        // Rule 1: Anti-Monolith
+        if (document.lineCount > limit) {
+            const range = new vscode.Range(0, 0, 0, 100);
+            const diagnostic = new vscode.Diagnostic(
+                range,
+                `[Agent OS IL-06] Anti-Monolith Violation: File exceeds ${limit} lines. Consider spawning a new module.`,
+                vscode.DiagnosticSeverity.Warning
+            );
+            diagnostics.push(diagnostic);
+        }
+
+        // Rule 2: Zero-Zombie-Code
+        const text = document.getText();
+        if (text.includes('// TODO:') || text.includes('// FIXME:')) {
+            // Very basic check, in a real scenario we'd regex for lines.
+            // Just add a generic info for now.
+             const firstTodo = text.indexOf('// TODO:') !== -1 ? text.indexOf('// TODO:') : text.indexOf('// FIXME:');
+             const position = document.positionAt(firstTodo);
+             const range = new vscode.Range(position, position);
+             
+             const diagnostic = new vscode.Diagnostic(
+                range,
+                `[Agent OS] Zero-Zombie-Code Policy: Make sure this TODO is tracked in the Task Ledger.`,
+                vscode.DiagnosticSeverity.Information
+            );
+            diagnostics.push(diagnostic);
+        }
+
+        collection.set(document.uri, diagnostics);
+    });
 }
 
 export function deactivate() {}
