@@ -17,6 +17,23 @@ Bu pakette ilk okunacak kanonik donor kaynak `AGENT_OS_RULES.md` dosyasidir.
 
 ---
 
+## Yeni Baslayanlar Icin Kurulum (Beginner-Friendly Bootstrap)
+
+Bu framework, yazilim gelistirme bilgisi olmayan kisiler icin de tasarlanmistir. Bir kullanici projeye su kadar basit bir cumleyle baslayabilmelidir:
+
+> Bir fikrim var. Bunu bir projeye donusturmeme yardim et.
+
+### Yeni Baslayanlar Icin Iletisim Kurallari
+- Kullanicinin dilini taklit et. Eger Ingilizce yaziyorsa Ingilizce yanit ver. Turkce yaziyorsa Turkce yanit ver.
+- Yazilim jargonu yerine gunluk kelimeleri tercih et.
+- Teknik bir terim kacinilmazsa, onu tek bir cumleyle acikla.
+- Bir seferde tek bir islem/eylem ver.
+- Belirsizligi asla ayiplama; "Emin degilim" gecerli bir cevaptir.
+- Guvenli bir varsayilan oner, ama karari kullaniciya birak.
+- Phase-0'dan sonra kararlastirilanlari ozetle.
+
+---
+
 ## 0) TL;DR (Pazarlik Edilemez)
 - No-New-Debt: her iste `Tech-Debt Delta = 0`.
 - Plan -> Kanit -> Test disinda "yapildi" kabul edilmez.

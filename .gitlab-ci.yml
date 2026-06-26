@@ -1,4 +1,27 @@
-include:
-  - component: $CI_SERVER_HOST/components/ai-catalog/catalog-sync@0.0.1
-    inputs:
-      group_id: "135039596"
+stages:
+  - test
+  - validate
+
+test:
+  stage: test
+  image: python:3.11
+  script:
+    - pip install pytest pyyaml
+    - pytest tests/ -v --tb=short
+
+validate-governance:
+  stage: validate
+  script:
+    - test -f LICENSE
+    - test -f AGENTS.md
+    - test -f README.md
+    - test -f VERSION
+    - test -f CHANGELOG.md
+    - test -f LICENSING.md
+    - test -f init-agent-os.sh
+    - test -f init-agent-os.ps1
+    - test -d en
+    - test -d tr
+    - test -d skills
+    - test -d docs
+    - echo "All governance surfaces verified."

@@ -1,1 +1,52 @@
-*.mp4
+# .gitignore - Universal Agent OS
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Environment variables (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Node.js (if applicable in downstream projects)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test artifacts
+.pytest_cache/
+htmlcov/
+.coverage
+*.cover
+
+# Plans - completed plans archive (project-specific, not package-level)
+# Uncomment in downstream repos if desired:
+# plans/completed/
+
+# OS files
+*.bak
+*.tmp
+*.log

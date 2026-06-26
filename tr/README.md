@@ -31,3 +31,16 @@ Kullanim:
 Kural:
 - Agent-native dosyalar kopru notu degil, kendi ekosistemine uygun operasyon yuzeyidir.
 - Hicbir agent surface donor omurgayi, `AGENTS.md` otoritesini veya plan-template disiplinini daraltamaz.
+
+## Ajan Adaptoru Kesif Bilgisi (Adapter Discovery)
+
+Ajanlarin bu governance kurallarini otomatik olarak kesfedip uygulamasini saglamak icin adaptor dosyalarini projenizin kok dizininde su konumlara yerlestirin:
+
+- **Claude**: Kok dizinde `CLAUDE.md`.
+- **Gemini**: Kok dizinde `GEMINI.md`.
+- **Aider**: Kok dizinde `AIDER.md` veya kurallari referans alan `.aider.conf.yml`.
+- **Cursor**: `.cursor/rules/global-governance.mdc`
+- **GitHub Copilot**: `.github/copilot-instructions.md`
+- **GitLab Duo / Agent OS**: `.agent/rules/global-governance.md`
+
+Bu adaptorleri standart konumlarinda tutarak, ilgili ajanlar repository icinde calisirken governance cercevesini otomatik olarak taniyacak ve uygulayacaktir.

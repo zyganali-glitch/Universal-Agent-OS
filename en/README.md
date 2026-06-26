@@ -31,3 +31,16 @@ Suggested flow:
 Rule:
 - Agent-native files are not thin bridge notes. They are richer operational surfaces for each ecosystem.
 - None of them may weaken the donor, `AGENTS.md`, or the planning-template hierarchy.
+
+## Adapter Discovery Information
+
+To ensure agents automatically discover and apply these governance rules, place the adapter files in the following locations in your project root:
+
+- **Claude**: `CLAUDE.md` in the root directory.
+- **Gemini**: `GEMINI.md` in the root directory.
+- **Aider**: `AIDER.md` or `.aider.conf.yml` referencing the rules.
+- **Cursor**: `.cursor/rules/global-governance.mdc`
+- **GitHub Copilot**: `.github/copilot-instructions.md`
+- **GitLab Duo / Agent OS**: `.agent/rules/global-governance.md`
+
+By keeping these adapters in their standard locations, the respective agents will automatically pick up the governance framework when they operate in the repository.

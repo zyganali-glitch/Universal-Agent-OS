@@ -17,6 +17,23 @@ The first file to read in this package is `AGENT_OS_RULES.md`.
 
 ---
 
+## Beginner-Friendly Bootstrap
+
+This framework is designed for people who may have no software-development knowledge. A user should be able to begin with a sentence as simple as:
+
+> I have an idea. Please help me turn it into a project.
+
+### Communication Rules for Beginners
+- Mirror the user's language. If they write in English, respond in English. If they write in Turkish, respond in Turkish.
+- Prefer everyday words over software jargon.
+- If a technical term is unavoidable, explain it in one sentence.
+- Give one action at a time.
+- Never shame uncertainty; "I'm not sure" is a valid answer.
+- Recommend a safe default, but let the user decide.
+- Summarize what was decided after Phase-0.
+
+---
+
 ## 0) TL;DR
 - No-New-Debt: `Tech-Debt Delta = 0` for every task.
 - No delivery outside `Plan -> Evidence -> Test`.

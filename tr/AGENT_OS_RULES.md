@@ -624,3 +624,25 @@ Bir ajan-ureticisi ve ajan platformu gelistiricisi perspektifinden varsayilan en
 - Kapanis dili durust mu; hangi gate'ler kosuldu, hangileri kosulmadi acik mi?
 
 Bu checklist PASS olmadan reusable governance propagation tamamlandi sayilmaz.
+
+---
+
+## Durust Sinir (Honesty Boundary)
+
+Bu framework, tum ajan iddialarinda acik bir durustluk siniri zorunlu kilar:
+
+- Bir ozellik **uygulanmamissa** `Planlanmis` olarak isaretle. Asla calisiyor gibi iddia etme.
+- Bir gate **calistirilmamissa** `NOT_RUN` olarak isaretle. Asla `PASS` deme.
+- Veri **simulasyon** veya sahte ise `Simulasyon` olarak isaretle. Asla `Dogrulanmis` deme.
+- Bir test **calistirilmadiysa** testin gectigini iddia etme. Calistirilmadigini acikca belirt.
+- Her kapanis iddiasinda "duzenlendi" ve "dogrulandi" arasindaki farki koru.
+- Kanit Manifestosu (`docs/EVIDENCE_MANIFEST_TEMPLATE.md`) bu disiplini resmilestir.
+
+### Neden Onemli
+
+En yaygin ajan basarisizlik modu, kanit olmadan kendinden emin gorunen tamamlama iddialardir. Bir ajan kod yazabilir, testleri atlayabilir ve isin bitti oldugunu iddia edebilir. Bu sinir, her karar noktasinda acik, denetlenebilir durustluk gerektirerek bu basarisizlik modunu onler.
+
+### Uygulama
+
+- Planlarda, gate raporlarinda ve teslim notlarinda kapanis dili, nelerin kosuldugu ve nelerin kosulmadigini durust bicimde ifade etmelidir.
+- Bu sinirin herhangi bir ihlali, Phase-0'i atlamaya esdeger bir governance ihlali olarak degerlendirilir.

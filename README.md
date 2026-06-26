@@ -156,14 +156,15 @@ That is why the README makes two claims at once:
 ## Repository Layout
 
 - `en/`, `tr/`: locale packs and operator-facing adapter surfaces
+- `tests/`: test suite validating structural parity and governance presence
+- `docs/`: architecture diagrams, onboarding, and evidence manifest templates
+- `examples/`: reference implementations (Phase-0 scripts, Docker, .env)
 - `.github/instructions/`: architecture and scoped-instruction registries
 - `.github/agents/`: role-template system and registries
 - `.github/prompts/`: prompt-template system and registries
 - `.agent/skills/`: root skill-template library and registries
 - `.agent/workflows/`: root workflow routing surfaces
 - `plans/`: active roadmap and architecture/productization work
-- `docs/`: onboarding and slash-command guides by locale
-- `examples/`: landing-shape examples for target repos
 
 ## Bottom Line
 

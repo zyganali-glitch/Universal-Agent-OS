@@ -537,3 +537,25 @@ From the perspective of an agent-platform builder and a senior automation engine
 - Is closure language honest about what ran and what did not?
 
 This package is not complete until this checklist is satisfied.
+
+---
+
+## Honesty Boundary
+
+This framework enforces an explicit honesty boundary on all agent claims:
+
+- If a feature is **not implemented**, mark it as `Planned`. Never claim it works.
+- If a gate was **not run**, mark it as `NOT_RUN`. Never mark it `PASS`.
+- If data is **simulated** or mocked, mark it as `Simulated`. Never claim it is `Verified`.
+- If a test was **not executed**, do not claim the test passed. State clearly that it was not run.
+- Distinguish between "edited" and "validated" in every closure claim.
+- The Evidence Manifest (`docs/EVIDENCE_MANIFEST_TEMPLATE.md`) formalizes this discipline.
+
+### Why This Matters
+
+The most common agent failure mode is confident-sounding completion without evidence. An agent may write code, skip tests, and claim the task is done. This boundary prevents that failure mode by requiring explicit, auditable honesty at every decision point.
+
+### Enforcement
+
+- Closure language in plans, gate reports, and handoff notes must be honest about what ran and what did not.
+- Any violation of this boundary is treated as a governance breach, equivalent to bypassing Phase-0.
