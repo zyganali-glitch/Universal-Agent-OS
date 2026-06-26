@@ -97,7 +97,9 @@ It is rapidly maturing into:
 
 1. a polished one-command consumer product (via `agent-os` CLI)
 2. a finished automation platform (via GitHub Actions & pre-commit hooks)
-3. an extensible IDE ecosystem (via VS Code scaffold)
+3. an extensible IDE ecosystem (via VS Code scaffold under `extensions/vscode/`)
+
+*Note: The VS Code extension and CLI are currently packaged locally inside the repo. They are not yet published to the public VS Code Marketplace or public NPM registry. You must clone this repository to use them.*
 
 ## How It Works
 
@@ -110,24 +112,36 @@ It is rapidly maturing into:
 
 ## Getting Started
 
-Windows / PowerShell:
+### Method 1: The Novice Guide (Zero CLI Knowledge Required)
+If you are new to coding and just want to get this working in VS Code:
+1. Click the green **"<> Code"** button at the top of this GitHub repository.
+2. Select **"Download ZIP"**.
+3. Extract the downloaded ZIP file to a folder on your computer.
+4. Open **VS Code**, go to `File > Open Folder`, and select the extracted folder.
+5. In VS Code, go to `Terminal > New Terminal` from the top menu.
+6. To use the framework, simply tell your AI Assistant (like GitHub Copilot or Cursor):
+   > *"I want to start a new project. Please read `AGENTS.md` and `docs/ONBOARDING_DEMO.md` first, then run a Phase-0 interview with me."*
 
+### Method 2: Command Line (For Developers)
+
+Windows / PowerShell:
 ```powershell
-./init-agent-os.ps1 -TargetDir <your-project-path> -Locale en
+git clone https://github.com/zyganali-glitch/Universal-Agent-OS.git
+cd Universal-Agent-OS
+./init-agent-os.ps1 -TargetDir . -Locale en
 ```
 
 macOS/Linux / bash:
-
 ```bash
-./init-agent-os.sh <your-project-path>
+git clone https://github.com/zyganali-glitch/Universal-Agent-OS.git
+cd Universal-Agent-OS
+./init-agent-os.sh .
 ```
 
-Manual fallback:
-
-1. Copy one locale pack (`en/` or `tr/`) into the target repository root.
-2. Open the target repository in your AI-enabled IDE or agent runtime.
-3. Ask the agent to read `AGENTS.md` and `.agent/workflows/session-bootstrap.md`.
-4. Complete the Phase 0 interview before implementation begins.
+### Method 3: Running the local CLI & VS Code Extension
+Since the CLI and VS Code extensions are in early Enterprise v1.0.0, they run locally:
+- **To test the CLI**: Run `npm link` in the root folder, then you can use `npx agent-os init` and `npx agent-os verify` anywhere.
+- **To test the VS Code Extension**: Open the `extensions/vscode/` folder in VS Code, run `npm install`, then press `F5` to open a new VS Code Extension Host window. Press `Ctrl+Shift+P` and type `Agent OS: Start Phase-0 Interview`.
 
 ## Who This Is For
 
