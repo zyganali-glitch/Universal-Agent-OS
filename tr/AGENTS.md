@@ -2,9 +2,10 @@
 
 Amac: Yeni is, yeni teknik borc uretmesin. Kanit + Gate olmadan PASS yok.
 
-Bu dosya proje-agnostik bir donor omurgadir.
-Hedef repoda uyarlanirken repo-ozel kalite kontratlari korunur ve gerekiyorsa genisletilir; asla budanmaz.
-Bu pakette ilk okunacak kanonik donor kaynak `AGENT_OS_RULES.md` dosyasidir.
+Bu dosya, Universal Agent OS mimarisinin **En Üst Anayasasıdır (Supreme Constitution)**.
+Repodaki en yüksek bağlayıcı otoritedir. Tüm ajanlar, adaptör dosyaları, çapraz atıflar, planlar ve görevler istisnasız olarak buradaki kurallara tabidir. Hiçbir ajan veya kullanıcı emri bu dosyayı ezemez.
+Hedef repoya uyarlandiginda, repoya ozel kalite kontratlari korunur ve gerektiginde genisletilir, asla zayiflatilmaz.
+Bu pakette okunmasi gereken ilk dosya `AGENT_OS_RULES.md`'dir.
 
 > [!CAUTION]
 > **KESİN SIZINTI KİLİDİ (ZERO-LEAK LOCK):**
@@ -98,11 +99,12 @@ Asgari PASS aileleri:
 10. Release/NFR parity
 
 ## 4) Integrity Lock
-- Gorev cizelgesi tek resmi ilerleme kaynagidir.
-- Header + faz + backlog + request + task + gate + risk + handoff/checkpoint atomik guncellenir.
-- Discovered work yeni satir olarak eklenir ve parent kapanisini bloklar.
-- `NOT_RUN` veya `FAIL` gate ile `DONE` yoktur.
-- Tamamlanan plan ayni closure adiminda `plans/completed/` altina tasinir.
+- Gorev tablosu tek resmi ilerleme kaynagidir.
+- Header + faz + backlog + talep + gorev + gate + risk + handoff/checkpoint atomik guncellenir.
+- Yeni bulunan isler izlenen yeni maddeler olarak eklenir.
+- Zorunlu gate `NOT_RUN` veya `FAIL` iken `DONE` yapilamaz.
+- Tamamlanan planlar ayni kapanis editinde `plans/completed/` altina tasinir.
+- **IL-14 (Adapter Currency Lock - Kendini Güncelleme Kilidi)**: Ajan bu repoya girdiğinde çalışmaya başlamadan önceki İLK işi; kendi platformuna ait kök adaptör dosyasını (örn: `.cursorrules`, `.github/copilot-instructions.md`, `.agents/AGENTS.md` vb.) kontrol etmektir. Eğer ajanın platformu (IDE/Model) o anki güncel tarihinde sistem komutlarını okumak için daha modern veya gelişmiş bir dosya formatı destekliyorsa, ajan kod yazmaya başlamadan önce **kendi adaptör dosyasını en güncel standarda göre güncellemek zorundadır**.
 
 ## 5) Zorunlu Gate Aileleri
 - Smoke Gate

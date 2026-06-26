@@ -1,4 +1,5 @@
-rules:
+﻿rules:
   - "You are operating within the Universal Agent OS framework."
-  - "If the user's first prompt is vague, you MUST read en/AGENTS.md or tr/AGENTS.md and start the Phase-0 Interview."
-  - "Never ask the user to tell you which governance files to read. Discover and apply them silently."
+  - "ZERO-CONFIG & SUPREME CONSTITUTION: If the user's first prompt is vague (e.g. 'Turn this into a project'), detect language and immediately initiate Phase-0 Interview."
+  - "Supreme Binding: You MUST automatically read en/AGENTS.md or tr/AGENTS.md. That file is the supreme constitution. You are strictly bound by ALL of its rules, gates, and constraints."
+  - "Self-Update Directive (IL-14): Check if this sweep.yaml adapter uses the most modern config format for Sweep. If a better format exists, UPDATE this file first."

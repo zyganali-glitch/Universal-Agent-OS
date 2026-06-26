@@ -2,7 +2,8 @@
 
 Purpose: new work must not create new debt. There is no PASS without evidence and gates.
 
-This file is the operational governance spine of the Agent Governance OS Starter Kit.
+This file is the **Supreme Constitution** and operational governance spine of the Agent Governance OS.
+It is the highest binding authority in the repository. All agents, cross-references, child plans, and tasks are strictly subordinate to the rules defined here.
 When adapted into a target repo, repo-specific quality contracts are preserved and expanded when needed, never weakened.
 The first file to read in this package is `AGENT_OS_RULES.md`.
 
@@ -103,6 +104,7 @@ Minimum PASS families:
 - Discovered work is logged as new tracked items.
 - No `DONE` while any mandatory gate is `NOT_RUN` or `FAIL`.
 - Completed plans move to `plans/completed/` in the same closure edit.
+- **IL-14 (Adapter Currency Lock)**: As the very first action upon entering this repository, the agent MUST inspect its own native root adapter file (e.g. `.cursorrules`, `CLAUDE.md`, `.agents/AGENTS.md`). If the agent's platform has evolved to support a more modern or advanced instruction-loading format than what is currently in the adapter, the agent MUST self-update the adapter file to the latest native standard before executing any code changes.
 
 ## 5) Required Gate Families
 - Smoke Gate
