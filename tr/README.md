@@ -43,4 +43,11 @@ Ajanlarin bu governance kurallarini otomatik olarak kesfedip uygulamasini saglam
 - **GitHub Copilot**: `.github/copilot-instructions.md`
 - **GitLab Duo / Agent OS**: `.agent/rules/global-governance.md`
 
-Bu adaptorleri standart konumlarinda tutarak, ilgili ajanlar repository icinde calisirken governance cercevesini otomatik olarak taniyacak ve uygulayacaktir.
+## Zero-Config Auto-Discovery (Sıfır Ayar)
+
+Reponun kök dizininde bulunan `.cursorrules`, `CLAUDE.md` ve `.github/copilot-instructions.md` gibi dosyalar sayesinde ajanlar kuralları **otomatik** olarak keşfeder.
+Projeye başlarken ajana teknik bir prompt vermenize gerek yoktur. Sadece şunu yazın:
+
+> *"Bir fikrim var. Bunu bir projeye dönüştürmeme yardım et."*
+
+Ajan arka planda bu dosyayı okuyacak ve zorunlu "Phase-0" mülakatını kendiliğinden başlatacaktır.

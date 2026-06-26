@@ -120,7 +120,9 @@ If you are new to coding and just want to get this working in VS Code:
 4. Open **VS Code**, go to `File > Open Folder`, and select the extracted folder.
 5. In VS Code, go to `Terminal > New Terminal` from the top menu.
 6. To use the framework, simply tell your AI Assistant (like GitHub Copilot or Cursor):
-   > *"I want to start a new project. Please read `AGENTS.md` and `docs/ONBOARDING_DEMO.md` first, then run a Phase-0 interview with me."*
+   > *"I have an idea. Help me turn it into a project."* (or *"Bir fikrim var."* in Turkish)
+   
+   **That's it!** The Agent OS "Zero-Config Auto-Discovery" will automatically detect your intent, silently read the governance rules from the root (`AGENTS.md`), and begin the mandatory Phase-0 interview without any further technical setup from you.
 
 ### Method 2: Command Line (For Developers)
 
@@ -138,10 +140,17 @@ cd Universal-Agent-OS
 ./init-agent-os.sh .
 ```
 
-### Method 3: Running the local CLI & VS Code Extension
-Since the CLI and VS Code extensions are in early Enterprise v1.0.0, they run locally:
-- **To test the CLI**: Run `npm link` in the root folder, then you can use `npx agent-os init` and `npx agent-os verify` anywhere.
-- **To test the VS Code Extension**: Open the `extensions/vscode/` folder in VS Code, run `npm install`, then press `F5` to open a new VS Code Extension Host window. Press `Ctrl+Shift+P` and type `Agent OS: Start Phase-0 Interview`.
+### Method 3: Installing the Enterprise VS Code Extension
+For a fully integrated IDE experience, we have packaged the Universal Agent OS as a VS Code Extension (`.vsix`):
+1. Download the `universal-agent-os-1.0.0.vsix` file from the root of this repository.
+2. In VS Code, open the Extensions view (`Ctrl+Shift+X`).
+3. Click the `...` (Views and More Actions) menu in the top right of the Extensions view.
+4. Select **"Install from VSIX..."** and choose the downloaded file.
+5. Press `Ctrl+Shift+P` and type `Agent OS: Start Phase-0 Interview` to begin.
+
+### Method 4: Running the local CLI 
+To test the `agent-os` CLI tools locally:
+- Run `npm link` in the root folder, then use `npx agent-os init` and `npx agent-os verify` anywhere.
 
 ## Who This Is For
 

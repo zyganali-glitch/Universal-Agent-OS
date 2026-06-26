@@ -12,8 +12,9 @@ Product name: Agent Governance OS Starter Kit
 1. Open the package root and choose `tr/` or `en/`.
 2. Read the locale donor file first.
 3. Read the locale `AGENTS.md` and global plan template.
-4. Copy the selected locale pack into a fresh repo root.
-5. Ask the agent to run a consultation-first startup flow.
+4. Open the root folder in VS Code.
+5. (Optional) Install the `universal-agent-os-1.0.0.vsix` extension file via the VS Code extensions menu.
+6. Tell the AI: *"I have an idea. Turn it into a project."* (The agent will auto-discover the Phase-0 flow).
 6. Make the agent write or harden the repo-root `AGENT_OS_PLAN_TEMPLATE.md`.
 7. Make the agent create a master roadmap plus child execution plans.
 8. Confirm that implementation does not start before plan, evidence, and test strategy exist.
