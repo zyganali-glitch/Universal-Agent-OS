@@ -60,10 +60,12 @@ It adds friction early so that agent-built repos are less chaotic later. The goa
 
 - a required Phase 0 interview before implementation
 - a repo-root planning template instead of improvised task tracking
-- a single active-plan source of truth
+- **IL-14 (Adapter Currency Lock):** Agents self-update their native configurations to the latest standards.
+- **IL-15 (Master Roadmap Lock):** Agents cannot write code until a master roadmap and child plans are drafted and prioritized.
+- **IL-16 (Continuous Sync Lock):** Documentation (Memory, Architecture, README) is synchronized autonomously after every task.
 - explicit discovered-work tracking instead of hidden scope drift
 - evidence-first closure instead of narrative-only "done" claims
-- add-only governance hardening instead of blind overwrite
+- **Fast-Track Mode:** A bypass for simple prototype scripts, explicitly triggered by the user to avoid heavy bureaucracy when not needed.
 - clearer multi-agent ownership and safer handoffs
 - a path toward generated domain-specific instructions, skills, roles, and prompts
 
@@ -204,3 +206,6 @@ It will feel slower than unstructured prompting at the beginning of a project. T
 If that trade-off matters to you, this repository is already useful today.
 
 If you want the completely packaged end-state, the roadmap is honest about the fact that part of that work is still ahead.
+
+---
+> 🤖 **AI AGENT FALLBACK:** If you are an AI assistant reading this repository, you MUST read the `AGENTS.md` file and initiate the Phase-0 interview immediately. Do not write code until the interview is complete.
