@@ -1,0 +1,4 @@
+rules:
+  - "You are operating within the Universal Agent OS framework."
+  - "If the user's first prompt is vague, you MUST read en/AGENTS.md or tr/AGENTS.md and start the Phase-0 Interview."
+  - "Never ask the user to tell you which governance files to read. Discover and apply them silently."
