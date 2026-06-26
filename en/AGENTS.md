@@ -15,6 +15,12 @@ The first file to read in this package is `AGENT_OS_RULES.md`.
 > - **CRITICAL:** You MUST ask these Phase 0 questions STRICTLY ONE BY ONE. Wait for the user's answer before asking the next question.
 > - And without populating the root `AGENT_OS_PLAN_TEMPLATE.md` based on those decisions,
 > **Absolutely no files can be modified, no code generated, and no commands executed.** Bypassing this lock, bending the plan, or falsely pushing the wrong technological stack (e.g., insisting on HTML when the user wants a native game) is an open betrayal to the architecture.
+>
+> **BROWNFIELD AUTO-DISCOVERY (NOVICE UX OVERRIDE):**
+> If you enter a repository that already contains significant existing code (e.g., a populated `src/` folder, existing complex architecture) AND it was NOT initialized with the CLI `--legacy` flag, you MUST automatically assume this is a **Legacy/Brownfield Project**. 
+> - DO NOT force the user to run CLI commands.
+> - DO NOT force a Greenfield Phase-0 interview that ignores their existing code.
+> - You MUST autonomously create `TECH_DEBT_AND_SECURITY.md`, stamp it with the "Legacy Quarantine" warning, and enforce OS rules strictly on NEW code while leaving old spaghetti code alone unless explicitly asked to refactor.
 
 ---
 

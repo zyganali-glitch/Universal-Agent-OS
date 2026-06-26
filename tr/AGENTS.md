@@ -15,6 +15,12 @@ Bu pakette okunmasi gereken ilk dosya `AGENT_OS_RULES.md`'dir.
 > - **KRİTİK:** Bu Phase 0 sorularını KESİNLİKLE TEK TEK sormak zorundasınız. Bir sonraki soruyu sormadan önce mutlaka kullanıcının cevabını bekleyin.
 > - Ve bu kararlar doğrultusunda kök dizindeki `AGENT_OS_PLAN_TEMPLATE.md` üretilmeden,
 > **Hiçbir dosya düzenlenemez, kod oluşturulamaz ve komut çalıştırılamaz.** Kilit atlamak, planı esnetmek ve yanlış teknoloji eğilimine kapılmak (Örn: oyun isteyen kullanıcıya ısrarla HTML sormak) mimariye açık bir ihanettir.
+>
+> **BROWNFIELD AUTO-DISCOVERY (AMATÖR UX KORUMASI):**
+> Ajan, halihazırda yoğun bir kod tabanı olan (örn: dolu bir `src/` dizini) devam eden bir projeye girdiğinde ve kullanıcı komut satırından `--legacy` bayrağı ile kurulum yapmamış olsa bile, bu projenin bir **Legacy/Brownfield** (Devam Eden Proje) olduğunu OTOMATİK OLARAK TESPİT ETMEK ZORUNDADIR.
+> - Kullanıcıyı terminal komutu çalıştırmaya ZORLAMA.
+> - Mevcut kodu yok sayan baştan yaratma (Greenfield Phase-0) mülakatını DAYATMA.
+> - Ajan kendi inisiyatifiyle `TECH_DEBT_AND_SECURITY.md` dosyasını oluşturup "Legacy Karantina" damgasını vurmalı ve mevcut spagetti koda dokunmadan sadece yeni eklenecek kodlarda OS kurallarını işletmelidir.
 
 ---
 
