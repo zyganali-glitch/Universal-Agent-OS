@@ -3,6 +3,11 @@
   "displayName": "Universal Agent OS",
   "description": "Enterprise IDE extension for the Universal Agent OS consultation-first governance framework.",
   "version": "1.0.0",
+  "publisher": "mehmet-aydogan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zyganali-glitch/Universal-Agent-OS.git"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
