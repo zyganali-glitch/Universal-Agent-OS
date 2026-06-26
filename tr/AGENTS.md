@@ -48,11 +48,13 @@ Bu framework, yazilim gelistirme bilgisi olmayan kisiler icin de tasarlanmistir.
 - Kapsam dahilinde ise Selftest ve Component Testler ilgili unit testlerle koşulur.
 - Domain Spesifik mimariler (Card, Dashboard, Export) varsa esnetilmeden korunur, yoksa dayatılmaz.
 - Multi-Role Review Stack zorunludur.
-- Yeni proje baslangicinda ajan, kullaniciyla soru-cevapli mutabakat yapar ve repo kokunde proje-ozel `AGENT_OS_PLAN_TEMPLATE.md` yazar veya sertlestirir.
+- Yeni proje baslangicinda ajan, kullaniciyla soru-cevapli mutabakat yapar ve **İLK İŞ OLARAK** repo kokunde proje-ozel `AGENT_OS_PLAN_TEMPLATE.md` yazar veya sertlestirir.
+- **Master Roadmap Lock (Plan Oluşturma Planı):** Uçtan uca tüm alt planları listeleyen yaşayan bir master roadmap yazılmalıdır. Bu listedeki tüm planlar hazırlanmadan ve önceliklendirilmeden **KESİNLİKLE KODLAMAYA BAŞLANAMAZ.**
+- **Continuous Sync Lock:** Ajan HER GÖREV BİTİMİNDE Memory, Mimari (Architecture), kullanıcı repo README'si ve ilgili tüm dokümanları eşzamanlı olarak güncellemek zorundadır.
 - Uygulama oncesi master roadmap + child execution planlarindan olusan hiyerarsik plan portfoyu uretimi zorunludur.
 - Ana ajan orkestrasyonu zorunludur: sohbet ajani ana ajandir, tek yazar/owner olarak varsayilir, en fazla 2-3 aktif mikro-faz tasir.
 - Gercek alt ajan destegi yoksa ayni disiplin `fallback-to-sequential` ile korunur.
-- Integrity Lock (IL-01 to IL-12), IL-13 (Live-Docs Sync) ve completed-plan archive kuralı zorunludur.
+- Integrity Lock (IL-01 to IL-12), IL-13 (Live-Docs Sync), IL-14 (Adapter Lock), IL-15 (Roadmap Lock), IL-16 (Continuous Sync Lock) ve completed-plan archive kuralı zorunludur.
 - Push/deploy/repo-sync taleplerinde Triple-Sync Lock zorunludur.
 
 ---
@@ -105,6 +107,8 @@ Asgari PASS aileleri:
 - Zorunlu gate `NOT_RUN` veya `FAIL` iken `DONE` yapilamaz.
 - Tamamlanan planlar ayni kapanis editinde `plans/completed/` altina tasinir.
 - **IL-14 (Adapter Currency Lock - Kendini Güncelleme Kilidi)**: Ajan bu repoya girdiğinde çalışmaya başlamadan önceki İLK işi; kendi platformuna ait kök adaptör dosyasını (örn: `.cursorrules`, `.github/copilot-instructions.md`, `.agents/AGENTS.md` vb.) kontrol etmektir. Eğer ajanın platformu (IDE/Model) o anki güncel tarihinde sistem komutlarını okumak için daha modern veya gelişmiş bir dosya formatı destekliyorsa, ajan kod yazmaya başlamadan önce **kendi adaptör dosyasını en güncel standarda göre güncellemek zorundadır**.
+- **IL-15 (Master Roadmap & Coding Lock - Kodlama Kilidi)**: Phase-0 bittikten sonra ajanın yapacağı İLK İŞ projeye özel global plan şablonunu oluşturmak ve projenin uçtan uca bitmesi için gereken tüm planları listeleyen bir "Plan Oluşturma Planı" (Master Roadmap) yapmaktır. Bu plan yaşayan bir plandır. Master Roadmap içinde listelenen tüm planlar hazırlanmadan ve işe göre öncelik sırası belirlenmeden **KESİNLİKLE KODLAMAYA VEYA İCRAYA BAŞLANAMAZ.**
+- **IL-16 (Continuous Sync Lock - Sürekli Senkronizasyon)**: Ajan tamamladığı **HER İŞTEN SONRA** (sadece faz kapanışında değil); projeye ait Hafıza (Memory), Mimari (Architecture), kullanıcı repo README'si ve ilgili tüm dokümanları eşzamanlı olarak güncellemek zorundadır. Yaşayan dokümantasyonu güncellemeden hiçbir görev DONE (Tamamlandı) yapılamaz.
 
 ## 5) Zorunlu Gate Aileleri
 - Smoke Gate

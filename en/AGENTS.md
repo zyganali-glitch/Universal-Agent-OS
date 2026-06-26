@@ -48,11 +48,13 @@ This framework is designed for people who may have no software-development knowl
 - Selftest-by-page plus related tests are mandatory whenever applicable to the stack.
 - Domain-specific continuities (Dashboard Cards, Export, Admin Panel) are preserved if they exist, but never enforced if absent.
 - Multi-role review parity is mandatory.
-- For new projects, the agent must align with the user, then write or harden the repo-root `AGENT_OS_PLAN_TEMPLATE.md`.
+- For new projects, the agent must align with the user, then write or harden the repo-root `AGENT_OS_PLAN_TEMPLATE.md` as its FIRST action.
+- **Master Roadmap Lock**: A "Plan Creation Plan" (Master Roadmap) must be written containing all end-to-end child plans. **NO CODING CAN START** until all child plans are drafted and prioritized. The Master Roadmap is a living document.
+- **Continuous Sync Lock**: After EVERY task, the agent MUST synchronously update the project Memory, Architecture, user repo README, and any relevant guides.
 - Before implementation, the agent must create a hierarchical portfolio made of a master roadmap plus child execution plans.
 - The chat-facing agent is the main agent and default single writer, with at most 2-3 active micro-phases.
 - If real subagents do not exist, preserve the same discipline with `fallback-to-sequential`.
-- Integrity Lock (IL-01 to IL-12), IL-13 (Live-Docs Sync), and completed-plan archive are mandatory.
+- Integrity Lock (IL-01 to IL-12), IL-13 (Live-Docs Sync), IL-14 (Adapter Lock), IL-15 (Roadmap Lock), IL-16 (Continuous Sync Lock), and completed-plan archive are mandatory.
 - Triple-Sync Lock is mandatory for push/deploy/repo-sync work.
 
 ---
@@ -105,6 +107,8 @@ Minimum PASS families:
 - No `DONE` while any mandatory gate is `NOT_RUN` or `FAIL`.
 - Completed plans move to `plans/completed/` in the same closure edit.
 - **IL-14 (Adapter Currency Lock)**: As the very first action upon entering this repository, the agent MUST inspect its own native root adapter file (e.g. `.cursorrules`, `CLAUDE.md`, `.agents/AGENTS.md`). If the agent's platform has evolved to support a more modern or advanced instruction-loading format than what is currently in the adapter, the agent MUST self-update the adapter file to the latest native standard before executing any code changes.
+- **IL-15 (Master Roadmap & Coding Lock)**: After Phase-0, the agent MUST create a project-specific global plan template and a "Plan Creation Plan" (Master Roadmap). The Master Roadmap is a living document tracking all end-to-end child plans. **NO CODING OR EXECUTION CAN START** until all child plans listed in the Master Roadmap are drafted and prioritized.
+- **IL-16 (Continuous Sync Lock)**: At the end of EVERY executed task, the agent MUST synchronously update the project's Memory, Architecture documents, the user repository's README, and any other relevant documentation. Keeping the living documentation updated is a hard requirement for marking a task as DONE.
 
 ## 5) Required Gate Families
 - Smoke Gate
