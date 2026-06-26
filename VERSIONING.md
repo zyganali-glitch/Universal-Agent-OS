@@ -20,5 +20,5 @@ Product name: Agent Governance OS Starter Kit
 - Example repo and onboarding docs should be updated whenever startup flow changes.
 
 ## Current Release
-- Current version: `0.1.0`
-- Stability label: `Foundational beta`
+- Current version: `1.1.0`
+- Stability label: `Production`

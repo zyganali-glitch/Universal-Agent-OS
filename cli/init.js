@@ -13,7 +13,7 @@ module.exports = function(args) {
     if (process.platform === 'win32') {
       execSync(`powershell -ExecutionPolicy Bypass -File "${scriptPath}" -TargetDir . -Locale ${locale} ${legacyFlag}`, { stdio: 'inherit' });
     } else {
-      execSync(`bash "${path.join(__dirname, '..', 'init-agent-os.sh')} . ${locale} ${bashLegacyFlag}"`, { stdio: 'inherit' });
+      execSync(`bash "${path.join(__dirname, '..', 'init-agent-os.sh')}" . ${locale} ${bashLegacyFlag}`, { stdio: 'inherit' });
     }
     console.log("Initialization complete!");
   } catch (err) {
