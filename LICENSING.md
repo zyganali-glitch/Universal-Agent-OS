@@ -1,29 +1,37 @@
 # Licensing Model
 
-Package name: Agent Governance OS Starter Kit
+Package name: Universal Agent OS
 
-This file defines a packaging-ready licensing model for the kit. It is an operational product surface, not legal advice.
+## Current License
 
-## Recommended Commercial Model
-- Evaluation license: limited internal evaluation, no redistribution, no resale, no public template bundle publishing.
-- Team license: internal commercial use inside one company or one client delivery team.
-- Studio / agency license: multi-client internal reuse with a cap on active client repos.
-- OEM / platform license: embed or redistribute the kit inside a wider product, platform, or managed service.
+This project is currently released under the **MIT License** (see the [LICENSE](LICENSE) file in the repository root). Under MIT, you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the copyright notice and permission notice being included.
 
-## Default Restrictions
-- No removal of attribution or product naming in packaged distributions unless the commercial agreement says otherwise.
+## Future Commercial Model (Recommendation)
+
+The following tiers are recommended for a future commercial licensing transition. They are **not currently enforced** under the MIT license but represent the intended long-term monetization strategy:
+
+- **Evaluation license**: Limited internal evaluation, no redistribution, no resale, no public template bundle publishing.
+- **Team license**: Internal commercial use inside one company or one client delivery team.
+- **Studio / Agency license**: Multi-client internal reuse with a cap on active client repos.
+- **OEM / Platform license**: Embed or redistribute the kit inside a wider product, platform, or managed service.
+
+## Future Default Restrictions (Not Yet Active)
+
+The following restrictions would apply under a future commercial license, but are **not enforced** under the current MIT license:
+
+- No removal of attribution or product naming in packaged distributions.
 - No resale of the raw kit as an unmodified template dump.
-- No relicensing of donor files as a standalone public competing kit without explicit permission.
+- No relicensing of donor files as a standalone public competing kit.
 
 ## Recommended Deliverables Per License Tier
-- Evaluation: donor + template + docs, no premium example repo.
+- Evaluation: donor + template + docs.
 - Team: full locale packs + example repo + onboarding/demo docs.
-- Studio / agency: full packs + example repo + upgrade notes + commercial support matrix.
-- OEM / platform: white-label rights, integration notes, and release compatibility commitments.
+- Studio / Agency: full packs + example repo + upgrade notes + commercial support matrix.
+- OEM / Platform: white-label rights, integration notes, and release compatibility commitments.
 
 ## Internal Packaging Rule
 - Keep `VERSION`, `CHANGELOG.md`, `VERSIONING.md`, and this file in every sellable package cut.
 - Ship locale packs and example repo together so the buyer sees both policy and implementation shape.
 
 ## Legal Next Step
-- Before external sale, have counsel convert this model into your final commercial license text.
+- Before transitioning to a commercial model, have counsel convert the recommended tiers into your final commercial license text and update the `LICENSE` file accordingly.

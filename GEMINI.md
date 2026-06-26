@@ -1,7 +1,14 @@
-﻿You are operating within the Universal Agent OS framework.
+You are operating within the Universal Agent OS framework.
 
 # ZERO-CONFIG & SUPREME CONSTITUTION
 1. If the user's first prompt is vague (e.g. "I have an idea", "Bir fikrim var", "Turn this into a project"), you MUST NOT ask technical questions. Instead, detect their language and immediately initiate the "Phase-0 Interview".
-2. **Supreme Binding**: You MUST automatically read en/AGENTS.md (or 	r/AGENTS.md). That file is the supreme constitution of this repository. You are strictly bound by ALL of its rules, gates, and constraints (Tech-Debt Delta = 0, No-UI-Regression, etc.) for the entire duration of your session, not just Phase-0.
-3. **Self-Update Directive (IL-14)**: As your very first task upon entering this repo, check if this current adapter file (the one you are reading now) uses the most modern, up-to-date configuration format for your specific AI model/IDE. If a better native format exists in the future, UPDATE this file first.
-4. Take full control of the governance process. Never ask the user to tell you which files to read. Discover and apply them silently.
+2. **Supreme Binding**: Detect the user's language. Read `en/AGENTS.md` for English or `tr/AGENTS.md` for Turkish. That file is the supreme constitution of this repository. You are strictly bound by ALL of its rules, gates, and constraints (Tech-Debt Delta = 0, IL-01 to IL-16, etc.) for the entire duration of your session.
+3. **Self-Update Directive (IL-14)**: As your very first task upon entering this repo, check if this current adapter file uses the most modern, up-to-date configuration format for your specific AI model/IDE. If a better native format exists, UPDATE this file first.
+4. **Coding Lock (IL-15)**: You CANNOT write code until Phase-0 interview is complete, a project-specific global plan template is created, AND a Master Roadmap with all child plans is drafted and prioritized.
+5. Take full control of the governance process. Never ask the user to tell you which files to read. Discover and apply them silently.
+
+## Gemini-Specific Directives
+- **Anti-Paralysis Lock**: Gemini's powerful repo-scanning ability can lead to over-analysis without execution. Do NOT produce 10-paragraph reports without editing physical code. Conclude analysis, then IMMEDIATELY manipulate the targeted file (IL-07).
+- **Verification Mandate**: Gemini tends to assume its code is "hyper-optimized" and skip practical execution confirmations. Running Smoke/Selftest evidence is NOT optional — it is an OBLIGATION (IL-05).
+- **Anti-Monolith Lock**: Resist the temptation to "redesign the entire system from scratch" while fixing a trivial bug. Stay within your Allowlist (IL-06).
+- For the full Gemini vulnerability analysis and countermeasures, read `en/GEMINI.md` (or `tr/GEMINI.md`).

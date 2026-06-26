@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.0 - 2026-06-26
+- **Root AGENTS.md strengthened**: Added IL-14/15/16 references, locale detection hint, Multi-Role Review Stack, Fast-Track Mode.
+- **All 10 root adapter files differentiated**: Each agent-specific adapter now includes tailored directives for its known strengths/weaknesses (Cursor, Claude, Gemini, Aider, Copilot, Devin, Windsurf, Cline, Roo, OpenHands).
+- **CLI `verify.js` expanded**: From 2-file check to comprehensive governance verification covering core files, 4 Collective Memory pillars, agent adapters, IDE surfaces, and planning infrastructure.
+- **`package.json` fixed**: Test script now invokes pytest correctly. Added `verify` shortcut script. Added keywords.
+- **`init-agent-os.sh` rewritten**: Removed interactive prompts, made parametric (consistent with PS1), default locale `en`, bilingual output, CI/CD compatible.
+- **GitHub Actions enforcer expanded**: Comprehensive PR enforcement with locale parity checks, Collective Memory validation, core content verification.
+- **`LICENSING.md` clarified**: Resolved MIT LICENSE vs. commercial model contradiction. Commercial tiers are now clearly marked as future recommendations.
+- **`README.md` overhauled**: Honesty Boundary moved to top, adapter coverage table added, beginner UX improved, repository layout tree added, licensing section aligned.
+
 ## 1.0.0 - 2026-06-26
 - Promoted Universal Agent OS to full Enterprise release.
 - Added `agent-os` CLI (`npx agent-os init`, `verify`) for programmatic interactions.

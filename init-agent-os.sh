@@ -2,66 +2,68 @@
 # ==============================================================================
 # Universal Agent Governance OS - Zero-Leak Installer
 # ==============================================================================
-# Bu script, Agent Governance OS'i herhangi bir yeni projeye "sızıntısız"
-# ve "Universal-OS derinliğinde" kurmak için tasarlanmıştır.
-# Kullanım: ./init-agent-os.sh /hedef/proje/yolu
+# This script installs the Agent Governance OS into any target project.
+# Usage: ./init-agent-os.sh <target-dir> [locale]
+# Example: ./init-agent-os.sh /path/to/project en
+#          ./init-agent-os.sh . tr
 # ==============================================================================
 
 set -e
 
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="$1"
+LOCALE="${2:-en}"
 
 echo "=========================================================="
-echo "🤖 Universal Agent Governance OS Kurulumu Başlıyor..."
+echo "🤖 Universal Agent Governance OS — Installation Starting..."
 echo "=========================================================="
 
-# Hedef dizin kontrolü
+# Validate target directory
 if [ -z "$TARGET_DIR" ]; then
-    echo "❌ HATA: Hedef dizin belirtilmedi!"
-    echo "Kullanım: ./init-agent-os.sh /hedef/proje/yolu"
+    echo "❌ ERROR: Target directory not specified."
+    echo "Usage: ./init-agent-os.sh <target-dir> [locale]"
+    echo "Example: ./init-agent-os.sh . en"
     exit 1
 fi
 
 if [ ! -d "$TARGET_DIR" ]; then
-    echo "❌ HATA: Hedef dizin bulunamadı: $TARGET_DIR"
+    echo "❌ ERROR: Target directory not found: $TARGET_DIR"
     exit 1
 fi
 
-# Dil Seçimi
-read -p "Dil seçimi (tr/en) [varsayılan: tr]: " LANG_CHOICE
-LANG_CHOICE=${LANG_CHOICE:-tr}
-
-if [[ "$LANG_CHOICE" != "tr" && "$LANG_CHOICE" != "en" ]]; then
-    echo "❌ HATA: Yalnızca 'tr' veya 'en' desteklenmektedir."
+# Validate locale
+if [[ "$LOCALE" != "en" && "$LOCALE" != "tr" ]]; then
+    echo "❌ ERROR: Only 'en' or 'tr' locales are supported."
     exit 1
 fi
 
-echo "🔹 '$LANG_CHOICE' dil paketi yükleniyor..."
+echo "🔹 Loading '$LOCALE' locale pack..."
 
-# Kaynak klasör yolu
-OS_SOURCE="$SOURCE_DIR/$LANG_CHOICE"
+# Source locale pack path
+OS_SOURCE="$SOURCE_DIR/$LOCALE"
 
 if [ ! -d "$OS_SOURCE" ]; then
-    echo "❌ HATA: Kaynak klasör bulunamadı: $OS_SOURCE"
+    echo "❌ ERROR: Source locale directory not found: $OS_SOURCE"
     exit 1
 fi
 
-# 1. Kopyalama işlemi
-echo "🔹 Temel Agent-OS dosyaları kopyalanıyor..."
+# 1. Copy locale pack files to target directory
+echo "🔹 Copying core Agent-OS files..."
 cp -r "$OS_SOURCE/." "$TARGET_DIR/"
 
-# 2. Plan klasörünü oluştur
-echo "🔹 Planlama dizini ve arşiv oluşturuluyor..."
+# 2. Create plans directory structure
+echo "🔹 Creating planning directory and archive..."
 mkdir -p "$TARGET_DIR/plans/completed"
 
 echo "=========================================================="
-echo "✅ BAŞARILI: Agent Governance OS kuruldu!"
+echo "✅ SUCCESS: Agent Governance OS installed!"
 echo ""
-echo "Sonraki Adımlar (Mentor Tavsiyeleri):"
-echo "1. Hedef projenizde bir AI aracını açın."
-echo "2. Yeni sohbet başlatın ve ilk mesaj olarak şunu yazın:"
-echo "   'Lütfen kök dizindeki AGENTS.md ve .agent/workflows/session-bootstrap.md dosyasını oku.'"
-echo "3. Ajan sizinle İnteraktif Phase 0 mülakatına başlayacaktır."
+echo "Next Steps (Mentor Recommendations):"
+echo "1. Open your target project in an AI-enabled IDE."
+echo "2. Start a new chat and type as the first message:"
+echo "   'I have an idea. Help me turn it into a project.'"
+echo "   (or 'Bir fikrim var.' in Turkish)"
+echo "3. The agent will auto-discover the governance framework"
+echo "   and begin the Interactive Phase-0 interview with you."
 echo "=========================================================="
 exit 0

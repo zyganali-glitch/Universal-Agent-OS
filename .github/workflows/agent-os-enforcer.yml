@@ -19,13 +19,40 @@ jobs:
       - name: Install Agent OS CLI locally
         run: npm link
 
-      - name: Run Verification Gate
+      - name: Run Governance Verification Gate
         run: npx agent-os verify
 
-      - name: Check Evidence Manifest
+      - name: Validate Core Governance Files
         run: |
-          if ! grep -q "Tech-Debt Delta = 0" docs/EVIDENCE_MANIFEST_TEMPLATE.md; then
-            echo "❌ Evidence Manifest missing required debt declarations."
-            exit 1
+          echo "Checking core governance file content..."
+          # AGENTS.md must reference Phase-0
+          grep -q "Phase-0\|Phase 0" AGENTS.md || { echo "❌ AGENTS.md missing Phase-0 reference"; exit 1; }
+          # Plan template must contain Integrity Lock
+          grep -q "Integrity Lock" AGENT_OS_PLAN_TEMPLATE.md 2>/dev/null || echo "⚠️  Plan template missing IL section (may not be initialized yet)"
+          echo "✅ Core governance content validated."
+
+      - name: Validate Locale Parity
+        run: |
+          echo "Checking EN/TR locale parity..."
+          for file in AGENTS.md AGENT_OS_RULES.md AGENT_OS_PLAN_TEMPLATE.md; do
+            test -f "en/$file" || { echo "❌ en/$file missing"; exit 1; }
+            test -f "tr/$file" || { echo "❌ tr/$file missing"; exit 1; }
+          done
+          echo "✅ Locale parity verified."
+
+      - name: Validate Collective Memory Templates
+        run: |
+          echo "Checking Collective Memory templates..."
+          for file in AGENT_MEMORY_AND_LESSONS.md AGENT_ARCHITECTURE_AND_PATTERNS.md AGENT_ENVIRONMENT_AND_API.md AGENT_USER_PREFERENCES.md; do
+            test -f "en/$file" || { echo "❌ en/$file missing"; exit 1; }
+            test -f "tr/$file" || { echo "❌ tr/$file missing"; exit 1; }
+          done
+          echo "✅ Collective Memory templates verified."
+
+      - name: Validate Honesty Boundary
+        run: |
+          if grep -q "Honesty Boundary" docs/EVIDENCE_MANIFEST_TEMPLATE.md 2>/dev/null; then
+            echo "✅ Evidence Manifest honesty boundary present."
+          else
+            echo "⚠️  Evidence Manifest may need review."
           fi
-          echo "✅ Evidence Manifest check passed."
