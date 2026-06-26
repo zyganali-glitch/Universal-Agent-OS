@@ -65,6 +65,7 @@ This framework is designed for people who may have no software-development knowl
 - If real subagents do not exist, preserve the same discipline with `fallback-to-sequential`.
 - Integrity Lock (IL-01 to IL-12), IL-13 (Live-Docs Sync), IL-14 (Adapter Lock), IL-15 (Roadmap Lock), IL-16 (Continuous Sync Lock), and completed-plan archive are mandatory.
 - **Phase-X (Brownfield Quarantine) Lock:** If `TECH_DEBT_AND_SECURITY.md` exists with a quarantine stamp, the repo was onboarded via Legacy mode. The agent MUST NOT force Phase-0 on existing legacy code. It MUST quarantine old spaghetti code and strictly enforce all OS rules ONLY on newly written code.
+- **Heavy Infrastructure Consultation Lock:** If the project requires heavy backend setups (e.g., Vector Databases, Semantic Search, massive RAG pipelines), the agent MUST explicitly consult the user before attempting to build them. Do not assume the user wants a massive backend; act as a Tech Lead and advise them on the complexity first.
 - Triple-Sync Lock is mandatory for push/deploy/repo-sync work.
 
 ---

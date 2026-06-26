@@ -26,7 +26,17 @@ async function readMemory() {
   return JSON.parse(data);
 }
 
+const MAX_ITEMS = 20;
+
 async function writeMemory(data) {
+  // Memory Decay / Forgetting Policy
+  if (data.collective_lessons && data.collective_lessons.length > MAX_ITEMS) {
+    data.collective_lessons = data.collective_lessons.slice(-MAX_ITEMS);
+  }
+  if (data.technical_debt && data.technical_debt.length > MAX_ITEMS) {
+    data.technical_debt = data.technical_debt.slice(-MAX_ITEMS);
+  }
+  
   await fs.writeFile(MEMORY_FILE, JSON.stringify(data, null, 2), 'utf-8');
 }
 

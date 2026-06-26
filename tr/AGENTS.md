@@ -62,6 +62,7 @@ Bu framework, yazilim gelistirme bilgisi olmayan kisiler icin de tasarlanmistir.
 - Gercek alt ajan destegi yoksa ayni disiplin `fallback-to-sequential` ile korunur.
 - Integrity Lock (IL-01 to IL-12), IL-13 (Live-Docs Sync), IL-14 (Adapter Lock), IL-15 (Roadmap Lock), IL-16 (Continuous Sync Lock) ve completed-plan archive kuralı zorunludur.
 - **Phase-X (Brownfield Quarantine) Kilidi:** Eğer kök dizinde karantina damgalı bir `TECH_DEBT_AND_SECURITY.md` dosyası varsa, bu repo Legacy (Devam Eden) modda başlatılmıştır. Ajan, eski spagetti koda asla dokunmamalı ve Phase-0 mülakatını dayatmamalıdır. Tüm OS kuralları SADECE projeye yeni eklenecek kodlar için katı bir şekilde uygulanmalıdır.
+- **Ağır Altyapı İstişare Kilidi:** Eğer proje Vektör Veritabanı, Semantic Search, devasa RAG sistemleri gibi ağır backend mimarileri gerektiriyorsa, ajan bunu tek başına inşa etmeye girişmeden önce KESİNLİKLE kullanıcıyla istişare etmeli ve bir "Tech Lead" gibi projenin karmaşıklığı konusunda kullanıcıyı yönlendirmelidir.
 - Push/deploy/repo-sync taleplerinde Triple-Sync Lock zorunludur.
 
 ---

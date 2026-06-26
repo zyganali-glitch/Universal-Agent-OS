@@ -66,6 +66,38 @@ module.exports = function(args) {
     console.log('  ⚠️  Plans archive not found (plans/completed/) — will be created on first plan closure');
   }
 
+  // Runtime Behavior & Memory Bus Tests
+  console.log('\n⚙️  Runtime Behavior Tests:');
+  try {
+    const memoryPath = path.join(process.cwd(), 'agent_memory.json');
+    if (fs.existsSync(memoryPath)) {
+      const memoryContent = fs.readFileSync(memoryPath, 'utf8');
+      JSON.parse(memoryContent); // Throws if corrupt
+      console.log('  ✅ Memory Bus (agent_memory.json) structural integrity: PASS');
+    } else {
+      console.log('  ⚠️  Memory Bus not found, skipping structural test.');
+    }
+  } catch (err) {
+    console.error(`  ❌ Memory Bus structural integrity: FAIL (${err.message})`);
+    failed++;
+  }
+
+  try {
+    const mcpPackagePath = path.join(process.cwd(), 'mcp-server', 'package.json');
+    if (fs.existsSync(mcpPackagePath)) {
+      const pkg = JSON.parse(fs.readFileSync(mcpPackagePath, 'utf8'));
+      if (pkg.dependencies && pkg.dependencies['@modelcontextprotocol/sdk']) {
+        console.log('  ✅ MCP Server runtime dependencies check: PASS');
+      } else {
+        console.error('  ❌ MCP Server runtime dependencies check: FAIL (Missing SDK)');
+        failed++;
+      }
+    }
+  } catch (err) {
+    console.error(`  ❌ MCP Server check: FAIL (${err.message})`);
+    failed++;
+  }
+
   // Summary
   console.log('\n' + '='.repeat(60));
   console.log(`  Required: ${passed} passed, ${failed} failed`);
