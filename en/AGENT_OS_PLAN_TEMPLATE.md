@@ -51,6 +51,12 @@ This section establishes universal, ironclad rules to prevent agentic infinite l
 **IL-08: Triple-Sync Lock (Local, Remote, Live)**
 - If deployment is requested, declaring "mission accomplished" requires parity across Local functionality, Remote repository (e.g. GitHub) push success, and Live Platform verified deployment.
 
+**IL-09: Cross-Surface Parity Lock (Anti-Fragmentation)**
+- When a module, function signature, or interface is modified, the Agent MUST simultaneously update ALL dependent files, imports, and cross-references. A task cannot be closed if it leaves broken dependencies elsewhere.
+
+**IL-10: Anti-Loop / Timebox Lock (Token Protection)**
+- If the Agent attempts to fix the exact same bug/test 3 consecutive times and fails, it MUST stop, revert the file to the last working state, log the error as `[BLOCKED]`, and request human intervention. Endless hallucination loops are strictly forbidden.
+
 ## 1) Universal Consensus Variables (Phase 0)
 
 Acting as a Mentor, the agent conducts an initial interview and records decisions here.
@@ -63,7 +69,9 @@ Acting as a Mentor, the agent conducts an initial interview and records decision
 ---
 
 ## 2) Zero-Leak & Universal Security Protocol
-1. **Additive-First Evolution:** Rather than obliterating legacy logic, establish new, modular delegation patterns. If a feature breaches scope scale, spawn a new file rather than engorging a Monolith.
+1. **Additive-First Evolution & Distinct Naming:** Rather than obliterating legacy logic, establish new, modular delegation patterns. If a feature breaches scope scale, spawn a new file rather than engorging a Monolith. New files MUST have unique, highly descriptive names (e.g., `auth_token_validator.ts`, never lazy names like `utils.js` or `helpers.ts`).
+4. **Zero-Zombie-Code Policy:** Refactoring must be entirely sanitary. If logic is moved or rewritten, the old dead code and unused imports MUST be aggressively cleaned up in the same commit. No orphaned code left behind.
+5. **Truncation-Safe Editing:** When modifying large files, the agent must ensure the entire file is fully written. Accidental truncation due to context-window limits must be immediately reverted and approached via surgical/chunked replacements.
 2. **Blind Execution Ban:** Generating filesystem assumptions without running validation tools (`ls`, `view_file`) is forbidden.
 3. **Dynamic Role Parity (Multi-Role Audit):** Every code insertion MUST survive the hypothetical scrutiny of a Cybersecurity Engineer, Universal QA, and **5 Sector-Specific Personas** fiercely tailored by the Agent during Phase 0 based on the project nature (e.g., if it is a Medical App, the Agent enforces a 'Health Data Expert' role into the template).
 

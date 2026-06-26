@@ -40,7 +40,10 @@ This framework is designed for people who may have no software-development knowl
 - No delivery outside `Plan -> Evidence -> Test`.
 - Reproducible dependency and test/gate runs are mandatory.
 - Scope lock is mandatory.
-- Modular change is the default.
+- Modular change is the default. Enforce distinct and unique file naming (no lazy `utils.js`).
+- **Cross-Surface Parity:** Any change to a signature or module MUST instantly trigger updates in all dependent files.
+- **Zero-Zombie-Code:** Clean up dead code and unused imports immediately during refactoring.
+- **Anti-Loop Lock:** Stop after 3 failed fix attempts, revert, and ask the user.
 - Phase-0 Contracts (Platform requirements, Theme, i18n Strategy) are strict closure criteria (e.g., No mobile testing forced on a desktop game).
 - Billing/Membership defaults (Open/Closed) are determined by the project nature; they are NOT forced to be "DISABLED".
 - Online/Offline vision is dictated by Phase-0; surprise telemetry or conflicting dependencies are fiercely rejected.

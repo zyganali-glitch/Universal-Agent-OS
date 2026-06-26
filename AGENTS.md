@@ -29,6 +29,7 @@ Before writing any code or proposing solutions, you MUST:
 - **IL-14 (Adapter Currency Lock)**: Upon entering this repo, verify that the adapter file for your AI platform uses its most modern, native configuration format. If a better format exists, update the adapter file FIRST before any other work.
 - **IL-15 (Master Roadmap & Coding Lock)**: After Phase-0 is complete, the agent MUST: (1) create a **project-specific global plan template**, (2) create a **Plan Creation Plan (Master Roadmap)** that lists ALL end-to-end child plans needed for the project. **NO CODING is permitted** until all child plans are drafted and prioritized. The Master Roadmap is a **living document** — updated as new work is discovered.
 - **IL-16 (Continuous Sync Lock)**: After EVERY completed task, synchronously update: Collective Memory (4 Pillars), Architecture docs, README, and all relevant documentation. No task is "done" until docs are current.
+- **IL-09 (Cross-Surface Parity) & IL-10 (Anti-Loop)**: Ensure all dependencies are updated atomically. Never get stuck in hallucination loops; timebox failures to 3 attempts.
 
 ## Fast-Track Mode
 
@@ -47,6 +48,7 @@ This framework is designed for people who may have no software-development knowl
 - Give one action at a time.
 - Never shame uncertainty; "I'm not sure" is a valid answer.
 - Recommend a safe default, but let the user decide.
+- If the user is a novice, always provide copy-paste ready commands and explicit "how to verify" steps.
 - Summarize what was decided after Phase-0.
 
 ## Multi-Role Review Stack

@@ -52,6 +52,12 @@ Bu bölüm, Ajanların sonsuz döngüye düşmesini ve plan içi tutarsızlıkla
 **IL-08: Triple-Sync Kilidi (Local, Remote, Live)**
 - Hedeflenen işin "bitti" denmesi için (istenmişse), kodun lokal makinede çalışması, uzak sunucuya (GitHub vb.) push edilmesi ve platform yayıncısında (Live Deploy) doğrulanmış olması gerekir. Sadece yerel çalışan kodu "bitirdim" diye raporlamak IL-08 ihlalidir.
 
+**IL-09: Çapraz Yüzey Bütünlük Kilidi (Cross-Surface Parity Lock)**
+- Bir modül, fonksiyon veya arayüz (interface) değiştirildiğinde, Ajan bu yapıya bağımlı olan TÜM çapraz dosyaları, importları ve referansları eşzamanlı olarak güncellemek ZORUNDADIR. Kırık bir bağımlılık bırakarak görev kapatılamaz.
+
+**IL-10: Anti-Loop / Zaman Sınırı Kilidi (Token Koruması)**
+- Ajan aynı hatayı/testi art arda 3 kez düzeltmeye çalışıp başarısız olursa; DURMAK, dosyayı çalışan son haline geri almak, durumu `[BLOKE]` olarak işaretlemek ve insan müdahalesi istemek ZORUNDADIR. Sonsuz halüsinasyon döngülerine girip token yakmak kesinlikle yasaktır.
+
 ## 1) Universal Mutabakat Çıktısı (Phase 0)
 
 Ajan, proje başında Mentor olarak kullanıcıyla mülakat yapar ve aldığı sonuçları buraya kaydeder.
@@ -64,7 +70,9 @@ Ajan, proje başında Mentor olarak kullanıcıyla mülakat yapar ve aldığı s
 ---
 
 ## 2) Sifir-Kod-Kaybi ve Evrensel Güvenlik Protokolü (Zero-Leak Protocol)
-1. **Additive-First (Önce Ekleme):** Eski sistemleri silip atmak yerine modüler yeni sistemlerle delegasyon kur. Dosyalar büyüyorsa monolith'i şişirme, Scope dışı özellik için yeni dosya yarat.
+1. **Additive-First (Önce Ekleme) ve Ayırt Edici İsimlendirme:** Eski sistemleri silip atmak yerine modüler yeni sistemlerle delegasyon kur. Dosyalar büyüyorsa monolith'i şişirme, yeni dosya yarat. Yeni açılan dosyalar spesifik ve benzersiz isimlere sahip olmalıdır (Örn: `auth_token_validator.ts` — `utils.js` veya `helpers.ts` gibi tembel isimlendirmeler yasaktır).
+4. **Zombi Kod Yasağı (Zero-Zombie-Code):** Refactoring (yeniden yazım) işlemleri tertemiz olmalıdır. Yeni fonksiyon yazıldığında, eski ölü kodlar ve kullanılmayan importlar aynı commit içinde MUTLAKA silinmelidir. Arkada yetim/zombi kod bırakılamaz.
+5. **Kesinti-Korumalı Düzenleme (Truncation-Safe):** Büyük dosyalarda çalışırken, çıktı limitine takılıp dosyanın yarısının silinmesine (truncation) sebep olunursa, işlem anında geri alınmalı (revert) ve bölgesel (chunked) değişiklik araçları kullanılmalıdır.
 2. **Kör İşlem Yasağı:** Projenin dosya yapısını `ls` veya `view_file` gibi okuma toolları ile fiziken görmeden "Böyle bir dosya olmalı" felsefesiyle kod önermek ajana yasaklanmıştır.
 3. **Dinamik Rol Paritesi (Multi-Role Audit):** Her kod önerisi sadece bir Back-End geliştirici gözüyle değil; Siber Güvenlikçi, Evrensel QA ve Ajanın projenin doğasına göre (Phase-0'da) *bizzat kendi zekasıyla ürettiği* **Sektör-Özel 5 Farklı Profil** penceresinden geçirilmek ZORUNDADIR (Örn: Proje Medikal Uygulama ise Sağlık Verisi Uzmanı; Oyun ise 10 Yaş Çocuk rolü şablona Ajan tarafından eklenir).
 

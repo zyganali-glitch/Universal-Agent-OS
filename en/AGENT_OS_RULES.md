@@ -189,7 +189,11 @@ No code changes without explicit implementation intent.
 13. **Network and Connection Doctrine:** Is the product strictly Online-Dependent (e.g., Stock trading, Cloud multiplayer) or Offline-First/PWA (e.g., Notes app)? The Agent internalizes this and fiercely blocks conflicting external dependencies. "Offline/PWA parity" is dropped for online-only systems.
 14. Security hygiene is mandatory: no leaking secrets, no unsafe automation, no destructive shells.
 15. Dependency reproducibility is mandatory: lockfiles + clean-slate environments.
-16. Component or Selftest-by-page/unit is mandatory for every affected scope.
+16. **Anti-Monolith & Distinct Naming:** Enforce additive evolution. When files grow, spawn distinctly named modules (`auth_processor.ts` not `utils.ts`).
+17. **Zero-Zombie-Code:** Never leave dead functions or unused imports behind after refactoring.
+18. **Cross-Surface Parity:** Every file edit requires checking and updating dependent files simultaneously.
+19. **Anti-Loop Doctrine:** Maximum 3 consecutive attempts on a single bug. If it fails, revert to baseline and ask the user for help. Do not burn tokens.
+20. Component or Selftest-by-page/unit is mandatory for every affected scope.
 17. Selftest alone is not enough; related unit/integration/api tests must be run if they exist in the project scope.
 18. Maximum safe progress per request (limit to 2-3 micro-phases).
 19. The chat-facing agent is the default single owner/writer.
