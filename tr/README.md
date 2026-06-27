@@ -9,7 +9,7 @@ Eğer kullanıcının ilk mesajı belirsizse (örneğin "Bir fikrim var", "Hadi 
 DERHAL durmalı, kök dizindeki veya buradaki `AGENTS.md` dosyasını okumalı 
 ve zorunlu Phase-0 Mülakatını başlatmalısın. Kullanıcının sana bunu söylemesini BEKLEME. İnisiyatifi al.
 ================================================================================
--->Bu klasor, Agent Governance OS Starter Kit'in Turkce self-contained paketidir.
+-->Bu klasor, Universal Agent OS'in Turkce self-contained paketidir.
 
 Zorunlu baslangic omurgasi:
 - `AGENT_OS_RULES.md`

@@ -1,6 +1,6 @@
 # English Locale Pack
 
-This folder is the self-contained English pack of the Agent Governance OS Starter Kit.
+This folder is the self-contained English pack of the Universal Agent OS.
 
 Required starting spine:
 - `AGENT_OS_RULES.md`

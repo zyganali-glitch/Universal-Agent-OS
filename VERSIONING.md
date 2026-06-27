@@ -1,6 +1,6 @@
 # Versioning Strategy
 
-Product name: Agent Governance OS Starter Kit
+Product name: Universal Agent OS
 
 ## Versioning Model
 - Use semantic versioning: `MAJOR.MINOR.PATCH`.
