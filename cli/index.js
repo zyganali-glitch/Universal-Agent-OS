@@ -18,7 +18,7 @@ Usage:
   agent-os status
 
 Commands:
-  init       Install selected locale pack into the current directory (default: tr)
+  init       Install selected locale pack into the current directory (default: en)
   verify     Verify package source or installed target repo governance surfaces
   status     Display the current governance and Master Roadmap status
 `);

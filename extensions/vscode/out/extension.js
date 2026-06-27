@@ -6,6 +6,160 @@ const vscode = require("vscode");
 const child_process_1 = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const REPOSITORY_URL = 'https://github.com/zyganali-glitch/Universal-Agent-OS.git';
+const SHARED_DIRECTORIES = [
+    '.agent',
+    '.github',
+    '.gitlab',
+    'agents',
+    'docs',
+    'examples',
+    'mcp-server',
+    'skills'
+];
+const SHARED_FILES = [
+    'CHANGELOG.md',
+    'LICENSE',
+    'LICENSING.md',
+    'VERSION',
+    'VERSIONING.md',
+    'agent_memory.json',
+    'init-agent-os.ps1',
+    'init-agent-os.sh',
+    'requirements-dev.txt',
+    'sweep.yaml',
+    'walkthrough.md'
+];
+const TARGET_REQUIRED_FILES = [
+    'AGENTS.md',
+    'AGENT_OS_RULES.md',
+    'AGENT_OS_PLAN_TEMPLATE.md',
+    'AGENT_MEMORY_AND_LESSONS.md',
+    'AGENT_ARCHITECTURE_AND_PATTERNS.md',
+    'AGENT_ENVIRONMENT_AND_API.md',
+    'AGENT_USER_PREFERENCES.md',
+    '.agent/workflows/session-bootstrap.md',
+    'plans',
+    'plans/completed'
+];
+const CLEAN_FOLDER_IGNORES = new Set([
+    '.git',
+    '.vscode',
+    '.idea',
+    '.DS_Store',
+    'Thumbs.db',
+    'node_modules',
+    '.agentos-temp',
+    '.agentos-backups'
+]);
+function safeTimestamp() {
+    return new Date().toISOString().replace(/[:.]/g, '-');
+}
+function isLegacyWorkspace(rootPath) {
+    try {
+        return fs.readdirSync(rootPath).some((entry) => !CLEAN_FOLDER_IGNORES.has(entry));
+    }
+    catch {
+        return false;
+    }
+}
+function ensureDirectoryForFile(filePath) {
+    const dirPath = path.dirname(filePath);
+    if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath, { recursive: true });
+    }
+}
+function backupExistingFile(rootPath, dest, backupRoot) {
+    if (!backupRoot || !fs.existsSync(dest) || !fs.statSync(dest).isFile()) {
+        return;
+    }
+    const relativePath = path.relative(rootPath, dest);
+    const backupPath = path.join(backupRoot, relativePath);
+    ensureDirectoryForFile(backupPath);
+    fs.copyFileSync(dest, backupPath);
+}
+function resolveCollisionDestination(rootPath, dest, isLegacy) {
+    if (!isLegacy || !fs.existsSync(dest)) {
+        return dest;
+    }
+    const relativePath = path.relative(rootPath, dest).replace(/\\/g, '/');
+    if (relativePath === 'README.md') {
+        return path.join(rootPath, 'AGENT_OS_README.md');
+    }
+    return dest;
+}
+function copyRecursiveSync(src, dest, rootPath, isLegacy, backupRoot) {
+    if (!fs.existsSync(src)) {
+        return;
+    }
+    const stats = fs.statSync(src);
+    if (stats.isDirectory()) {
+        if (!fs.existsSync(dest)) {
+            fs.mkdirSync(dest, { recursive: true });
+        }
+        fs.readdirSync(src).forEach((childItemName) => {
+            copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName), rootPath, isLegacy, backupRoot);
+        });
+        return;
+    }
+    const finalDest = resolveCollisionDestination(rootPath, dest, isLegacy);
+    ensureDirectoryForFile(finalDest);
+    backupExistingFile(rootPath, finalDest, backupRoot);
+    fs.copyFileSync(src, finalDest);
+}
+function installAgentOSPayload(tempDir, rootPath, locale, isLegacy) {
+    const backupRoot = isLegacy
+        ? path.join(rootPath, '.agentos-backups', safeTimestamp())
+        : undefined;
+    SHARED_DIRECTORIES.forEach((folder) => {
+        copyRecursiveSync(path.join(tempDir, folder), path.join(rootPath, folder), rootPath, isLegacy, backupRoot);
+    });
+    SHARED_FILES.forEach((fileName) => {
+        copyRecursiveSync(path.join(tempDir, fileName), path.join(rootPath, fileName), rootPath, isLegacy, backupRoot);
+    });
+    const localeDir = path.join(tempDir, locale);
+    if (!fs.existsSync(localeDir)) {
+        throw new Error(`Locale directory '${locale}' not found in the repository.`);
+    }
+    copyRecursiveSync(localeDir, rootPath, rootPath, isLegacy, backupRoot);
+    const completedPlansDir = path.join(rootPath, 'plans', 'completed');
+    if (!fs.existsSync(completedPlansDir)) {
+        fs.mkdirSync(completedPlansDir, { recursive: true });
+    }
+    if (isLegacy) {
+        const techDebtFile = path.join(rootPath, 'TECH_DEBT_AND_SECURITY.md');
+        if (!fs.existsSync(techDebtFile)) {
+            const legacyContent = `# Legacy Quarantine & Tech Debt
+
+> [!WARNING]
+> This project was onboarded as a Brownfield project via Phase-X.
+> The existing codebase is quarantined. Do not refactor existing code unless explicitly requested.
+> ALL NEW code must adhere strictly to Universal Agent OS rules.
+
+## Existing Project Snapshot
+- Onboarded by VS Code extension.
+- Existing files were detected before Agent OS installation.
+- Any overwritten governance/adapter file collisions were backed up under \`.agentos-backups/\`.
+
+## Known Legacy Systems
+(Agent: Run a full project scan to populate this section with existing architectural patterns and debt.)
+`;
+            fs.writeFileSync(techDebtFile, legacyContent, 'utf8');
+        }
+    }
+}
+function verifyTargetWorkspace(rootPath) {
+    const missing = TARGET_REQUIRED_FILES.filter((relativePath) => {
+        return !fs.existsSync(path.join(rootPath, relativePath));
+    });
+    const localeWorkflow = ['.agent/workflows/continue.md', '.agent/workflows/devam.md'].some((relativePath) => {
+        return fs.existsSync(path.join(rootPath, relativePath));
+    });
+    if (!localeWorkflow) {
+        missing.push('.agent/workflows/continue.md or .agent/workflows/devam.md');
+    }
+    return missing;
+}
 function activate(context) {
     console.log('Universal Agent OS is now active!');
     // Status Bar Item
@@ -29,16 +183,18 @@ function activate(context) {
             return; // User cancelled
         }
         const locale = localeSelection.id;
+        const isLegacy = isLegacyWorkspace(rootPath);
         vscode.window.withProgress({
             location: vscode.ProgressLocation.Notification,
             title: "Universal Agent OS",
             cancellable: false
         }, async (progress) => {
             return new Promise((resolve, reject) => {
-                progress.report({ message: "Downloading brain from GitHub..." });
+                progress.report({ message: "Downloading Universal Agent OS from GitHub..." });
                 const tempDir = path.join(rootPath, '.agentos-temp');
+                fs.rmSync(tempDir, { recursive: true, force: true });
                 // Fetch the repo securely
-                const gitCommand = `git clone --depth 1 https://github.com/zyganali-glitch/Universal-Agent-OS.git "${tempDir}"`;
+                const gitCommand = `git clone --depth 1 ${REPOSITORY_URL} "${tempDir}"`;
                 (0, child_process_1.exec)(gitCommand, { cwd: rootPath }, (error) => {
                     if (error) {
                         vscode.window.showErrorMessage(`Failed to fetch Agent OS: ${error.message}`);
@@ -47,65 +203,18 @@ function activate(context) {
                     }
                     try {
                         progress.report({ message: `Configuring workspace (${locale})...` });
-                        const copyRecursiveSync = (src, dest) => {
-                            const exists = fs.existsSync(src);
-                            const stats = exists && fs.statSync(src);
-                            const isDirectory = exists && stats && stats.isDirectory();
-                            if (isDirectory) {
-                                if (!fs.existsSync(dest))
-                                    fs.mkdirSync(dest, { recursive: true });
-                                fs.readdirSync(src).forEach((childItemName) => {
-                                    copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
-                                });
+                        installAgentOSPayload(tempDir, rootPath, locale, isLegacy);
+                        // Clean up temporary clone
+                        fs.rmSync(tempDir, { recursive: true, force: true });
+                        const legacyNote = isLegacy ? ' Existing project mode enabled; collisions were backed up.' : '';
+                        vscode.window.showInformationMessage(`Universal Agent OS (${locale}) initialized in this workspace.${legacyNote}`, 'Start Phase-0', 'Verify').then((action) => {
+                            if (action === 'Start Phase-0') {
+                                vscode.commands.executeCommand('agent-os.startPhase0');
                             }
-                            else if (exists) {
-                                fs.copyFileSync(src, dest);
-                            }
-                        };
-                        // 1. Copy the selected locale pack directly to the root
-                        const localeDir = path.join(tempDir, locale);
-                        if (fs.existsSync(localeDir)) {
-                            copyRecursiveSync(localeDir, rootPath);
-                        }
-                        else {
-                            throw new Error(`Locale directory '${locale}' not found in the repository.`);
-                        }
-                        // 2. Copy essential template directories to root
-                        ['examples', 'plans'].forEach(folder => {
-                            const srcPath = path.join(tempDir, folder);
-                            if (fs.existsSync(srcPath)) {
-                                copyRecursiveSync(srcPath, path.join(rootPath, folder));
+                            if (action === 'Verify') {
+                                vscode.commands.executeCommand('agent-os.verifyGovernance');
                             }
                         });
-                        // Ensure plans/completed exists
-                        const completedPlansDir = path.join(rootPath, 'plans', 'completed');
-                        if (!fs.existsSync(completedPlansDir)) {
-                            fs.mkdirSync(completedPlansDir, { recursive: true });
-                        }
-                        // 3. Check if project is legacy (has files other than .git, .vscode, etc.)
-                        const checkIsLegacy = (dir) => {
-                            try {
-                                const files = fs.readdirSync(dir);
-                                const meaningfulFiles = files.filter(f => !['.git', '.vscode', 'node_modules', '.agentos-temp', 'AGENTS.md'].includes(f));
-                                // Consider legacy if there are existing structural files before this installation
-                                return meaningfulFiles.length > 0;
-                            }
-                            catch (e) {
-                                return false;
-                            }
-                        };
-                        const isLegacy = checkIsLegacy(rootPath);
-                        // 4. Apply Legacy Quarantine if needed
-                        if (isLegacy) {
-                            const techDebtFile = path.join(rootPath, 'TECH_DEBT_AND_SECURITY.md');
-                            if (!fs.existsSync(techDebtFile)) {
-                                const legacyContent = `# Legacy Quarantine & Tech Debt\n\n> [!WARNING]\n> This project was onboarded as a Brownfield project via Phase-X.\n> The existing codebase is quarantined. Do not refactor existing spaghetti code unless explicitly requested.\n> ALL NEW code must adhere strictly to Universal Agent OS IL-01 to IL-16 rules.\n\n## Known Legacy Systems\n(Agent: Run a full project scan to populate this section with existing architectural patterns and debt)\n`;
-                                fs.writeFileSync(techDebtFile, legacyContent);
-                            }
-                        }
-                        // 5. Clean up temporary clone
-                        fs.rmSync(tempDir, { recursive: true, force: true });
-                        vscode.window.showInformationMessage(`Universal Agent OS (${locale}) initialized! Core brain is directly in your root folder.`);
                         resolve();
                     }
                     catch (e) {
@@ -145,13 +254,12 @@ function activate(context) {
             return;
         }
         const cwd = workspaceFolders[0].uri.fsPath;
-        (0, child_process_1.exec)('npx agent-os verify --target', { cwd }, (error, stdout, stderr) => {
-            if (error) {
-                vscode.window.showErrorMessage(`Governance Gate Failed: ${stderr}`);
-                return;
-            }
-            vscode.window.showInformationMessage(`Governance Gate Passed: ${stdout}`);
-        });
+        const missing = verifyTargetWorkspace(cwd);
+        if (missing.length > 0) {
+            vscode.window.showErrorMessage(`Agent OS governance check failed. Missing: ${missing.join(', ')}`);
+            return;
+        }
+        vscode.window.showInformationMessage('Agent OS governance check passed. Required workspace files are present.');
     });
     const collection = vscode.languages.createDiagnosticCollection('agentOS');
     vscode.workspace.onDidSaveTextDocument(document => {

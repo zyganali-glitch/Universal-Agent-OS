@@ -1,5 +1,15 @@
 # Changelog
 
+## VS Code Extension 1.4.3 - 2026-06-27
+
+- Fixed VS Code initialization so it installs the full runtime governance payload instead of only the selected locale pack and examples.
+- Fixed clean-folder vs brownfield detection by checking the workspace before copying Agent OS files.
+- Added collision backups under `.agentos-backups/` and preserved existing user `README.md` files as `AGENT_OS_README.md` in brownfield installs.
+- Replaced VS Code governance verification's unpublished npm dependency with local workspace file checks.
+- Added `docs/INSTALLATION_MANIFEST.md` as the canonical install payload contract.
+- Aligned PowerShell and Bash bootstrap installers with the same runtime payload and brownfield behavior.
+- Packaged `universal-agent-os-vscode-1.4.3.vsix` with a minimal VSIX payload and extension-local MIT license.
+
 ## 1.2.0 - 2026-06-27
 
 - Added Phase-1 registry surfaces for scoped instructions, skills, roles, prompts, and workflow routing.

@@ -212,7 +212,8 @@ class TestHardeningV120:
         path = root_dir / "extensions" / "vscode" / "src" / "extension.ts"
         assert path.is_file()
         content = path.read_text(encoding="utf-8")
-        assert "phase0_interview.py start" in content, "VS Code missing 'start' argument for Phase-0"
+        assert "phase0_interview.py" in content, "VS Code missing Phase-0 script path"
+        assert 'terminal.sendText(`python "${scriptPath}" start`)' in content, "VS Code missing 'start' argument for Phase-0"
 
     def test_cli_verify_package_mode_coverage(self, root_dir: pathlib.Path):
         """cli/verify.js package mode must check required files."""
@@ -266,6 +267,29 @@ class TestRealWorldAdoption:
         content = (root_dir / "docs/SLASH_COMMANDS.md").read_text(encoding="utf-8")
         assert "/fast-track" in content
         assert "/closure-check" in content
+
+    def test_installation_manifest_documents_vscode_payload(self, root_dir: pathlib.Path):
+        manifest = root_dir / "docs" / "INSTALLATION_MANIFEST.md"
+        assert manifest.is_file(), "INSTALLATION_MANIFEST.md is missing"
+        content = manifest.read_text(encoding="utf-8")
+        assert "VS Code Extension And Bootstrap Installs" in content
+        assert ".agentos-backups" in content
+        assert "AGENT_OS_README.md" in content
+
+    def test_vscode_extension_uses_full_install_manifest(self, root_dir: pathlib.Path):
+        content = (root_dir / "extensions" / "vscode" / "src" / "extension.ts").read_text(encoding="utf-8")
+        assert "SHARED_DIRECTORIES" in content
+        assert "installAgentOSPayload" in content
+        assert "isLegacyWorkspace(rootPath)" in content
+        assert "verifyTargetWorkspace" in content
+
+    def test_bootstrap_scripts_use_full_install_manifest(self, root_dir: pathlib.Path):
+        ps1 = (root_dir / "init-agent-os.ps1").read_text(encoding="utf-8")
+        sh = (root_dir / "init-agent-os.sh").read_text(encoding="utf-8")
+        for content in (ps1, sh):
+            assert "SharedDirectories" in content or "SHARED_DIRECTORIES" in content
+            assert ".agentos-backups" in content
+            assert "AGENT_OS_README.md" in content
 
     def test_readme_v120_exists(self, root_dir: pathlib.Path):
         content = (root_dir / "README.md").read_text(encoding="utf-8")

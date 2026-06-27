@@ -99,6 +99,16 @@ The registries are loaded in this order. Each downstream registry depends on its
 
 ---
 
+## Installation Surface
+
+The VS Code extension is the primary low-friction install path for novice and IDE-first users.
+
+`Agent OS: Init Workspace` installs the selected locale pack plus the shared runtime governance payload documented in `docs/INSTALLATION_MANIFEST.md`. Existing project detection happens before any payload copy so a clean folder stays greenfield, while a populated folder enters brownfield mode and receives `TECH_DEBT_AND_SECURITY.md`.
+
+The installer intentionally excludes source-maintenance surfaces such as `extensions/vscode/`, `tests/`, `.git/`, and build caches from target workspaces. Runtime governance surfaces such as `.agent/`, `.github/`, `.gitlab/`, `docs/`, `skills/`, `examples/`, `mcp-server/`, and locale-specific agent adapters are installed.
+
+---
+
 ## Honesty Boundary
 
 This package enforces an explicit honesty boundary:

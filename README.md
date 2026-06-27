@@ -50,6 +50,7 @@ This repository is already usable, but it is not finished in every dimension.
 **What is real today:**
 - Installable locale packs in English and Turkish
 - PowerShell and Bash bootstrap scripts (non-interactive, CI/CD compatible)
+- Published VS Code Marketplace extension for one-command workspace initialization
 - Donor governance files for rules, plans, adapters, and workflows
 - Agent-specific adapter files for 10+ major AI agents/IDEs
 - A root registry chain for instruction → skill → role → prompt → workflow routing
@@ -66,6 +67,13 @@ This repository is already usable, but it is not finished in every dimension.
 - `examples/minimal-saas` is now a verifiable target-repo example.
 - The pytest suite includes strict checks for version sync, licensing, adapter routing, VS Code Phase-0 invocation, and demo repo evidence.
 
+**What is new in the VS Code extension v1.4.3 (Install Integrity):**
+- `Agent OS: Init Workspace` installs the full runtime governance payload, not only the locale pack and examples.
+- Existing projects are detected before copying begins, so clean folders are not incorrectly marked as legacy.
+- Existing project collisions are backed up under `.agentos-backups/`.
+- Existing user `README.md` files are preserved; Agent OS documentation is installed as `AGENT_OS_README.md` when needed.
+- `Agent OS: Verify Governance Gate` verifies required workspace files locally instead of depending on unpublished npm CLI availability.
+
 **Packaged baseline introduced in v1.0.0:**
 - A local `agent-os` CLI tool (`npx agent-os init`, `npx agent-os verify`)
 - Comprehensive governance gate verification via CLI and GitHub Actions
@@ -78,9 +86,7 @@ This repository is already usable, but it is not finished in every dimension.
 - **VSCode Runtime Enforcement:** The extension actively monitors saved files and issues diagnostics (Anti-Monolith size limits & Zombie Code detection).
 
 **What is ahead:**
-- Publishing the VS Code extension to the Marketplace
 - Publishing the CLI to public NPM
-- Interactive locale selection in the VS Code extension
 - Pre-commit hook integration
 
 ## Why It Feels Bureaucratic
@@ -186,7 +192,7 @@ Each root adapter includes a common governance bootstrap header plus **agent-spe
 | `init-agent-os.ps1` | PowerShell bootstrap installer |
 | `init-agent-os.sh` | Bash bootstrap installer |
 | `cli/` | `agent-os` CLI (`npx agent-os init`, `verify`) |
-| `extensions/vscode/` | VS Code extension scaffold |
+| `extensions/vscode/` | VS Code Marketplace extension |
 
 ### CI/CD Enforcement
 | Surface | Purpose |
@@ -242,18 +248,25 @@ cd Universal-Agent-OS
 
 Both scripts accept an optional locale parameter (`en` or `tr`). Default is `en`.
 
-### Method 3: VS Code Extension (Local Install)
+### Method 3: VS Code Extension (Marketplace)
 
-1. Download the latest `universal-agent-os-vscode-1.4.2.vsix` file from the `extensions/vscode/` folder.
-2. In VS Code, open the Extensions view (`Ctrl+Shift+X`).
-3. Click the `...` menu → **"Install from VSIX..."** and choose the downloaded file.
-4. Open an empty folder (or your existing legacy project) in VS Code.
-5. Press `Ctrl+Shift+P` and run `Agent OS: Init Workspace` to download the framework into your project.
+1. Install **Universal Agent OS** from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mehmet-aydogan.universal-agent-os-vscode).
+2. Open an empty folder or an existing project folder in VS Code.
+3. Press `Ctrl+Shift+P` and run `Agent OS: Init Workspace`.
+4. Select `English` or `Turkish`.
+5. The extension downloads the latest Agent OS files from GitHub and installs them into your workspace.
 6. Press `Ctrl+Shift+P` and run `Agent OS: Start Phase-0 Interview` to begin.
 
-> *Note: The VS Code extension is not yet published to the public Marketplace. Clone this repository to use it locally.*
+What gets installed is defined in [docs/INSTALLATION_MANIFEST.md](docs/INSTALLATION_MANIFEST.md). In an existing project, the extension enables legacy/brownfield mode, creates `TECH_DEBT_AND_SECURITY.md`, backs up overwritten governance collisions under `.agentos-backups/`, and preserves an existing user `README.md`.
 
-### Method 4: CLI (npm link)
+### Method 4: VSIX File (Offline / Manual Install)
+
+1. Download the latest `universal-agent-os-vscode-*.vsix` file from the `extensions/vscode/` folder or a release artifact.
+2. In VS Code, open the Extensions view (`Ctrl+Shift+X`).
+3. Click the `...` menu -> **"Install from VSIX..."** and choose the downloaded file.
+4. Continue with the same `Agent OS: Init Workspace` flow above.
+
+### Method 5: CLI (npm link)
 
 ```bash
 npm link
@@ -287,11 +300,12 @@ Universal-Agent-OS/
 ├── en/                     # English locale pack (full governance surfaces)
 ├── tr/                     # Turkish locale pack (full governance surfaces)
 ├── cli/                    # agent-os CLI tool (init, verify)
-├── extensions/vscode/      # VS Code extension scaffold
+├── extensions/vscode/      # VS Code Marketplace extension
 ├── skills/                 # Root skill library (agent-os-memory)
 ├── agents/                 # Agent definitions (GitLab Duo)
 ├── docs/                   # Architecture diagrams, onboarding, evidence templates
 │   ├── BROWNFIELD_ADOPTION_PLAYBOOK.md
+│   ├── INSTALLATION_MANIFEST.md
 │   ├── AGENT_FAILURE_PATTERNS.md
 │   ├── GOVERNANCE_HEALTH_REPORT.md (Planned)
 │   └── GOVERNANCE_PROFILES.md (Planned)
