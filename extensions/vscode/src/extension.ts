@@ -73,6 +73,18 @@ export function activate(context: vscode.ExtensionContext) {
                             }
                         };
                         
+                        // Check if project is legacy (has files other than .git, .vscode, etc.)
+                        const checkIsLegacy = (dir: string) => {
+                            try {
+                                const files = fs.readdirSync(dir);
+                                const meaningfulFiles = files.filter(f => !['.git', '.vscode', 'node_modules', '.agentos', 'AGENTS.md'].includes(f));
+                                return meaningfulFiles.length > 0;
+                            } catch (e) {
+                                return false;
+                            }
+                        };
+                        const isLegacy = checkIsLegacy(rootPath);
+
                         // Copy essential template directories to .agentos/
                         ['examples', 'en', 'tr', 'plans'].forEach(folder => {
                             const srcPath = path.join(tempDir, folder);
@@ -95,6 +107,15 @@ export function activate(context: vscode.ExtensionContext) {
                                 fs.copyFileSync(srcPath, path.join(targetAgentOsDir, file));
                             }
                         });
+
+                        // Apply Legacy Quarantine if needed
+                        if (isLegacy) {
+                            const techDebtFile = path.join(rootPath, 'TECH_DEBT_AND_SECURITY.md');
+                            if (!fs.existsSync(techDebtFile)) {
+                                const legacyContent = `# Legacy Quarantine & Tech Debt\n\n> [!WARNING]\n> This project was onboarded as a Brownfield project via Phase-X.\n> The existing codebase is quarantined. Do not refactor existing spaghetti code unless explicitly requested.\n> ALL NEW code must adhere strictly to Universal Agent OS IL-01 to IL-16 rules.\n\n## Known Legacy Systems\n(Agent: Run a full project scan to populate this section with existing architectural patterns and debt)\n`;
+                                fs.writeFileSync(techDebtFile, legacyContent);
+                            }
+                        }
 
                         // Clean up temporary clone
                         fs.rmSync(tempDir, { recursive: true, force: true });
