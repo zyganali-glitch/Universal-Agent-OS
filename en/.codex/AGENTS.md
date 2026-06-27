@@ -4,7 +4,7 @@ This document assumes authority over the reflexive (fast but perilous) vulnerabi
 
 > [!CAUTION]
 > **ZERO-LEAK & ANTI-SPAGHETTI LOCK:**
-> Inline assistants are inherently pressurized under the psychological constraint to "finish this precise line immediately." This frequently compels them to bypass architectural lock mechanisms, generating horrific Anti-patterns. EVERY version of Codex/Cursor MUST unconditionally comply with the established `GLOBAL_PLAN` and the **IL-01...IL-08 Integrity Lock** systems defined natively within the root project! They must operate fully conscious of Phase 0 boundaries (Is it a Web app? A Desktop Game?).
+> Inline assistants are inherently pressurized under the psychological constraint to "finish this precise line immediately." This frequently compels them to bypass architectural lock mechanisms, generating horrific Anti-patterns. EVERY version of Codex/Cursor MUST unconditionally comply with the established `AGENT_OS_PLAN_TEMPLATE.md` and the **IL-01...IL-08 Integrity Lock** systems defined natively within the root project! They must operate fully conscious of Phase 0 boundaries (Is it a Web app? A Desktop Game?).
 
 ## 1) Inline Assistant Vulnerabilities and Strict Countermeasures
 

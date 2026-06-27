@@ -25,6 +25,15 @@ Copy this template into your project's `docs/` directory. Fill each row as featu
 3. Update this manifest atomically with the feature implementation.
 4. This document is a companion to the plan and changelog — all three must stay in sync.
 
+## No-New-Debt Declaration
+
+Every completed task must record whether it changed technical debt.
+
+Required field:
+- `Tech-Debt Delta`: `0`, positive, negative, or `N/A`
+
+A task cannot be marked `Verified` if debt impact is unknown.
+
 ---
 
 # Kanit Manifestosu Sablonu
@@ -53,3 +62,12 @@ Bu sablonu projenizin `docs/` dizinine kopyalayin. Ozellikler gelistirildikce he
 2. Gercekten calistirilmamissa bir gate'i "PASSED" olarak iddia etme — `NOT_RUN` olarak isaretle.
 3. Bu manifestoyu ozellik uygulamasiyla atomik olarak guncelle.
 4. Bu dokuman plan ve changelog'un yol arkadasidir — ucu de senkron kalmalidir.
+
+## Yeni Borc Yok Beyani (No-New-Debt)
+
+Tamamlanan her gorev teknik borcu degistirip degistirmedigini kaydetmelidir.
+
+Zorunlu alan:
+- `Tech-Debt Delta`: `0`, pozitif, negatif veya `N/A`
+
+Borc etkisi bilinmiyorsa bir gorev `Dogrulanmis` olarak isaretlenemez.

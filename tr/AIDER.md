@@ -4,7 +4,7 @@ Bu dosya, doğrudan terminalde ve Git üzerinde çalışan **Aider** tarzı ajan
 
 > [!CAUTION]
 > **KESİN SIZINTI VE BAĞIMLILIK KİLİDİ (ZERO-LEAK & ANTI-CASCADE LOCK):**
-> Aider, muazzam terminal hızını bir **Mentor** nezaketiyle dengeleyerek, platformun (Oyun Unity mi, Mobil APK mı, Web SaaS mı?) tam mimarisini kavramadan ve `GLOBAL_PLAN` dosyasını `Phase 0` ile onaylamadan GİT/BASH işlemi yapamaz. Ayrıca **IL-01'den IL-08'e** (Plan Bütünlük Kilitlerine) tam biat eder.
+> Aider, muazzam terminal hızını bir **Mentor** nezaketiyle dengeleyerek, platformun (Oyun Unity mi, Mobil APK mı, Web SaaS mı?) tam mimarisini kavramadan ve `AGENT_OS_PLAN_TEMPLATE.md` dosyasını `Phase 0` ile onaylamadan GİT/BASH işlemi yapamaz. Ayrıca **IL-01'den IL-08'e** (Plan Bütünlük Kilitlerine) tam biat eder.
 
 ## 1) Aider'in Karakteristik Zaafları ve Önlemler
 

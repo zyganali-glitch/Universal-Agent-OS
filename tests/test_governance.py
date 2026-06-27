@@ -109,3 +109,42 @@ class TestCollectiveMemoryFiles:
         """TR locale pack must contain each Collective Memory template file."""
         path = root_dir / "tr" / filename
         assert path.is_file(), f"tr/{filename} is missing"
+
+
+class TestEvidenceManifestTemplate:
+    """Tests for the Evidence Manifest Template."""
+
+    def test_evidence_manifest_exists(self, root_dir: pathlib.Path):
+        """EVIDENCE_MANIFEST_TEMPLATE.md must exist in docs/."""
+        assert (root_dir / "docs" / "EVIDENCE_MANIFEST_TEMPLATE.md").is_file(), "EVIDENCE_MANIFEST_TEMPLATE.md is missing"
+
+    def test_evidence_manifest_contains_debt_delta(self, root_dir: pathlib.Path):
+        """EVIDENCE_MANIFEST_TEMPLATE.md must contain Tech-Debt Delta requirement."""
+        content = (root_dir / "docs" / "EVIDENCE_MANIFEST_TEMPLATE.md").read_text(encoding="utf-8")
+        assert "Tech-Debt Delta" in content, "Tech-Debt Delta is missing from EVIDENCE_MANIFEST_TEMPLATE.md"
+
+
+class TestRootAdapters:
+    """Tests for root AI adapter files."""
+
+    @pytest.mark.parametrize("filename", [
+        "CLAUDE.md",
+        "GEMINI.md",
+        "AIDER.md",
+        ".cursorrules",
+        ".agentrules",
+        ".devinrules",
+        ".clinerules",
+        ".windsurfrules",
+        ".roorules",
+        ".openhands_instructions",
+        ".github/copilot-instructions.md"
+    ])
+    def test_adapter_contains_locale_routing(self, root_dir: pathlib.Path, filename: str):
+        """Root adapters must contain strict locale routing text."""
+        path = root_dir / filename
+        if path.is_file():
+            content = path.read_text(encoding="utf-8")
+            assert "tr/AGENTS.md" in content, f"{filename} is missing TR locale routing"
+            assert "en/AGENTS.md" in content, f"{filename} is missing EN locale routing"
+

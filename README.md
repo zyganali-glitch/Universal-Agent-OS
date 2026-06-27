@@ -281,9 +281,7 @@ Universal-Agent-OS/
 
 ## Licensing
 
-This project is released under the **MIT License** (see [LICENSE](LICENSE)).
-
-A recommended commercial licensing model for future enterprise distribution is described in [LICENSING.md](LICENSING.md). These commercial tiers are **not currently enforced** under the MIT license.
+This project is released as fully open-source under the **MIT License**. See [LICENSE](LICENSE) and [LICENSING.md](LICENSING.md) for details.
 
 ---
 

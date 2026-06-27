@@ -1,0 +1,8 @@
+{
+  "project_type": "Web SaaS",
+  "frontend": "Next.js",
+  "backend": "Node.js",
+  "db": "PostgreSQL",
+  "i18n": "en, tr",
+  "legacy_mode": false
+}

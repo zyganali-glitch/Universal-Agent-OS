@@ -4,7 +4,7 @@ This document is the industry-certified "Universal Agent OS" lock contract formu
 
 > [!CAUTION]
 > **ZERO-LEAK & ANTI-CASCADE LOCK:**
-> Aider MUST temper its massive terminal velocity with the patience of a **Mentor**. It CANNOT execute GIT/BASH commands without comprehensively mapping the architecture (Unity Game, Mobile APK, Web SaaS?) and obtaining approval across the `GLOBAL_PLAN` via the `Phase 0` protocol. Additionally, it maintains absolute allegiance to the Plan Integrity Locks **(IL-01 to IL-08)**.
+> Aider MUST temper its massive terminal velocity with the patience of a **Mentor**. It CANNOT execute GIT/BASH commands without comprehensively mapping the architecture (Unity Game, Mobile APK, Web SaaS?) and obtaining approval across the `AGENT_OS_PLAN_TEMPLATE.md` via the `Phase 0` protocol. Additionally, it maintains absolute allegiance to the Plan Integrity Locks **(IL-01 to IL-08)**.
 
 ## 1) Vulnerabilities of Aider and Strict Countermeasures
 

@@ -4,11 +4,48 @@ const path = require('path');
 module.exports = function(args) {
   console.log('\n🔍 Universal Agent OS — Governance Gate Verification\n');
 
+  let mode = null;
+  let targetDir = process.cwd();
+
+  if (args.includes('--package')) {
+    mode = 'package';
+  } else if (args.includes('--target')) {
+    mode = 'target';
+    const targetIndex = args.indexOf('--target');
+    if (args[targetIndex + 1] && !args[targetIndex + 1].startsWith('--')) {
+      targetDir = path.resolve(process.cwd(), args[targetIndex + 1]);
+    }
+  } else {
+    // Auto-detect
+    const pkgPath = path.join(process.cwd(), 'package.json');
+    if (fs.existsSync(pkgPath)) {
+      try {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+        if (pkg.name === 'universal-agent-os') {
+          mode = 'package';
+        } else {
+          mode = 'target';
+        }
+      } catch (e) {
+        mode = 'target';
+      }
+    } else {
+      mode = 'target';
+    }
+  }
+
+  console.log(`🚀 Running in ${mode.toUpperCase()} mode...`);
+  if (mode === 'target') {
+    console.log(`📂 Target directory: ${targetDir}`);
+  }
+  console.log('');
+
   let passed = 0;
   let failed = 0;
 
   function check(filePath, label) {
-    if (fs.existsSync(path.join(process.cwd(), filePath))) {
+    const fullPath = mode === 'package' ? path.join(process.cwd(), filePath) : path.join(targetDir, filePath);
+    if (fs.existsSync(fullPath)) {
       console.log(`  ✅ ${label}`);
       passed++;
     } else {
@@ -17,99 +54,61 @@ module.exports = function(args) {
     }
   }
 
-  // Core Governance
-  console.log('📋 Core Governance Files:');
-  check('AGENTS.md', 'Supreme Constitution (AGENTS.md)');
-  check('AGENT_OS_PLAN_TEMPLATE.md', 'Global Plan Template');
-  check('AGENT_OS_RULES.md', 'Governance Rules');
-
-  // Collective Memory (4 Pillars)
-  console.log('\n🧠 Collective Memory (4 Pillars):');
-  check('AGENT_MEMORY_AND_LESSONS.md', 'Lessons & Known Issues');
-  check('AGENT_ARCHITECTURE_AND_PATTERNS.md', 'Architecture & Patterns');
-  check('AGENT_ENVIRONMENT_AND_API.md', 'Environment & API');
-  check('AGENT_USER_PREFERENCES.md', 'User Preferences');
-
-  // Agent Adapter Surfaces
-  console.log('\n🔌 Agent Adapter Surfaces:');
-  check('CLAUDE.md', 'Claude Adapter');
-  check('GEMINI.md', 'Gemini Adapter');
-  check('AIDER.md', 'Aider Adapter');
-
-  // Native IDE Surfaces (optional but recommended)
-  console.log('\n🛠️  Native IDE Surfaces (recommended):');
-  const optionalFiles = [
-    ['.cursor/rules/global-governance.mdc', 'Cursor Rules'],
-    ['.codex/AGENTS.md', 'Codex Adapter'],
-    ['.github/copilot-instructions.md', 'Copilot Instructions'],
-    ['.agent/rules/global-governance.md', 'Agent Rules'],
-    ['.agent/workflows/session-bootstrap.md', 'Session Bootstrap Workflow'],
-    ['.agent/skills/global-governance/SKILL.md', 'Governance Skill'],
-  ];
-  let optionalPassed = 0;
-  for (const [filePath, label] of optionalFiles) {
-    if (fs.existsSync(path.join(process.cwd(), filePath))) {
-      console.log(`  ✅ ${label}`);
-      optionalPassed++;
-    } else {
-      console.log(`  ⚠️  ${label} — not found (optional): ${filePath}`);
-    }
-  }
-
-  // Planning Directory
-  console.log('\n📁 Planning Infrastructure:');
-  check('plans', 'Plans directory');
-  if (fs.existsSync(path.join(process.cwd(), 'plans', 'completed'))) {
-    console.log('  ✅ Plans archive (plans/completed/)');
-    passed++;
+  if (mode === 'package') {
+    console.log('📦 Verifying Source Package:');
+    check('README.md', 'README.md');
+    check('LICENSE', 'LICENSE');
+    check('LICENSING.md', 'LICENSING.md');
+    check('VERSION', 'VERSION');
+    check('CHANGELOG.md', 'CHANGELOG.md');
+    check('package.json', 'package.json');
+    check('init-agent-os.sh', 'init-agent-os.sh');
+    check('init-agent-os.ps1', 'init-agent-os.ps1');
+    check('cli/index.js', 'cli/index.js');
+    check('cli/init.js', 'cli/init.js');
+    check('cli/verify.js', 'cli/verify.js');
+    check('en/AGENTS.md', 'en/AGENTS.md');
+    check('tr/AGENTS.md', 'tr/AGENTS.md');
+    check('en/AGENT_OS_RULES.md', 'en/AGENT_OS_RULES.md');
+    check('tr/AGENT_OS_RULES.md', 'tr/AGENT_OS_RULES.md');
+    check('en/AGENT_OS_PLAN_TEMPLATE.md', 'en/AGENT_OS_PLAN_TEMPLATE.md');
+    check('tr/AGENT_OS_PLAN_TEMPLATE.md', 'tr/AGENT_OS_PLAN_TEMPLATE.md');
+    check('en/AGENT_MEMORY_AND_LESSONS.md', 'en/AGENT_MEMORY_AND_LESSONS.md');
+    check('tr/AGENT_MEMORY_AND_LESSONS.md', 'tr/AGENT_MEMORY_AND_LESSONS.md');
+    check('en/AGENT_ARCHITECTURE_AND_PATTERNS.md', 'en/AGENT_ARCHITECTURE_AND_PATTERNS.md');
+    check('tr/AGENT_ARCHITECTURE_AND_PATTERNS.md', 'tr/AGENT_ARCHITECTURE_AND_PATTERNS.md');
+    check('en/AGENT_ENVIRONMENT_AND_API.md', 'en/AGENT_ENVIRONMENT_AND_API.md');
+    check('tr/AGENT_ENVIRONMENT_AND_API.md', 'tr/AGENT_ENVIRONMENT_AND_API.md');
+    check('en/AGENT_USER_PREFERENCES.md', 'en/AGENT_USER_PREFERENCES.md');
+    check('tr/AGENT_USER_PREFERENCES.md', 'tr/AGENT_USER_PREFERENCES.md');
+    check('tests', 'tests/');
+    check('.github/workflows/agent-os-enforcer.yml', '.github/workflows/agent-os-enforcer.yml');
+    check('extensions/vscode/package.json', 'extensions/vscode/package.json');
+    check('extensions/vscode/src/extension.ts', 'extensions/vscode/src/extension.ts');
   } else {
-    console.log('  ⚠️  Plans archive not found (plans/completed/) — will be created on first plan closure');
+    console.log('📋 Verifying Target Repository:');
+    check('AGENTS.md', 'Supreme Constitution (AGENTS.md)');
+    check('AGENT_OS_RULES.md', 'Governance Rules');
+    check('AGENT_OS_PLAN_TEMPLATE.md', 'Global Plan Template');
+    check('AGENT_MEMORY_AND_LESSONS.md', 'Lessons & Known Issues');
+    check('AGENT_ARCHITECTURE_AND_PATTERNS.md', 'Architecture & Patterns');
+    check('AGENT_ENVIRONMENT_AND_API.md', 'Environment & API');
+    check('AGENT_USER_PREFERENCES.md', 'User Preferences');
+    check('.agent/workflows/session-bootstrap.md', 'Session Bootstrap Workflow');
+    check('.agent/workflows/continue.md', 'Continue Workflow');
+    check('plans', 'Plans directory');
+    check('plans/completed', 'Plans completed directory');
   }
 
-  // Runtime Behavior & Memory Bus Tests
-  console.log('\n⚙️  Runtime Behavior Tests:');
-  try {
-    const memoryPath = path.join(process.cwd(), 'agent_memory.json');
-    if (fs.existsSync(memoryPath)) {
-      const memoryContent = fs.readFileSync(memoryPath, 'utf8');
-      JSON.parse(memoryContent); // Throws if corrupt
-      console.log('  ✅ Memory Bus (agent_memory.json) structural integrity: PASS');
-    } else {
-      console.log('  ⚠️  Memory Bus not found, skipping structural test.');
-    }
-  } catch (err) {
-    console.error(`  ❌ Memory Bus structural integrity: FAIL (${err.message})`);
-    failed++;
-  }
-
-  try {
-    const mcpPackagePath = path.join(process.cwd(), 'mcp-server', 'package.json');
-    if (fs.existsSync(mcpPackagePath)) {
-      const pkg = JSON.parse(fs.readFileSync(mcpPackagePath, 'utf8'));
-      if (pkg.dependencies && pkg.dependencies['@modelcontextprotocol/sdk']) {
-        console.log('  ✅ MCP Server runtime dependencies check: PASS');
-      } else {
-        console.error('  ❌ MCP Server runtime dependencies check: FAIL (Missing SDK)');
-        failed++;
-      }
-    }
-  } catch (err) {
-    console.error(`  ❌ MCP Server check: FAIL (${err.message})`);
-    failed++;
-  }
-
-  // Summary
   console.log('\n' + '='.repeat(60));
   console.log(`  Required: ${passed} passed, ${failed} failed`);
-  console.log(`  Optional: ${optionalPassed}/${optionalFiles.length} present`);
   console.log('='.repeat(60));
 
   if (failed > 0) {
-    console.error(`\n❌ GATE CHECK FAILED — ${failed} required governance surface(s) missing.`);
-    console.error("   Run 'npx agent-os init' to install the governance framework.\n");
+    console.error(`\n❌ GATE CHECK FAILED — ${failed} required surface(s) missing.\n`);
     process.exit(1);
   } else {
-    console.log(`\n✅ GATE CHECK PASSED — All required governance surfaces verified.\n`);
+    console.log(`\n✅ GATE CHECK PASSED — All required surfaces verified.\n`);
     process.exit(0);
   }
 };

@@ -8,11 +8,14 @@ if (command === 'init') {
   require('./verify.js')(args);
 } else {
   console.log(`
-Universal Agent OS CLI (v1.1.0)
+Universal Agent OS CLI
 
 Usage:
-  npx agent-os init           - Initialize the Agent OS governance framework in the current repo.
-  npx agent-os init --legacy  - Initialize in Legacy/Brownfield mode (skips Phase-0, creates quarantine).
-  npx agent-os verify         - Run the governance gate verification check.
+  agent-os init [--en|--tr|--locale en|tr]
+  agent-os verify [--package|--target [dir]]
+
+Commands:
+  init       Install selected locale pack into the current directory (default: tr)
+  verify     Verify package source or installed target repo governance surfaces
 `);
 }

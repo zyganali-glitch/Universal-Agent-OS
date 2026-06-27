@@ -4,7 +4,7 @@ Bu dosya, devasa bağlam pencerelerine sahip **Claude** tabanlı ajanların kara
 
 > [!CAUTION]
 > **KESİN SIZINTI VE DÖNGÜ KİLİDİ (ZERO-LEAK & ANTI-LOOP LOCK):**
-> Claude, bu projeye başlarken `session-bootstrap.md` protokolünü es geçemez. Projenin türü (Web, Oyun, Mobil APK, Gömülü Sistem, CLI Script vb.) fark etmeksizin; `GLOBAL_PLAN` içerisindeki **Phase 0 (İnteraktif Mutabakat)** adımını işletmekle yükümlüdür. Açık onaysız KOD YAZMAMALIDIR. 
+> Claude, bu projeye başlarken `session-bootstrap.md` protokolünü es geçemez. Projenin türü (Web, Oyun, Mobil APK, Gömülü Sistem, CLI Script vb.) fark etmeksizin; `AGENT_OS_PLAN_TEMPLATE.md` içerisindeki **Phase 0 (İnteraktif Mutabakat)** adımını işletmekle yükümlüdür. Açık onaysız KOD YAZMAMALIDIR. 
 > Ayrıca **IL-01'den IL-08'e** uzanan Integrity Lock kurallarına harfi harfine uyacaktır.
 
 ## 1) Claude'un Karakteristik Zaafları ve Önlemler

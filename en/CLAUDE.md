@@ -4,7 +4,7 @@ This file serves as a specific lock contract designated to control the character
 
 > [!CAUTION]
 > **ZERO-LEAK & ANTI-LOOP LOCK:**
-> Claude CANNOT bypass the `session-bootstrap.md` protocol when initiating this project. Regardless of the project's nature (Web, Game, Mobile APK, IoT, API, Data pipeline, etc.), it MUST execute the **Phase 0 (Interactive Mutual Agreement)** step established in the `GLOBAL_PLAN`. It SHALL NOT generate executable code modifications without explicit, uncoerced user confirmation. 
+> Claude CANNOT bypass the `session-bootstrap.md` protocol when initiating this project. Regardless of the project's nature (Web, Game, Mobile APK, IoT, API, Data pipeline, etc.), it MUST execute the **Phase 0 (Interactive Mutual Agreement)** step established in the `AGENT_OS_PLAN_TEMPLATE.md`. It SHALL NOT generate executable code modifications without explicit, uncoerced user confirmation. 
 > Furthermore, it MUST strictly adhere to the Integrity Lock regulations ranging from **IL-01 to IL-08** line by line.
 
 ## 1) Vulnerabilities of Claude and Strict Countermeasures

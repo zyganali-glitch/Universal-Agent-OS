@@ -4,7 +4,7 @@ Bu dosya, IDE içine gömülü (Inline) çalışan, anlık otomatik tamamlamalar
 
 > [!CAUTION]
 > **KESİN SIZINTI VE ANTI-SPAGETTI KİLİDİ (ZERO-LEAK & ANTI-HACK LOCK):**
-> Inline çalışan asistanlar "Hemen şimdi o satırı bitir" psikolojisiyle tüm mimari kilitleri atlayıp Anti-pattern üretebilirler. Bütün Codex/Cursor versiyonları kök projede tanımlanmış olan `GLOBAL_PLAN` ve **IL-01...IL-08 Integrity Lock** sistemine kayıtsız şartsız uymalıdır! Phase 0 sınırlarının (Proje oyun mudur? Web midir?) farkındalığıyla çalışmalılar.
+> Inline çalışan asistanlar "Hemen şimdi o satırı bitir" psikolojisiyle tüm mimari kilitleri atlayıp Anti-pattern üretebilirler. Bütün Codex/Cursor versiyonları kök projede tanımlanmış olan `AGENT_OS_PLAN_TEMPLATE.md` ve **IL-01...IL-08 Integrity Lock** sistemine kayıtsız şartsız uymalıdır! Phase 0 sınırlarının (Proje oyun mudur? Web midir?) farkındalığıyla çalışmalılar.
 
 ## 1) Inline (Satır-İçi) Asistan Zaafları ve Önlemler
 

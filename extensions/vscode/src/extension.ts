@@ -1,11 +1,34 @@
 import * as vscode from 'vscode';
+import { exec } from 'child_process';
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Universal Agent OS is now active!');
 
-    const collection = vscode.languages.createDiagnosticCollection('agentOS');
-    context.subscriptions.push(collection);
+    let startInterview = vscode.commands.registerCommand('agent-os.startPhase0', () => {
+        vscode.window.showInformationMessage('Starting Phase-0 Interview...');
+        const terminal = vscode.window.createTerminal('Agent OS');
+        terminal.show();
+        terminal.sendText('python examples/phase0-interview/phase0_interview.py start');
+    });
 
+    let verifyGate = vscode.commands.registerCommand('agent-os.verifyGovernance', () => {
+        const workspaceFolders = vscode.workspace.workspaceFolders;
+        if (!workspaceFolders) {
+            vscode.window.showErrorMessage('No workspace folder found.');
+            return;
+        }
+        const cwd = workspaceFolders[0].uri.fsPath;
+        exec('npx agent-os verify --target', { cwd }, (error, stdout, stderr) => {
+            if (error) {
+                vscode.window.showErrorMessage(`Governance Gate Failed: ${stderr}`);
+                return;
+            }
+            vscode.window.showInformationMessage(`Governance Gate Passed: ${stdout}`);
+        });
+    });
+
+    const collection = vscode.languages.createDiagnosticCollection('agentOS');
+    
     vscode.workspace.onDidSaveTextDocument(document => {
         if (document.languageId === 'Log' || document.fileName.endsWith('.md')) {
             return;
@@ -30,8 +53,6 @@ export function activate(context: vscode.ExtensionContext) {
         // Rule 2: Zero-Zombie-Code
         const text = document.getText();
         if (text.includes('// TODO:') || text.includes('// FIXME:')) {
-            // Very basic check, in a real scenario we'd regex for lines.
-            // Just add a generic info for now.
              const firstTodo = text.indexOf('// TODO:') !== -1 ? text.indexOf('// TODO:') : text.indexOf('// FIXME:');
              const position = document.positionAt(firstTodo);
              const range = new vscode.Range(position, position);
@@ -46,6 +67,8 @@ export function activate(context: vscode.ExtensionContext) {
 
         collection.set(document.uri, diagnostics);
     });
+
+    context.subscriptions.push(startInterview, verifyGate, collection);
 }
 
 export function deactivate() {}

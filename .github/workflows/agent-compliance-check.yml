@@ -3,36 +3,31 @@ name: Agent Compliance Check
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
 
 jobs:
-  agent-os-compliance:
+  package-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Verify Governance Files Exist
-        run: |
-          echo "🔍 Checking for Agent Governance OS Core Files..."
-          if [ ! -f "AGENTS.md" ]; then
-            echo "❌ ERROR: Core governance file AGENTS.md is missing!"
-            exit 1
-          fi
-          if [ ! -f "AGENT_OS_PLAN_TEMPLATE.md" ]; then
-            echo "❌ ERROR: Plan tracking template is missing!"
-            exit 1
-          fi
-          echo "✅ Core Agent-OS files found."
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-      - name: Multi-Language & Hardcoded String Verification (Anti-Hack)
-        run: |
-          echo "🔍 Scanning for Hardcoded English Strings without i18n..."
-          # Pseudo-check logic: GTM stratejisinde vibecoder'lar için hazır uyarı
-          # "If <button>Submit</button> is used instead of i18n, block it."
-          echo "✅ All UI texts pass the anti-hardcode standards."
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-      - name: Plan State Verification (Zero-Leak Lock)
-        run: |
-          echo "🔍 Checking if active plans have unresolved [DISCOVERED] flags..."
-          # Plana yansıtılmamış açık işler veya bypass edilmiş testler CI'ı kırar.
-          echo "✅ All plans are properly scoped."
+      - name: Install Node package locally
+        run: npm link
+
+      - name: Verify package governance
+        run: agent-os verify --package
+
+      - name: Install Python test dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: python -m pytest tests -v

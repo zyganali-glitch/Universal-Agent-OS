@@ -1,14 +1,8 @@
-# Minimal SaaS Example Repo
+# Minimal SaaS Target Repo Example
 
-This example shows how the Agent Governance OS Starter Kit lands in a fresh repository.
+This is a demo showing a Universal Agent OS compliant target repository.
+To verify its governance state, run:
 
-Included surfaces:
-- `AGENTS.md`
-- `AGENT_OS_PLAN_TEMPLATE.md`
-- `plans/`
-
-Suggested demo:
-1. Copy one locale pack into the repo root.
-2. Start a consultation-first agent session.
-3. Ask the agent to write the first roadmap and child execution plan.
-4. Verify that coding does not begin before the plan exists.
+```bash
+agent-os verify --target examples/minimal-saas
+```

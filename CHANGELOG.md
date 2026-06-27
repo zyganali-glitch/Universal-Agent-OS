@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0 - 2026-06-27
+- **Open Source Transition**: Converted completely to MIT License, removing all commercial tier restrictions and terminology.
+- **Plan Standardization**: Standardized `AGENT_OS_PLAN_TEMPLATE.md` usage across all root AI adapters.
+- **Verification Modes**: CLI `verify` now supports `--package` (self-check) and `--target <dir>` (target repo check).
+- **CI/CD Consolidation**: GitHub Actions and GitLab pipelines now test against the strict `--package` mode.
+- **VS Code Extension Fixed**: Integrated `phase0_interview.py` and active IDE diagnostics (Anti-Monolith, Zero-Zombie-Code).
+- **Target Repo Demo**: Added fully compliant `examples/minimal-saas` target repo for end-to-end verification.
+- **Honesty Boundary**: Added `Tech-Debt Delta` requirement to the Evidence Manifest, enforced by `pytest`.
+
 ## 1.1.0 - 2026-06-26
 - **Root AGENTS.md strengthened**: Added IL-14/15/16 references, locale detection hint, Multi-Role Review Stack, Fast-Track Mode.
 - **All 10 root adapter files differentiated**: Each agent-specific adapter now includes tailored directives for its known strengths/weaknesses (Cursor, Claude, Gemini, Aider, Copilot, Devin, Windsurf, Cline, Roo, OpenHands).

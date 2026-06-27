@@ -11,17 +11,6 @@ test:
 
 validate-governance:
   stage: validate
+  image: node:20
   script:
-    - test -f LICENSE
-    - test -f AGENTS.md
-    - test -f README.md
-    - test -f VERSION
-    - test -f CHANGELOG.md
-    - test -f LICENSING.md
-    - test -f init-agent-os.sh
-    - test -f init-agent-os.ps1
-    - test -d en
-    - test -d tr
-    - test -d skills
-    - test -d docs
-    - echo "All governance surfaces verified."
+    - node cli/index.js verify --package

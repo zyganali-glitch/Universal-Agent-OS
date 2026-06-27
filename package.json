@@ -7,8 +7,10 @@
     "agent-os": "cli/index.js"
   },
   "scripts": {
-    "test": "pytest tests/ -v --tb=short",
-    "verify": "node cli/index.js verify"
+    "test": "python -m pytest tests -v",
+    "verify": "node cli/index.js verify --package",
+    "verify:package": "node cli/index.js verify --package",
+    "verify:target": "node cli/index.js verify --target"
   },
   "repository": {
     "type": "git",
