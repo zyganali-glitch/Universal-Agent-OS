@@ -15,7 +15,7 @@ function activate(context) {
     statusBarItem.command = 'agent-os.verifyGovernance';
     statusBarItem.show();
     context.subscriptions.push(statusBarItem);
-    // Init Workspace
+    // Super Init Workspace (Cloud Fetch)
     let initWorkspace = vscode.commands.registerCommand('agent-os.initWorkspace', async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
@@ -24,24 +24,81 @@ function activate(context) {
         }
         const rootPath = workspaceFolders[0].uri.fsPath;
         const agentsPath = path.join(rootPath, 'AGENTS.md');
-        if (!fs.existsSync(agentsPath)) {
-            const content = `# Universal Agent OS (Workspace Rules)\n\nYou are operating within the Universal Agent OS framework.\n\n## ZERO-CONFIG & SUPREME CONSTITUTION\n1. Always enforce No-New-Debt.\n2. Phase-0 Interview is mandatory.\n3. Do not run destructive commands.\n4. Wait for test evidence before marking tasks as Done.\n`;
-            fs.writeFileSync(agentsPath, content);
-            vscode.window.showInformationMessage('Universal Agent OS initialized! AGENTS.md created.');
-        }
-        else {
-            vscode.window.showInformationMessage('Universal Agent OS is already initialized in this workspace.');
-        }
-        // Also create a boilerplate phase0 script if missing
-        const examplesDir = path.join(rootPath, 'examples', 'phase0-interview');
-        if (!fs.existsSync(examplesDir)) {
-            fs.mkdirSync(examplesDir, { recursive: true });
-        }
-        const scriptPath = path.join(examplesDir, 'phase0_interview.py');
-        if (!fs.existsSync(scriptPath)) {
-            const scriptContent = `print("Starting Phase-0 Interview...")\nprint("Please answer the following questions to align the AI agent with your requirements.")\n`;
-            fs.writeFileSync(scriptPath, scriptContent);
-        }
+        const targetAgentOsDir = path.join(rootPath, '.agentos');
+        vscode.window.withProgress({
+            location: vscode.ProgressLocation.Notification,
+            title: "Universal Agent OS",
+            cancellable: false
+        }, async (progress) => {
+            return new Promise((resolve, reject) => {
+                progress.report({ message: "Downloading brain from GitHub..." });
+                const tempDir = path.join(rootPath, '.agentos-temp');
+                // Fetch the repo securely
+                const gitCommand = `git clone --depth 1 https://github.com/zyganali-glitch/Universal-Agent-OS.git "${tempDir}"`;
+                (0, child_process_1.exec)(gitCommand, { cwd: rootPath }, (error) => {
+                    if (error) {
+                        vscode.window.showErrorMessage(`Failed to fetch Agent OS: ${error.message}`);
+                        reject();
+                        return;
+                    }
+                    try {
+                        progress.report({ message: "Configuring workspace..." });
+                        // Drop AGENTS.md at root
+                        const repoAgentsMd = path.join(tempDir, 'AGENTS.md');
+                        if (!fs.existsSync(agentsPath) && fs.existsSync(repoAgentsMd)) {
+                            fs.copyFileSync(repoAgentsMd, agentsPath);
+                        }
+                        // Setup the hidden .agentos folder for the OS internals
+                        if (!fs.existsSync(targetAgentOsDir)) {
+                            fs.mkdirSync(targetAgentOsDir, { recursive: true });
+                        }
+                        const copyRecursiveSync = (src, dest) => {
+                            const exists = fs.existsSync(src);
+                            const stats = exists && fs.statSync(src);
+                            const isDirectory = exists && stats && stats.isDirectory();
+                            if (isDirectory) {
+                                if (!fs.existsSync(dest))
+                                    fs.mkdirSync(dest, { recursive: true });
+                                fs.readdirSync(src).forEach((childItemName) => {
+                                    copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
+                                });
+                            }
+                            else if (exists) {
+                                fs.copyFileSync(src, dest);
+                            }
+                        };
+                        // Copy essential template directories to .agentos/
+                        ['examples', 'en', 'tr', 'plans'].forEach(folder => {
+                            const srcPath = path.join(tempDir, folder);
+                            if (fs.existsSync(srcPath)) {
+                                copyRecursiveSync(srcPath, path.join(targetAgentOsDir, folder));
+                            }
+                        });
+                        // Copy memory files to .agentos/
+                        const filesToCopy = [
+                            'AGENT_MEMORY_AND_LESSONS.md',
+                            'AGENT_ARCHITECTURE_AND_PATTERNS.md',
+                            'AGENT_USER_PREFERENCES.md',
+                            'AGENT_ENVIRONMENT_AND_API.md'
+                        ];
+                        filesToCopy.forEach(file => {
+                            const srcPath = path.join(tempDir, file);
+                            if (fs.existsSync(srcPath)) {
+                                fs.copyFileSync(srcPath, path.join(targetAgentOsDir, file));
+                            }
+                        });
+                        // Clean up temporary clone
+                        fs.rmSync(tempDir, { recursive: true, force: true });
+                        vscode.window.showInformationMessage('Universal Agent OS initialized! Core brain imported.');
+                        resolve();
+                    }
+                    catch (e) {
+                        vscode.window.showErrorMessage(`Error configuring workspace: ${e.message}`);
+                        reject();
+                    }
+                });
+            });
+        });
     });
     let startInterview = vscode.commands.registerCommand('agent-os.startPhase0', async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -49,7 +106,8 @@ function activate(context) {
         let scriptExists = false;
         if (workspaceFolders) {
             const rootPath = workspaceFolders[0].uri.fsPath;
-            scriptPath = path.join(rootPath, 'examples', 'phase0-interview', 'phase0_interview.py');
+            // Now look for the script inside the .agentos hidden folder
+            scriptPath = path.join(rootPath, '.agentos', 'examples', 'phase0-interview', 'phase0_interview.py');
             scriptExists = fs.existsSync(scriptPath);
         }
         if (!scriptExists) {
@@ -62,7 +120,6 @@ function activate(context) {
         vscode.window.showInformationMessage('Starting Phase-0 Interview...');
         const terminal = vscode.window.createTerminal('Agent OS');
         terminal.show();
-        // Use exact path to prevent CWD issues
         terminal.sendText(`python "${scriptPath}" start`);
     });
     let verifyGate = vscode.commands.registerCommand('agent-os.verifyGovernance', () => {
@@ -88,13 +145,11 @@ function activate(context) {
         const config = vscode.workspace.getConfiguration('agentOS');
         const limit = config.get('antiMonolithLimit', 400);
         const diagnostics = [];
-        // Rule 1: Anti-Monolith
         if (document.lineCount > limit) {
             const range = new vscode.Range(0, 0, 0, 100);
             const diagnostic = new vscode.Diagnostic(range, `[Agent OS IL-06] Anti-Monolith Violation: File exceeds ${limit} lines. Consider spawning a new module.`, vscode.DiagnosticSeverity.Warning);
             diagnostics.push(diagnostic);
         }
-        // Rule 2: Zero-Zombie-Code
         const text = document.getText();
         if (text.includes('// TODO:') || text.includes('// FIXME:')) {
             const firstTodo = text.indexOf('// TODO:') !== -1 ? text.indexOf('// TODO:') : text.indexOf('// FIXME:');

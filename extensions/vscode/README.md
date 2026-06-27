@@ -2,16 +2,15 @@
 
 This is the official Enterprise IDE extension for the **Universal Agent OS**, a consultation-first governance framework for AI coding agents.
 
-## What's New in v1.1.0 🚀
-- **Day-0 Setup (Init Workspace)**: One-click initialization! Automatically generates a boilerplate `AGENTS.md` and Phase-0 interview script for any new project.
-- **Smart Dependency Management**: No more ugly terminal errors. Graceful toast notifications guide you to initialize the workspace if required scripts are missing.
+## What's New in v1.2.0 (Super Init) 🚀
+- **Cloud Fetch Initialization**: `Agent OS: Init Workspace` now acts as an intelligent cloud installer. Instead of generating generic boilerplates, it securely fetches the latest `AGENT_MEMORY_AND_LESSONS`, global plans, and the `Phase-0` interview scripts directly from the official Universal Agent OS GitHub repository and configures them into a dedicated `.agentos` folder inside your workspace. You always get the absolute latest brain!
 - **Persistent Status Bar**: A dedicated `🛡️ Agent OS: Active` indicator lives in your VS Code status bar. Click it anytime to instantly verify your project's governance gate.
 
 ## Features
 
-- **Init Workspace**: Use `Agent OS: Init Workspace` to prepare your environment.
+- **Init Workspace**: Use `Agent OS: Init Workspace` to download the core OS architecture into any empty project.
 - **Start Phase-0 Interview**: Instantly trigger the Phase-0 onboarding interview for your AI agent (Cursor, GitHub Copilot, Claude, etc.) directly from the Command Palette.
-- **Verify Governance Gate**: Click the Status Bar icon or use the Command Palette to run verification checks (`agent-os verify`) inside VS Code.
+- **Verify Governance Gate**: Click the Status Bar icon or use the Command Palette to run verification checks inside VS Code.
 - **Anti-Monolith Warning**: Monitors file sizes and warns you if your files exceed the configured line limit.
 - **Zero-Zombie-Code Policy**: Highlights `// TODO` and `// FIXME` comments to ensure they are tracked.
 
