@@ -85,6 +85,11 @@ module.exports = function(args) {
     check('.github/workflows/agent-os-enforcer.yml', '.github/workflows/agent-os-enforcer.yml');
     check('extensions/vscode/package.json', 'extensions/vscode/package.json');
     check('extensions/vscode/src/extension.ts', 'extensions/vscode/src/extension.ts');
+    check('requirements-dev.txt', 'requirements-dev.txt');
+    check('skills/agent-os-memory/SKILL.md', 'skills/agent-os-memory/SKILL.md');
+    check('.github/workflows/agent-compliance-check.yml', '.github/workflows/agent-compliance-check.yml');
+    check('.gitlab-ci.yml', '.gitlab-ci.yml');
+    check('walkthrough.md', 'walkthrough.md');
   } else {
     console.log('📋 Verifying Target Repository:');
     check('AGENTS.md', 'Supreme Constitution (AGENTS.md)');

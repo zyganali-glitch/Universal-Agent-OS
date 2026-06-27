@@ -12,14 +12,10 @@ set -e
 
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="$1"
-LANG_CHOICE="$2"
+LANG_CHOICE="${2:-en}"
 LEGACY_FLAG="${3:-}"
 
-if [ -z "$LANG_CHOICE" ]; then
-    read -p "Dil seçimi (tr/en) [varsayılan: tr]: " LANG_CHOICE
-fi
-
-LOCALE=${LANG_CHOICE:-tr}
+LOCALE="$LANG_CHOICE"
 
 echo "=========================================================="
 echo "🤖 Universal Agent Governance OS — Installation Starting..."
