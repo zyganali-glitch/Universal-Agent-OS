@@ -54,6 +54,14 @@ fi
 echo "🔹 Copying core Agent-OS files..."
 cp -r "$OS_SOURCE/." "$TARGET_DIR/"
 
+echo "🔹 Copying Agent IDE Adapter files..."
+ROOT_FILES=(".cursorrules" ".devinrules" ".windsurfrules" ".clinerules" ".roorules" ".openhands_instructions" ".agentrules" "AGENTS.md")
+for FILE in "${ROOT_FILES[@]}"; do
+    if [ -f "$SOURCE_DIR/$FILE" ]; then
+        cp "$SOURCE_DIR/$FILE" "$TARGET_DIR/"
+    fi
+done
+
 # 2. Create plans directory structure
 echo "🔹 Creating planning directory and archive..."
 mkdir -p "$TARGET_DIR/plans/completed"

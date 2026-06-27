@@ -2,6 +2,9 @@
 
 This is the official Enterprise IDE extension for the **Universal Agent OS**, a consultation-first governance framework for AI coding agents.
 
+## What's New in v1.4.1 (The Adapter Fix) 🚀
+- **Root Adapter Injection**: Fixed a silent bug where root IDE adapters (`.cursorrules`, `.windsurfrules`, `.devinrules`, etc.) were skipped during installation. The OS now correctly copies all platform-specific adapter dotfiles to the root of your workspace, ensuring zero-config discovery works flawlessly across all IDEs.
+
 ## What's New in v1.4.0 (The Unified Installer) 🚀
 - **Unified Cloud Fetch**: `Agent OS: Init Workspace` now perfectly mirrors the CLI installer behavior. It asks for your preferred language pack (English/Turkish), securely fetches the latest architecture from GitHub, and installs it directly into your root folder ensuring 100% "Zero-Config Auto-Discovery" compatibility with all AI agents.
 - **Legacy Quarantine Auto-Detect**: The extension automatically scans your folder. If it detects an existing codebase, it drops a strict `TECH_DEBT_AND_SECURITY.md` file to prevent AI from blindly rewriting your old spaghetti code.
