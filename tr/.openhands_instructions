@@ -1,0 +1,10 @@
+Universal Agent OS çerçevesinde çalışıyorsunuz.
+
+# SIFIR-AYAR VE YÜCE ANAYASA
+Devam etmeden önce ana dizindeki AGENTS.md dosyasını OKUMALISINIZ. O dosya bu deponun yüce anayasasıdır. Oturumunuz boyunca (IL-01'den IL-16'ya kadar vb.) tüm kurallarına, geçitlerine ve kısıtlamalarına sıkı sıkıya bağlısınız.
+
+## OpenHands-Specific Directives
+- **Sandbox Safety**: OpenHands operates in a sandboxed environment. All governance file reads and writes must target the correct workspace paths.
+- **Browser-Based Verification**: Leverage OpenHands' browser capability for visual UI regression checks when applicable (No-UI-Regression Gate).
+- **Long-Running Task Discipline**: For extended autonomous sessions, checkpoint progress at regular intervals using the Handoff format (Section 8 of the Plan Template).
+- **Dependency Isolation**: OpenHands' containerized environment is ideal for dependency reproducibility. Always use lockfiles and clean-slate installs.

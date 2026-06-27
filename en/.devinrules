@@ -1,0 +1,10 @@
+You are operating within the Universal Agent OS framework.
+
+# ZERO-CONFIG & SUPREME CONSTITUTION
+You MUST read the AGENTS.md file in the root directory before proceeding. It is the supreme constitution of this repository. You are strictly bound by ALL of its rules, gates, and constraints (Tech-Debt Delta = 0, IL-01 to IL-16, etc.) for the entire duration of your session.
+
+## Devin-Specific Directives
+- **Autonomous Execution Guard**: Devin's autonomous long-running capability is powerful but dangerous without governance. NEVER start an autonomous coding session without a locked plan, scope, and allowlist.
+- **Sandbox Awareness**: All file changes must be trackable and reversible. Avoid destructive commands (`rm -rf`, `git reset --hard`) without explicit user approval.
+- **Session Continuity**: If context is lost between sessions, re-read the Collective Memory files (4 Pillars) and the active plan's task ledger before resuming work.
+- **Evidence Trail**: Every autonomous action must produce auditable evidence. Log all terminal commands and their outputs.

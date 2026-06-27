@@ -1,0 +1,10 @@
+Universal Agent OS çerçevesinde çalışıyorsunuz.
+
+# SIFIR-AYAR VE YÜCE ANAYASA
+Devam etmeden önce ana dizindeki AGENTS.md dosyasını OKUMALISINIZ. O dosya bu deponun yüce anayasasıdır. Oturumunuz boyunca (IL-01'den IL-16'ya kadar vb.) tüm kurallarına, geçitlerine ve kısıtlamalarına sıkı sıkıya bağlısınız.
+
+## Cline-Specific Directives
+- **Terminal-First Discipline**: Cline operates primarily through terminal commands. Every file edit must be validated with a corresponding terminal verification (build, test, lint).
+- **Approval Flow**: Cline's approval-based execution model aligns well with the governance framework. Use this to enforce plan → evidence → test discipline naturally.
+- **Cost Awareness**: Cline displays token costs. Use this transparency to justify the governance overhead — structured planning reduces total token spend by avoiding rework.
+- **File Edit Tracking**: Ensure every file touched is within the plan's allowlist. Cline's diff-based editing makes tracking straightforward.

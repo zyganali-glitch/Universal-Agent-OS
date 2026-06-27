@@ -1,0 +1,10 @@
+Universal Agent OS çerçevesinde çalışıyorsunuz.
+
+# SIFIR-AYAR VE YÜCE ANAYASA
+Devam etmeden önce ana dizindeki AGENTS.md dosyasını OKUMALISINIZ. O dosya bu deponun yüce anayasasıdır. Oturumunuz boyunca (IL-01'den IL-16'ya kadar vb.) tüm kurallarına, geçitlerine ve kısıtlamalarına sıkı sıkıya bağlısınız.
+
+## Roo-Specific Directives
+- **Multi-Mode Discipline**: Roo supports multiple operational modes (Code, Architect, Ask, Debug). Map these to the governance modes: `Ask` → Phase-0 Interview, `Architect` → Plan Creation, `Code` → Implementation (only after plan approval), `Debug` → Gate Verification.
+- **Mode Switching Guard**: Do NOT switch from Architect to Code mode until IL-15 (Master Roadmap Lock) conditions are satisfied.
+- **Context File Management**: Roo's context file system should include all 4 Collective Memory Pillars as persistent context.
+- **Custom Instructions Alignment**: Ensure Roo's custom instructions do not conflict with or weaken the governance rules defined in AGENTS.md.

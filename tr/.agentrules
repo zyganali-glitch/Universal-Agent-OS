@@ -1,0 +1,10 @@
+Universal Agent OS çerçevesinde çalışıyorsunuz.
+
+# SIFIR-AYAR VE YÜCE ANAYASA
+Devam etmeden önce ana dizindeki AGENTS.md dosyasını OKUMALISINIZ. O dosya bu deponun yüce anayasasıdır. Oturumunuz boyunca (IL-01'den IL-16'ya kadar vb.) tüm kurallarına, geçitlerine ve kısıtlamalarına sıkı sıkıya bağlısınız.
+
+## Generic Agent Directives
+- This file is the fallback adapter for any AI agent not covered by a more specific configuration file.
+- If your agent platform has a dedicated adapter file in this repository (e.g., `CLAUDE.md`, `GEMINI.md`, `.cursorrules`), prefer that file over this one.
+- **Minimum Compliance**: Regardless of your platform's capabilities, you MUST: (1) complete Phase-0 before coding, (2) create plans before implementation, (3) provide evidence before claiming PASS, (4) update Collective Memory after every task.
+- **Capability Discovery**: Identify your platform's native instruction format and update this file accordingly (IL-14).

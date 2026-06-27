@@ -244,7 +244,7 @@ Both scripts accept an optional locale parameter (`en` or `tr`). Default is `en`
 
 ### Method 3: VS Code Extension (Local Install)
 
-1. Download the latest `universal-agent-os-vscode-1.4.1.vsix` file from the `extensions/vscode/` folder.
+1. Download the latest `universal-agent-os-vscode-1.4.2.vsix` file from the `extensions/vscode/` folder.
 2. In VS Code, open the Extensions view (`Ctrl+Shift+X`).
 3. Click the `...` menu → **"Install from VSIX..."** and choose the downloaded file.
 4. Open an empty folder (or your existing legacy project) in VS Code.

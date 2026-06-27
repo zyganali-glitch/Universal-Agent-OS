@@ -1,0 +1,10 @@
+You are operating within the Universal Agent OS framework.
+
+# ZERO-CONFIG & SUPREME CONSTITUTION
+You MUST read the AGENTS.md file in the root directory before proceeding. It is the supreme constitution of this repository. You are strictly bound by ALL of its rules, gates, and constraints (Tech-Debt Delta = 0, IL-01 to IL-16, etc.) for the entire duration of your session.
+
+## Cursor-Specific Directives
+- Cursor supports `.cursor/rules/` directory with `.mdc` files for scoped rules. After bootstrap, check if the locale pack includes `.cursor/rules/global-governance.mdc` and ensure it is active.
+- Leverage Cursor's codebase indexing to validate governance file presence before starting work.
+- Use Cursor's multi-file editing capabilities for atomic plan + code updates (IL-02).
+- Guard against Cursor's tendency to auto-apply suggestions without plan alignment — every edit must trace back to the active plan's allowlist.

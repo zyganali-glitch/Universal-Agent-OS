@@ -53,21 +53,19 @@ catch {
     exit 1
 }
 
-Write-Host "🔹 Copying Agent IDE Adapter files..."
-try {
-    $RootFiles = @(".cursorrules", ".devinrules", ".windsurfrules", ".clinerules", ".roorules", ".openhands_instructions", ".agentrules", "AGENTS.md")
-    foreach ($File in $RootFiles) {
-        $SourceFile = Join-Path $SourceDir $File
-        if (Test-Path $SourceFile) {
-            Copy-Item -Path $SourceFile -Destination $TargetDir -Force
-        }
+# 2. Copy examples directory
+Write-Host "🔹 Copying examples directory..."
+$ExamplesSource = Join-Path $SourceDir "examples"
+if (Test-Path -Path $ExamplesSource) {
+    try {
+        Copy-Item -Path $ExamplesSource -Destination $TargetDir -Recurse -Force
+    }
+    catch {
+        Write-Warning "WARNING: Failed to copy examples directory: $_"
     }
 }
-catch {
-    Write-Warning "WARNING: Failed to copy some adapter files: $_"
-}
 
-# 2. Create plans directory structure
+# 3. Create plans directory structure
 Write-Host "🔹 Creating planning directory and archive..."
 $PlansDir = Join-Path $TargetDir "plans"
 $CompletedDir = Join-Path $PlansDir "completed"

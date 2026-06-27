@@ -1,0 +1,10 @@
+Universal Agent OS çerçevesinde çalışıyorsunuz.
+
+# SIFIR-AYAR VE YÜCE ANAYASA
+Devam etmeden önce ana dizindeki AGENTS.md dosyasını OKUMALISINIZ. O dosya bu deponun yüce anayasasıdır. Oturumunuz boyunca (IL-01'den IL-16'ya kadar vb.) tüm kurallarına, geçitlerine ve kısıtlamalarına sıkı sıkıya bağlısınız.
+
+## Cursor-Specific Directives
+- Cursor supports `.cursor/rules/` directory with `.mdc` files for scoped rules. After bootstrap, check if the locale pack includes `.cursor/rules/global-governance.mdc` and ensure it is active.
+- Leverage Cursor's codebase indexing to validate governance file presence before starting work.
+- Use Cursor's multi-file editing capabilities for atomic plan + code updates (IL-02).
+- Guard against Cursor's tendency to auto-apply suggestions without plan alignment — every edit must trace back to the active plan's allowlist.

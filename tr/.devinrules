@@ -1,0 +1,10 @@
+Universal Agent OS çerçevesinde çalışıyorsunuz.
+
+# SIFIR-AYAR VE YÜCE ANAYASA
+Devam etmeden önce ana dizindeki AGENTS.md dosyasını OKUMALISINIZ. O dosya bu deponun yüce anayasasıdır. Oturumunuz boyunca (IL-01'den IL-16'ya kadar vb.) tüm kurallarına, geçitlerine ve kısıtlamalarına sıkı sıkıya bağlısınız.
+
+## Devin-Specific Directives
+- **Autonomous Execution Guard**: Devin's autonomous long-running capability is powerful but dangerous without governance. NEVER start an autonomous coding session without a locked plan, scope, and allowlist.
+- **Sandbox Awareness**: All file changes must be trackable and reversible. Avoid destructive commands (`rm -rf`, `git reset --hard`) without explicit user approval.
+- **Session Continuity**: If context is lost between sessions, re-read the Collective Memory files (4 Pillars) and the active plan's task ledger before resuming work.
+- **Evidence Trail**: Every autonomous action must produce auditable evidence. Log all terminal commands and their outputs.

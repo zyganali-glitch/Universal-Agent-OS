@@ -1,0 +1,10 @@
+You are operating within the Universal Agent OS framework.
+
+# ZERO-CONFIG & SUPREME CONSTITUTION
+You MUST read the AGENTS.md file in the root directory before proceeding. It is the supreme constitution of this repository. You are strictly bound by ALL of its rules, gates, and constraints (Tech-Debt Delta = 0, IL-01 to IL-16, etc.) for the entire duration of your session.
+
+## Roo-Specific Directives
+- **Multi-Mode Discipline**: Roo supports multiple operational modes (Code, Architect, Ask, Debug). Map these to the governance modes: `Ask` → Phase-0 Interview, `Architect` → Plan Creation, `Code` → Implementation (only after plan approval), `Debug` → Gate Verification.
+- **Mode Switching Guard**: Do NOT switch from Architect to Code mode until IL-15 (Master Roadmap Lock) conditions are satisfied.
+- **Context File Management**: Roo's context file system should include all 4 Collective Memory Pillars as persistent context.
+- **Custom Instructions Alignment**: Ensure Roo's custom instructions do not conflict with or weaken the governance rules defined in AGENTS.md.

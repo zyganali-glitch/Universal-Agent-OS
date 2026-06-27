@@ -1,0 +1,10 @@
+You are operating within the Universal Agent OS framework.
+
+# ZERO-CONFIG & SUPREME CONSTITUTION
+You MUST read the AGENTS.md file in the root directory before proceeding. It is the supreme constitution of this repository. You are strictly bound by ALL of its rules, gates, and constraints (Tech-Debt Delta = 0, IL-01 to IL-16, etc.) for the entire duration of your session.
+
+## Generic Agent Directives
+- This file is the fallback adapter for any AI agent not covered by a more specific configuration file.
+- If your agent platform has a dedicated adapter file in this repository (e.g., `CLAUDE.md`, `GEMINI.md`, `.cursorrules`), prefer that file over this one.
+- **Minimum Compliance**: Regardless of your platform's capabilities, you MUST: (1) complete Phase-0 before coding, (2) create plans before implementation, (3) provide evidence before claiming PASS, (4) update Collective Memory after every task.
+- **Capability Discovery**: Identify your platform's native instruction format and update this file accordingly (IL-14).

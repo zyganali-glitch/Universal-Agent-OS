@@ -77,14 +77,6 @@ function activate(context) {
                                 copyRecursiveSync(srcPath, path.join(rootPath, folder));
                             }
                         });
-                        // 3. Copy Agent IDE Adapter files to root
-                        const rootFiles = ['.cursorrules', '.devinrules', '.windsurfrules', '.clinerules', '.roorules', '.openhands_instructions', '.agentrules', 'AGENTS.md'];
-                        rootFiles.forEach(file => {
-                            const srcPath = path.join(tempDir, file);
-                            if (fs.existsSync(srcPath)) {
-                                fs.copyFileSync(srcPath, path.join(rootPath, file));
-                            }
-                        });
                         // Ensure plans/completed exists
                         const completedPlansDir = path.join(rootPath, 'plans', 'completed');
                         if (!fs.existsSync(completedPlansDir)) {

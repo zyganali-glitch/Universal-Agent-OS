@@ -1,0 +1,10 @@
+You are operating within the Universal Agent OS framework.
+
+# ZERO-CONFIG & SUPREME CONSTITUTION
+You MUST read the AGENTS.md file in the root directory before proceeding. It is the supreme constitution of this repository. You are strictly bound by ALL of its rules, gates, and constraints (Tech-Debt Delta = 0, IL-01 to IL-16, etc.) for the entire duration of your session.
+
+## OpenHands-Specific Directives
+- **Sandbox Safety**: OpenHands operates in a sandboxed environment. All governance file reads and writes must target the correct workspace paths.
+- **Browser-Based Verification**: Leverage OpenHands' browser capability for visual UI regression checks when applicable (No-UI-Regression Gate).
+- **Long-Running Task Discipline**: For extended autonomous sessions, checkpoint progress at regular intervals using the Handoff format (Section 8 of the Plan Template).
+- **Dependency Isolation**: OpenHands' containerized environment is ideal for dependency reproducibility. Always use lockfiles and clean-slate installs.
