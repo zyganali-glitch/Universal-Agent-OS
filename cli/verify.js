@@ -152,6 +152,10 @@ module.exports = function(args) {
     checkContains('docs/EVIDENCE_MANIFEST_TEMPLATE.md', 'Tech-Debt Delta', 'EVIDENCE_MANIFEST_TEMPLATE.md Tech-Debt Delta');
     checkContains('docs/INSTALLATION_MANIFEST.md', 'VS Code Extension And Bootstrap Installs', 'INSTALLATION_MANIFEST.md install contract');
     checkContains('docs/REAL_WORLD_SCENARIOS.md', 'Scenario Matrix', 'REAL_WORLD_SCENARIOS.md scenario matrix');
+    checkContains('extensions/vscode/src/extension.ts', 'NEXT_STEPS.md', 'VS Code NEXT_STEPS.md generation');
+    checkContains('extensions/vscode/package.json', 'agent-os.fastTrack', 'VS Code Fast-Track command');
+    checkContains('extensions/vscode/package.json', 'agent-os.showStatus', 'VS Code Status command');
+    checkContains('extensions/vscode/package.json', 'agent-os.closureCheck', 'VS Code Closure Check command');
   } else {
     console.log('📋 Verifying Target Repository:');
     check('AGENTS.md', 'Supreme Constitution (AGENTS.md)');

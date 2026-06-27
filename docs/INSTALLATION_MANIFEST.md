@@ -38,6 +38,9 @@ This manifest defines what a first-time install must place in the user's workspa
 - planning folders:
   - `plans/`
   - `plans/completed/`
+- generated helper files:
+  - `NEXT_STEPS.md`
+  - `AGENT_OS_STATUS.md` when the VS Code status command is run
 
 The installed `docs/` directory includes the real-world adoption guides, including `REAL_WORLD_SCENARIOS.md`, `GOVERNANCE_PROFILES.md`, and the brownfield playbook.
 
@@ -48,6 +51,7 @@ If the workspace already contains real project files, the VS Code extension and 
 In that mode:
 
 - `TECH_DEBT_AND_SECURITY.md` is created when missing.
+- `TECH_DEBT_AND_SECURITY.md` includes an initial top-level folder summary and detected project markers.
 - overwritten file collisions are backed up under `.agentos-backups/`.
 - an existing user `README.md` is preserved; the Agent OS readme is installed as `AGENT_OS_README.md`.
 - old code is quarantined conceptually; new work must follow Agent OS governance.

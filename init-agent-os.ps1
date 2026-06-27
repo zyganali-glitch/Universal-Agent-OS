@@ -47,6 +47,126 @@ function Test-LegacyTarget {
     return $false
 }
 
+function Get-AgentOsWorkspaceSnapshot {
+    param([string]$Path)
+
+    $entries = Get-ChildItem -LiteralPath $Path -Force | Where-Object { $CleanFolderIgnores -notcontains $_.Name }
+    $markers = @(
+        "package.json",
+        "pyproject.toml",
+        "requirements.txt",
+        "Cargo.toml",
+        "go.mod",
+        "pom.xml",
+        "build.gradle",
+        "composer.json",
+        "Gemfile",
+        "src",
+        "app",
+        "pages",
+        "public",
+        "README.md"
+    ) | Where-Object { Test-Path -LiteralPath (Join-Path $Path $_) }
+
+    $fileCount = 0
+    $directoryCount = 0
+    try {
+        $scan = Get-ChildItem -LiteralPath $Path -Force -Recurse -ErrorAction SilentlyContinue |
+            Where-Object { $CleanFolderIgnores -notcontains $_.Name } |
+            Select-Object -First 2000
+        $fileCount = @($scan | Where-Object { -not $_.PSIsContainer }).Count
+        $directoryCount = @($scan | Where-Object { $_.PSIsContainer }).Count
+    }
+    catch {
+        $fileCount = 0
+        $directoryCount = 0
+    }
+
+    return [pscustomobject]@{
+        Entries = @($entries | ForEach-Object { $_.Name } | Sort-Object)
+        Markers = @($markers)
+        FileCount = $fileCount
+        DirectoryCount = $directoryCount
+    }
+}
+
+function Format-AgentOsWorkspaceSnapshot {
+    param($Snapshot)
+
+    $topLevel = if ($Snapshot.Entries.Count -gt 0) {
+        ($Snapshot.Entries | Select-Object -First 30 | ForEach-Object { "- $_" }) -join "`n"
+    } else {
+        "- No existing project files detected."
+    }
+
+    $markers = if ($Snapshot.Markers.Count -gt 0) {
+        ($Snapshot.Markers | ForEach-Object { "- $_" }) -join "`n"
+    } else {
+        "- No common project markers detected."
+    }
+
+    return @"
+## Existing Project Snapshot
+- Existing top-level entries: $($Snapshot.Entries.Count)
+- Estimated files scanned: $($Snapshot.FileCount)
+- Estimated directories scanned: $($Snapshot.DirectoryCount)
+
+### Top-Level Entries
+$topLevel
+
+### Detected Project Markers
+$markers
+"@
+}
+
+function New-AgentOsNextSteps {
+    param(
+        [string]$RootPath,
+        [string]$Locale,
+        [bool]$IsLegacy
+    )
+
+    $nextStepsPath = Join-Path $RootPath "NEXT_STEPS.md"
+    if (Test-Path -LiteralPath $nextStepsPath) {
+        return
+    }
+
+    $modeLine = if ($IsLegacy) {
+        "Existing files were detected, so Legacy/Brownfield mode is active."
+    } else {
+        "This folder was treated as a clean greenfield install."
+    }
+
+    $content = @"
+# Agent OS Next Steps
+
+Universal Agent OS has been installed in this workspace.
+
+## 1. Start with your agent
+
+Send this to your AI assistant:
+
+I have an idea. Help me turn it into a project.
+
+## 2. Know the install mode
+
+- $modeLine
+- The agent should run Phase-0 first.
+- The agent should create or update plans before implementation.
+- Completion claims should include evidence and gate status.
+
+## 3. Helpful commands
+
+- Fast-Track: lighter process for tiny, well-scoped changes
+- Status: check whether Agent OS files are present
+- Closure Check: evidence checklist before calling work done
+
+Open the VS Code Command Palette and type "Agent OS:" to use these commands when the extension is installed.
+"@
+
+    Set-Content -Path $nextStepsPath -Value $content -Encoding UTF8
+}
+
 function Get-AgentOsRelativePath {
     param(
         [string]$RootPath,
@@ -160,6 +280,7 @@ if (-not (Test-Path -Path $OsSource -PathType Container)) {
 }
 
 $IsLegacy = $Legacy -or (Test-LegacyTarget -Path $TargetDir)
+$WorkspaceSnapshot = Get-AgentOsWorkspaceSnapshot -Path $TargetDir
 $BackupRoot = ""
 if ($IsLegacy) {
     $BackupRoot = Join-Path $TargetDir (Join-Path ".agentos-backups" (Get-Date -Format "yyyyMMdd-HHmmss"))
@@ -214,10 +335,12 @@ if ($IsLegacy) {
 > The existing codebase is quarantined. Do not refactor existing code unless explicitly requested.
 > ALL NEW code must adhere strictly to Universal Agent OS rules.
 
-## Existing Project Snapshot
+$(Format-AgentOsWorkspaceSnapshot -Snapshot $WorkspaceSnapshot)
+
+## Onboarding Notes
 - Onboarded by PowerShell bootstrap.
 - Existing files were detected before Agent OS installation.
-- Any overwritten governance/adapter file collisions were backed up under `.agentos-backups/`.
+- Any overwritten governance/adapter file collisions were backed up under .agentos-backups/.
 
 ## Known Legacy Systems
 (Agent: Run a full project scan to populate this section with existing architectural patterns and debt.)
@@ -228,6 +351,8 @@ if ($IsLegacy) {
     }
     Write-Host "   -> Legacy quarantine is active."
 }
+
+New-AgentOsNextSteps -RootPath $TargetDir -Locale $Locale -IsLegacy $IsLegacy
 
 Write-Host "=========================================================="
 Write-Host "SUCCESS: Universal Agent OS installed!"

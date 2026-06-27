@@ -264,6 +264,8 @@ class TestRealWorldAdoption:
         assert profiles.is_file()
         assert "Planned" in profiles.read_text(encoding="utf-8")
         assert "Profile Matrix" in profiles.read_text(encoding="utf-8")
+        for profile in ["solo", "startup", "enterprise", "regulated"]:
+            assert f"`{profile}`" in profiles.read_text(encoding="utf-8")
 
     def test_real_world_scenarios_cross_reference_core_surfaces(self, root_dir: pathlib.Path):
         content = (root_dir / "docs" / "REAL_WORLD_SCENARIOS.md").read_text(encoding="utf-8")
@@ -273,7 +275,9 @@ class TestRealWorldAdoption:
             "Collective Memory",
             "TECH_DEBT_AND_SECURITY.md",
             "GOVERNANCE_PROFILES.md",
-            "open-source core"
+            "open-source core",
+            "Implemented in VS Code and bootstrap installers",
+            "Fast-Track, Status, and Closure Check"
         ]
         for term in required_terms:
             assert term in content, f"REAL_WORLD_SCENARIOS.md missing {term}"
@@ -297,6 +301,11 @@ class TestRealWorldAdoption:
         assert "installAgentOSPayload" in content
         assert "isLegacyWorkspace(rootPath)" in content
         assert "verifyTargetWorkspace" in content
+        assert "NEXT_STEPS.md" in content
+        assert "collectWorkspaceSnapshot" in content
+        assert "agent-os.fastTrack" in content
+        assert "agent-os.showStatus" in content
+        assert "agent-os.closureCheck" in content
 
     def test_bootstrap_scripts_use_full_install_manifest(self, root_dir: pathlib.Path):
         ps1 = (root_dir / "init-agent-os.ps1").read_text(encoding="utf-8")
@@ -305,6 +314,8 @@ class TestRealWorldAdoption:
             assert "SharedDirectories" in content or "SHARED_DIRECTORIES" in content
             assert ".agentos-backups" in content
             assert "AGENT_OS_README.md" in content
+            assert "NEXT_STEPS.md" in content
+            assert "Existing Project Snapshot" in content
 
     def test_readme_v120_exists(self, root_dir: pathlib.Path):
         content = (root_dir / "README.md").read_text(encoding="utf-8")

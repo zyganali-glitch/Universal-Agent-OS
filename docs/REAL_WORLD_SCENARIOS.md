@@ -26,7 +26,7 @@ Different users need different levels of ceremony, but no scenario should weaken
 | Solo expert | The user wants speed but not chaos. | Use Fast-Track for small tasks while still listing scope, evidence, and tests. | `docs/SLASH_COMMANDS.md`, `AGENT_OS_PLAN_TEMPLATE.md` |
 | Beginner in VS Code | The user does not know CLI workflows. | Install through the VS Code command, then let the agent guide one action at a time. | VS Code extension, `README.md`, `docs/INSTALLATION_MANIFEST.md` |
 | Agency client project | Multiple client requests can drift into hidden scope. | Lock scope, log discovered work, keep handoff notes and evidence current. | `plans/`, `docs/EVIDENCE_MANIFEST_TEMPLATE.md`, `.github/PULL_REQUEST_TEMPLATE.md` |
-| Corporate engineering team | The team needs repeatable agent behavior across projects. | Use standard or strict governance profile guidance, require CI/PR evidence, preserve architecture decisions. | `docs/GOVERNANCE_PROFILES.md`, `.github/workflows/`, `.github/ISSUE_TEMPLATE/` |
+| Corporate engineering team | The team needs repeatable agent behavior across projects. | Use enterprise or regulated governance profile guidance, require CI/PR evidence, preserve architecture decisions. | `docs/GOVERNANCE_PROFILES.md`, `.github/workflows/`, `.github/ISSUE_TEMPLATE/` |
 | Regulated or sensitive domain | False claims and unsafe data handling are costly. | Keep gates explicit, document NOT_RUN items, consult before heavy infrastructure or sensitive integrations. | `docs/AGENT_FAILURE_PATTERNS.md`, `docs/EVIDENCE_MANIFEST_TEMPLATE.md`, `AGENT_ENVIRONMENT_AND_API.md` |
 | Open-source maintainer | Contributors and agents need a shared definition of done. | Use issue/PR templates, visible roadmap items, and verification gates before merge. | `.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`, `cli/verify.js` |
 | Multi-agent handoff | A new agent session loses context. | Bootstrap from memory and workflow files before editing. | `.agent/workflows/`, `AGENT_MEMORY_AND_LESSONS.md`, `AGENT_ARCHITECTURE_AND_PATTERNS.md` |
@@ -115,9 +115,11 @@ These ideas fit the current architecture but are not required for the open-sourc
 
 | Opportunity | Status | Why It Fits |
 |---|---|---|
-| `NEXT_STEPS.md` generated after install | Planned | Helps beginners immediately know what to do next. |
+| `NEXT_STEPS.md` generated after install | Implemented in VS Code and bootstrap installers | Helps beginners immediately know what to do next. |
+| Initial folder summary in `TECH_DEBT_AND_SECURITY.md` | Implemented in VS Code and bootstrap installers | Gives brownfield projects an immediate baseline before the agent scans deeper. |
+| VS Code commands for Fast-Track, Status, and Closure Check | Implemented in VS Code extension | Makes common chat-level governance actions discoverable from the Command Palette. |
 | `agent-os health` report | Planned | Turns governance status into a readable scorecard. |
-| `agent-os init --profile light|standard|strict` | Planned | Lets solo, agency, and enterprise users choose ceremony level without changing core rules. |
+| `agent-os init --profile solo|startup|enterprise|regulated` | Planned | Lets solo, startup, enterprise, and regulated users choose ceremony level without changing core rules. |
 | VS Code walkthrough for empty vs existing projects | Planned | Makes the extension more novice-friendly. |
 | Team dashboard or GitHub App | Optional commercial layer | Keeps the open-source core free while supporting paid team visibility. |
 | Sector packs for SaaS, finance, healthcare, games, and agencies | Optional ecosystem layer | Adds domain-specific gates without weakening the universal spine. |

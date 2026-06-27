@@ -74,6 +74,12 @@ This repository is already usable, but it is not finished in every dimension.
 - Existing user `README.md` files are preserved; Agent OS documentation is installed as `AGENT_OS_README.md` when needed.
 - `Agent OS: Verify Governance Gate` verifies required workspace files locally instead of depending on unpublished npm CLI availability.
 
+**What is new in the VS Code extension v1.4.4 (Guided Workflows):**
+- Init creates and opens `NEXT_STEPS.md` so beginners know what to do immediately after installation.
+- Brownfield installs add an initial top-level folder summary and detected project markers to `TECH_DEBT_AND_SECURITY.md`.
+- VS Code Command Palette now exposes Fast-Track, Status, and Closure Check workflows.
+- Governance profiles are documented as `solo`, `startup`, `enterprise`, and `regulated` without changing the universal core.
+
 **Packaged baseline introduced in v1.0.0:**
 - A local `agent-os` CLI tool (`npx agent-os init`, `npx agent-os verify`)
 - Comprehensive governance gate verification via CLI and GitHub Actions
@@ -300,6 +306,12 @@ Universal Agent OS is meant to stay universal while adapting to real workflows:
 - multi-agent session handoffs
 
 See [docs/REAL_WORLD_SCENARIOS.md](docs/REAL_WORLD_SCENARIOS.md) for the scenario matrix, recommended operating patterns, and open-source-friendly product opportunities.
+
+The VS Code extension also exposes common actions directly from the Command Palette:
+
+- `Agent OS: Copy Fast-Track Prompt`
+- `Agent OS: Show Status`
+- `Agent OS: Copy Closure Check Prompt`
 
 ## Who This Is Not For
 

@@ -72,6 +72,83 @@ is_legacy_target() {
     return "$found"
 }
 
+workspace_snapshot() {
+    local target="$1"
+    local entries
+    entries="$(find "$target" -mindepth 1 -maxdepth 1 -printf '%f\n' 2>/dev/null | sort | grep -vxE '(\.git|\.vscode|\.idea|\.DS_Store|Thumbs.db|node_modules|\.agentos-backups)' || true)"
+    local entry_count
+    entry_count="$(printf '%s\n' "$entries" | sed '/^$/d' | wc -l | tr -d ' ')"
+    local file_count
+    file_count="$(find "$target" -path "$target/.git" -prune -o -path "$target/node_modules" -prune -o -type f -print 2>/dev/null | head -n 2000 | wc -l | tr -d ' ')"
+    local dir_count
+    dir_count="$(find "$target" -path "$target/.git" -prune -o -path "$target/node_modules" -prune -o -type d -print 2>/dev/null | head -n 2000 | wc -l | tr -d ' ')"
+
+    echo "## Existing Project Snapshot"
+    echo "- Existing top-level entries: $entry_count"
+    echo "- Estimated files scanned: $file_count"
+    echo "- Estimated directories scanned: $dir_count"
+    echo ""
+    echo "### Top-Level Entries"
+    if [ -n "$entries" ]; then
+        printf '%s\n' "$entries" | head -n 30 | sed 's/^/- /'
+    else
+        echo "- No existing project files detected."
+    fi
+    echo ""
+    echo "### Detected Project Markers"
+    local found_marker=0
+    for marker in package.json pyproject.toml requirements.txt Cargo.toml go.mod pom.xml build.gradle composer.json Gemfile src app pages public README.md; do
+        if [ -e "$target/$marker" ]; then
+            echo "- $marker"
+            found_marker=1
+        fi
+    done
+    if [ "$found_marker" -eq 0 ]; then
+        echo "- No common project markers detected."
+    fi
+}
+
+write_next_steps() {
+    local target="$1"
+    local is_legacy="$2"
+    local next_steps="$target/NEXT_STEPS.md"
+    if [ -f "$next_steps" ]; then
+        return
+    fi
+
+    local mode_line="This folder was treated as a clean greenfield install."
+    if [ "$is_legacy" -eq 1 ]; then
+        mode_line="Existing files were detected, so Legacy/Brownfield mode is active."
+    fi
+
+    cat > "$next_steps" << EOF
+# Agent OS Next Steps
+
+Universal Agent OS has been installed in this workspace.
+
+## 1. Start with your agent
+
+Send this to your AI assistant:
+
+I have an idea. Help me turn it into a project.
+
+## 2. Know the install mode
+
+- $mode_line
+- The agent should run Phase-0 first.
+- The agent should create or update plans before implementation.
+- Completion claims should include evidence and gate status.
+
+## 3. Helpful commands
+
+- Fast-Track: lighter process for tiny, well-scoped changes
+- Status: check whether Agent OS files are present
+- Closure Check: evidence checklist before calling work done
+
+Open the VS Code Command Palette and type "Agent OS:" to use these commands when the extension is installed.
+EOF
+}
+
 LEGACY_MODE=0
 if [ "$LEGACY_FLAG" = "--legacy" ] || is_legacy_target; then
     LEGACY_MODE=1
@@ -160,7 +237,7 @@ if [ "$LEGACY_MODE" -eq 1 ]; then
     echo "Applying Legacy/Brownfield Quarantine..."
     TECH_DEBT_FILE="$TARGET_DIR/TECH_DEBT_AND_SECURITY.md"
     if [ ! -f "$TECH_DEBT_FILE" ]; then
-        cat << 'EOF' > "$TECH_DEBT_FILE"
+        cat << EOF > "$TECH_DEBT_FILE"
 # Legacy Quarantine & Tech Debt
 
 > [!WARNING]
@@ -169,9 +246,12 @@ if [ "$LEGACY_MODE" -eq 1 ]; then
 > ALL NEW code must adhere strictly to Universal Agent OS rules.
 
 ## Existing Project Snapshot
+$(workspace_snapshot "$TARGET_DIR")
+
+## Onboarding Notes
 - Onboarded by Bash bootstrap.
 - Existing files were detected before Agent OS installation.
-- Any overwritten governance/adapter file collisions were backed up under `.agentos-backups/`.
+- Any overwritten governance/adapter file collisions were backed up under .agentos-backups/.
 
 ## Known Legacy Systems
 (Agent: Run a full project scan to populate this section with existing architectural patterns and debt.)
@@ -179,6 +259,8 @@ EOF
     fi
     echo "   -> Legacy quarantine is active."
 fi
+
+write_next_steps "$TARGET_DIR" "$LEGACY_MODE"
 
 echo "=========================================================="
 echo "SUCCESS: Universal Agent OS installed!"

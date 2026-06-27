@@ -2,6 +2,11 @@
 
 This is the official Enterprise IDE extension for the **Universal Agent OS**, a consultation-first governance framework for AI coding agents.
 
+## What's New in v1.4.4 (Guided Workflows)
+- **Next Steps File**: Init now creates and opens `NEXT_STEPS.md` so beginners immediately know what to do after installation.
+- **Brownfield Snapshot**: Existing projects receive an initial top-level folder summary inside `TECH_DEBT_AND_SECURITY.md`.
+- **Command Palette Shortcuts**: Added Fast-Track, Status, and Closure Check commands for common governance workflows.
+
 ## What's New in v1.4.2 (True IDE Parity) 🚀
 - **Target Project Adapters**: Fixed an architectural issue where root IDE adapters (`.cursorrules`, `.windsurfrules`, etc.) were copied directly instead of utilizing the target-specific adapters inside the `en/` and `tr/` locale packs. All major IDEs (Cursor, Devin, Windsurf, Roo, Cline, OpenHands) now successfully receive their localized, zero-config Agent OS adapters out of the box.
 
@@ -21,6 +26,9 @@ This is the official Enterprise IDE extension for the **Universal Agent OS**, a 
 - **Init Workspace**: Use `Agent OS: Init Workspace` to download the runtime Agent OS architecture into your project.
 - **Start Phase-0 Interview**: Instantly trigger the Phase-0 onboarding interview directly from the Command Palette.
 - **Verify Governance Gate**: Click the Status Bar icon or use the Command Palette to run verification checks inside VS Code.
+- **Fast-Track Prompt**: Copy the Fast-Track chat prompt from the Command Palette.
+- **Show Status**: Create and open `AGENT_OS_STATUS.md` with required surface checks.
+- **Closure Check Prompt**: Copy the closure checklist prompt before calling work done.
 - **Anti-Monolith Warning**: Monitors file sizes and warns you if your files exceed the configured line limit.
 - **Zero-Zombie-Code Policy**: Highlights `// TODO` and `// FIXME` comments to ensure they are tracked.
 

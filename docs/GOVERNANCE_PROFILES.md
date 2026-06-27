@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Governance profiles help users choose the right amount of ceremony without changing the Universal Agent OS spine.
+Governance profiles help users choose the right operating mode without changing the Universal Agent OS spine.
 
 Every profile keeps the honesty boundary:
 
@@ -12,7 +12,7 @@ Every profile keeps the honesty boundary:
 - no brownfield rewrite without explicit user approval
 - memory and architecture updates when behavior changes
 
-The profile only changes how much evidence, planning, and review is required for the risk level.
+The profile changes the amount of planning, review, and evidence required for the user's context. It does not weaken truthfulness.
 
 ---
 
@@ -20,15 +20,16 @@ The profile only changes how much evidence, planning, and review is required for
 
 | Profile | Best For | Planning Depth | Required Evidence | Typical Gates |
 |---|---|---|---|---|
-| `light` | solo developers, tiny scripts, prototypes | short scope note plus task list | changed files, one relevant check, Tech-Debt Delta | smoke or syntax check |
-| `standard` | serious personal projects, startups, small teams | Phase-0, master roadmap, child plans | tests, verification command, docs sync | smoke, related tests, target verify |
-| `strict` | agencies, corporate teams, regulated domains | full Phase-0, roadmap portfolio, explicit risk register | evidence manifest, CI/PR proof, NOT_RUN list | CI, package/target verify, security/privacy review |
+| `solo` | individual experts, tiny tools, personal prototypes | short scope note plus task list | changed files, one relevant check, Tech-Debt Delta | smoke or syntax check |
+| `startup` | founders, small teams, MVPs, agencies moving quickly | Phase-0 when scope is unclear, master roadmap, first child plans | tests, status check, docs sync | smoke, related tests, target verify |
+| `enterprise` | companies, agencies with client obligations, internal platforms | full Phase-0, roadmap portfolio, ownership and handoff notes | evidence manifest, CI/PR proof, risk notes | CI, package/target verify, PR review |
+| `regulated` | finance, healthcare, education data, legal, safety-sensitive work | full Phase-0, strict risk register, explicit approval points | evidence manifest, NOT_RUN list, security/privacy proof | CI, security/privacy review, data-handling review |
 
 ---
 
-## Light Profile
+## Solo Profile
 
-Use for small, low-risk work where heavy process would slow the user down.
+Use when a capable individual wants speed without losing the evidence habit.
 
 Required:
 
@@ -37,46 +38,58 @@ Required:
 - run the smallest relevant check
 - report Tech-Debt Delta
 
-Do not use for:
-
-- architecture changes
-- auth, billing, payments, data deletion, security, or migration work
-- multi-file feature work with unclear requirements
+Do not use for auth, billing, payments, data deletion, security, migrations, or unclear multi-file features.
 
 ---
 
-## Standard Profile
+## Startup Profile
 
-Use for normal product work.
+Use when the project needs momentum but must stay understandable.
 
 Required:
 
-- Phase-0 for unclear or new work
-- `plans/master-roadmap.md`
-- child execution plans before implementation
+- Phase-0 when the user request is vague
+- master roadmap for product-level work
+- child execution plan before implementation
 - Collective Memory update when a decision or lesson changes
-- Architecture update when structure or integration changes
 - README or user-facing docs update when behavior changes
 
-This is the recommended default.
+This is the recommended default for serious solo and small-team projects.
 
 ---
 
-## Strict Profile
+## Enterprise Profile
 
-Use when failures are expensive.
+Use when multiple people, clients, or teams depend on the repository.
 
 Required:
 
-- full evidence manifest
-- explicit risk section
-- CI or reproducible local gate output
-- PR/issue template usage
+- full Phase-0 for new initiatives
+- roadmap portfolio with owners and handoff notes
+- PR or issue templates for tracked work
+- reproducible verification output
+- architecture update when integration or ownership changes
+- visible `NOT_RUN` gates
+
+Enterprise mode should make agent work auditable by another developer later.
+
+---
+
+## Regulated Profile
+
+Use when mistakes can create legal, financial, privacy, safety, or compliance risk.
+
+Required:
+
+- explicit risk register
 - security/privacy review where applicable
-- documented `NOT_RUN` gates
+- data-handling notes in `AGENT_ENVIRONMENT_AND_API.md`
+- no simulated evidence unless marked `Simulated`
+- no unapproved heavy infrastructure
+- explicit `NOT_RUN` list for every skipped gate
 - no auto-refactor of legacy code
 
-Strict mode should feel slower. That is intentional for high-risk work.
+Regulated mode should be slower. That is intentional.
 
 ---
 
@@ -85,7 +98,7 @@ Strict mode should feel slower. That is intentional for high-risk work.
 Future CLI idea:
 
 ```bash
-agent-os init --profile light|standard|strict
+agent-os init --profile solo|startup|enterprise|regulated
 ```
 
 Status: Planned for a future release.

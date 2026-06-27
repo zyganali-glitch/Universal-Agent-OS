@@ -1,5 +1,13 @@
 # Changelog
 
+## VS Code Extension 1.4.4 - 2026-06-28
+
+- Added generated `NEXT_STEPS.md` after VS Code, PowerShell, and Bash initialization.
+- Added initial folder summary and detected project markers to brownfield `TECH_DEBT_AND_SECURITY.md`.
+- Added VS Code commands for Fast-Track, Status, and Closure Check workflows.
+- Updated governance profiles to `solo`, `startup`, `enterprise`, and `regulated`.
+- Marked the matching real-world scenario recommendations as implemented where applicable.
+
 ## VS Code Extension 1.4.3 - 2026-06-27
 
 - Fixed VS Code initialization so it installs the full runtime governance payload instead of only the selected locale pack and examples.
@@ -13,7 +21,7 @@
 ## Real-World Adoption Guidance - 2026-06-28
 
 - Added `docs/REAL_WORLD_SCENARIOS.md` with a scenario matrix for empty projects, brownfield repositories, solo experts, beginners, agencies, corporate teams, regulated domains, open-source maintainers, and multi-agent handoffs.
-- Expanded `docs/GOVERNANCE_PROFILES.md` from a future CLI note into practical light, standard, and strict profile guidance while keeping profile flags marked as Planned.
+- Expanded `docs/GOVERNANCE_PROFILES.md` from a future CLI note into practical profile guidance while keeping profile flags marked as Planned.
 - Linked the real-world adoption layer from README, Architecture, Installation Manifest, CLI verification, and governance tests.
 
 ## 1.2.0 - 2026-06-27

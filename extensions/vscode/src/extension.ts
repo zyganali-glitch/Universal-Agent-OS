@@ -43,6 +43,15 @@ const TARGET_REQUIRED_FILES = [
     'plans/completed'
 ];
 
+const CHAT_COMMANDS = {
+    fastTrack: `/fast-track
+
+Use Fast-Track Mode for this small, well-scoped change. Confirm the exact scope, list affected files, run the smallest relevant gate, report evidence, and do not start a full Phase-0 unless the scope expands.`,
+    closureCheck: `/closure-check
+
+Before calling this done, report: changed files, evidence, commands run, gate status, Tech-Debt Delta, docs updated, remaining risks, and any NOT_RUN checks.`
+};
+
 const CLEAN_FOLDER_IGNORES = new Set([
     '.git',
     '.vscode',
@@ -58,12 +67,168 @@ function safeTimestamp() {
     return new Date().toISOString().replace(/[:.]/g, '-');
 }
 
+function collectWorkspaceSnapshot(rootPath: string) {
+    const topLevelEntries = fs.readdirSync(rootPath)
+        .filter((entry) => !CLEAN_FOLDER_IGNORES.has(entry))
+        .sort();
+
+    const markers = [
+        'package.json',
+        'pyproject.toml',
+        'requirements.txt',
+        'Cargo.toml',
+        'go.mod',
+        'pom.xml',
+        'build.gradle',
+        'composer.json',
+        'Gemfile',
+        'src',
+        'app',
+        'pages',
+        'public',
+        'README.md'
+    ].filter((marker) => fs.existsSync(path.join(rootPath, marker)));
+
+    let fileCount = 0;
+    let directoryCount = 0;
+    const visitLimit = 2000;
+
+    const visit = (dirPath: string) => {
+        if ((fileCount + directoryCount) >= visitLimit) {
+            return;
+        }
+
+        for (const entry of fs.readdirSync(dirPath, { withFileTypes: true })) {
+            if (CLEAN_FOLDER_IGNORES.has(entry.name)) {
+                continue;
+            }
+
+            const entryPath = path.join(dirPath, entry.name);
+            if (entry.isDirectory()) {
+                directoryCount++;
+                visit(entryPath);
+            } else {
+                fileCount++;
+            }
+
+            if ((fileCount + directoryCount) >= visitLimit) {
+                return;
+            }
+        }
+    };
+
+    visit(rootPath);
+
+    return {
+        topLevelEntries,
+        markers,
+        fileCount,
+        directoryCount,
+        truncated: (fileCount + directoryCount) >= visitLimit
+    };
+}
+
+function formatWorkspaceSnapshot(snapshot: ReturnType<typeof collectWorkspaceSnapshot>) {
+    const topLevel = snapshot.topLevelEntries.length > 0
+        ? snapshot.topLevelEntries.slice(0, 30).map((entry) => `- ${entry}`).join('\n')
+        : '- No existing project files detected.';
+
+    const markers = snapshot.markers.length > 0
+        ? snapshot.markers.map((entry) => `- ${entry}`).join('\n')
+        : '- No common project markers detected.';
+
+    const truncatedNote = snapshot.truncated
+        ? '\n- Scan note: large repository; counts were capped for install-time safety.'
+        : '';
+
+    return `## Existing Project Snapshot
+- Existing top-level entries: ${snapshot.topLevelEntries.length}
+- Estimated files scanned: ${snapshot.fileCount}
+- Estimated directories scanned: ${snapshot.directoryCount}${truncatedNote}
+
+### Top-Level Entries
+${topLevel}
+
+### Detected Project Markers
+${markers}
+`;
+}
+
 function isLegacyWorkspace(rootPath: string) {
     try {
         return fs.readdirSync(rootPath).some((entry) => !CLEAN_FOLDER_IGNORES.has(entry));
     } catch {
         return false;
     }
+}
+
+function createNextSteps(rootPath: string, locale: string, isLegacy: boolean) {
+    const nextStepsPath = path.join(rootPath, 'NEXT_STEPS.md');
+    if (fs.existsSync(nextStepsPath)) {
+        return nextStepsPath;
+    }
+
+    const isTurkish = locale === 'tr';
+    const content = isTurkish ? `# Agent OS Next Steps
+
+Universal Agent OS bu klasore kuruldu.
+
+## 1. Ajanla basla
+
+AI asistanina sunu yaz:
+
+\`\`\`text
+Bir fikrim var. Bunu bir projeye donusturmeme yardim et.
+\`\`\`
+
+## 2. Kurulum tipini bil
+
+${isLegacy ? '- Bu klasorde mevcut dosyalar bulundugu icin Legacy/Brownfield mod aktif.' : '- Bu klasor temiz kurulum olarak algilandi.'}
+- Ajan once Phase-0 gorusmesi yapmali.
+- Kod yazmadan once plan ve kanit disiplinini kurmali.
+
+## 3. Hizli komutlar
+
+- Fast-Track: kucuk ve net islerde daha hafif surec
+- Status: Agent OS dosyalarinin kurulu olup olmadigini kontrol
+- Closure Check: "bitti" demeden once kanit ve gate kontrolu
+
+VS Code komut paletinde \`Agent OS:\` yazarak bu komutlara ulasabilirsin.
+` : `# Agent OS Next Steps
+
+Universal Agent OS has been installed in this workspace.
+
+## 1. Start with your agent
+
+Send this to your AI assistant:
+
+\`\`\`text
+I have an idea. Help me turn it into a project.
+\`\`\`
+
+## 2. Know the install mode
+
+${isLegacy ? '- Existing files were detected, so Legacy/Brownfield mode is active.' : '- This folder was treated as a clean greenfield install.'}
+- The agent should run Phase-0 first.
+- The agent should create or update plans before implementation.
+- Completion claims should include evidence and gate status.
+
+## 3. Helpful commands
+
+- Fast-Track: lighter process for tiny, well-scoped changes
+- Status: check whether Agent OS files are present
+- Closure Check: evidence checklist before calling work done
+
+Open the VS Code Command Palette and type \`Agent OS:\` to use these commands.
+`;
+
+    fs.writeFileSync(nextStepsPath, content, 'utf8');
+    return nextStepsPath;
+}
+
+async function openMarkdownFile(filePath: string) {
+    const document = await vscode.workspace.openTextDocument(vscode.Uri.file(filePath));
+    await vscode.window.showTextDocument(document, { preview: false });
 }
 
 function ensureDirectoryForFile(filePath: string) {
@@ -126,7 +291,33 @@ function copyRecursiveSync(src: string, dest: string, rootPath: string, isLegacy
     fs.copyFileSync(src, finalDest);
 }
 
-function installAgentOSPayload(tempDir: string, rootPath: string, locale: string, isLegacy: boolean) {
+function createLegacyQuarantine(rootPath: string, onboardedBy: string, snapshot: ReturnType<typeof collectWorkspaceSnapshot>) {
+    const techDebtFile = path.join(rootPath, 'TECH_DEBT_AND_SECURITY.md');
+    if (fs.existsSync(techDebtFile)) {
+        return;
+    }
+
+    const legacyContent = `# Legacy Quarantine & Tech Debt
+
+> [!WARNING]
+> This project was onboarded as a Brownfield project via Phase-X.
+> The existing codebase is quarantined. Do not refactor existing code unless explicitly requested.
+> ALL NEW code must adhere strictly to Universal Agent OS rules.
+
+${formatWorkspaceSnapshot(snapshot)}
+
+## Onboarding Notes
+- Onboarded by ${onboardedBy}.
+- Existing files were detected before Agent OS installation.
+- Any overwritten governance/adapter file collisions were backed up under \`.agentos-backups/\`.
+
+## Known Legacy Systems
+(Agent: Run a full project scan to populate this section with existing architectural patterns and debt.)
+`;
+    fs.writeFileSync(techDebtFile, legacyContent, 'utf8');
+}
+
+function installAgentOSPayload(tempDir: string, rootPath: string, locale: string, isLegacy: boolean, snapshot: ReturnType<typeof collectWorkspaceSnapshot>) {
     const backupRoot = isLegacy
         ? path.join(rootPath, '.agentos-backups', safeTimestamp())
         : undefined;
@@ -164,25 +355,7 @@ function installAgentOSPayload(tempDir: string, rootPath: string, locale: string
     }
 
     if (isLegacy) {
-        const techDebtFile = path.join(rootPath, 'TECH_DEBT_AND_SECURITY.md');
-        if (!fs.existsSync(techDebtFile)) {
-            const legacyContent = `# Legacy Quarantine & Tech Debt
-
-> [!WARNING]
-> This project was onboarded as a Brownfield project via Phase-X.
-> The existing codebase is quarantined. Do not refactor existing code unless explicitly requested.
-> ALL NEW code must adhere strictly to Universal Agent OS rules.
-
-## Existing Project Snapshot
-- Onboarded by VS Code extension.
-- Existing files were detected before Agent OS installation.
-- Any overwritten governance/adapter file collisions were backed up under \`.agentos-backups/\`.
-
-## Known Legacy Systems
-(Agent: Run a full project scan to populate this section with existing architectural patterns and debt.)
-`;
-            fs.writeFileSync(techDebtFile, legacyContent, 'utf8');
-        }
+        createLegacyQuarantine(rootPath, 'VS Code extension', snapshot);
     }
 }
 
@@ -200,6 +373,50 @@ function verifyTargetWorkspace(rootPath: string) {
     }
 
     return missing;
+}
+
+function buildStatusReport(rootPath: string, missing: string[]) {
+    const requiredStatus = TARGET_REQUIRED_FILES
+        .map((relativePath) => {
+            const exists = fs.existsSync(path.join(rootPath, relativePath));
+            return `- ${exists ? '[x]' : '[ ]'} ${relativePath}`;
+        })
+        .join('\n');
+
+    const optionalStatus = [
+        'NEXT_STEPS.md',
+        'TECH_DEBT_AND_SECURITY.md',
+        'docs/REAL_WORLD_SCENARIOS.md',
+        'docs/GOVERNANCE_PROFILES.md',
+        'docs/SLASH_COMMANDS.md'
+    ].map((relativePath) => {
+        const exists = fs.existsSync(path.join(rootPath, relativePath));
+        return `- ${exists ? '[x]' : '[ ]'} ${relativePath}`;
+    }).join('\n');
+
+    const gateStatus = missing.length === 0
+        ? 'PASS - required Agent OS workspace files are present.'
+        : `FAIL - missing: ${missing.join(', ')}`;
+
+    return `# Agent OS Status
+
+## Gate
+
+${gateStatus}
+
+## Required Surfaces
+
+${requiredStatus}
+
+## Helpful Optional Surfaces
+
+${optionalStatus}
+`;
+}
+
+async function copyChatCommand(commandText: string, label: string) {
+    await vscode.env.clipboard.writeText(commandText);
+    vscode.window.showInformationMessage(`${label} prompt copied. Paste it into your AI chat.`);
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -235,6 +452,7 @@ export function activate(context: vscode.ExtensionContext) {
         const locale = localeSelection.id;
 
         const isLegacy = isLegacyWorkspace(rootPath);
+        const workspaceSnapshot = collectWorkspaceSnapshot(rootPath);
 
         vscode.window.withProgress({
             location: vscode.ProgressLocation.Notification,
@@ -258,7 +476,8 @@ export function activate(context: vscode.ExtensionContext) {
                     
                     try {
                         progress.report({ message: `Configuring workspace (${locale})...` });
-                        installAgentOSPayload(tempDir, rootPath, locale, isLegacy);
+                        installAgentOSPayload(tempDir, rootPath, locale, isLegacy, workspaceSnapshot);
+                        const nextStepsPath = createNextSteps(rootPath, locale, isLegacy);
 
                         // Clean up temporary clone
                         fs.rmSync(tempDir, { recursive: true, force: true });
@@ -276,6 +495,7 @@ export function activate(context: vscode.ExtensionContext) {
                                 vscode.commands.executeCommand('agent-os.verifyGovernance');
                             }
                         });
+                        openMarkdownFile(nextStepsPath);
                         resolve();
                     } catch (e: any) {
                         vscode.window.showErrorMessage(`Error configuring workspace: ${e.message}`);
@@ -284,6 +504,28 @@ export function activate(context: vscode.ExtensionContext) {
                 });
             });
         });
+    });
+
+    let fastTrack = vscode.commands.registerCommand('agent-os.fastTrack', async () => {
+        await copyChatCommand(CHAT_COMMANDS.fastTrack, 'Fast-Track');
+    });
+
+    let showStatus = vscode.commands.registerCommand('agent-os.showStatus', async () => {
+        const workspaceFolders = vscode.workspace.workspaceFolders;
+        if (!workspaceFolders) {
+            vscode.window.showErrorMessage('No workspace folder found.');
+            return;
+        }
+
+        const cwd = workspaceFolders[0].uri.fsPath;
+        const missing = verifyTargetWorkspace(cwd);
+        const statusPath = path.join(cwd, 'AGENT_OS_STATUS.md');
+        fs.writeFileSync(statusPath, buildStatusReport(cwd, missing), 'utf8');
+        await openMarkdownFile(statusPath);
+    });
+
+    let closureCheck = vscode.commands.registerCommand('agent-os.closureCheck', async () => {
+        await copyChatCommand(CHAT_COMMANDS.closureCheck, 'Closure Check');
     });
 
     let startInterview = vscode.commands.registerCommand('agent-os.startPhase0', async () => {
@@ -370,7 +612,7 @@ export function activate(context: vscode.ExtensionContext) {
         collection.set(document.uri, diagnostics);
     });
 
-    context.subscriptions.push(startInterview, verifyGate, collection, initWorkspace);
+    context.subscriptions.push(startInterview, verifyGate, fastTrack, showStatus, closureCheck, collection, initWorkspace);
 }
 
 export function deactivate() {}

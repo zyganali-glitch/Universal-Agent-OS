@@ -2,7 +2,7 @@
   "name": "universal-agent-os-vscode",
   "displayName": "Universal Agent OS",
   "description": "Enterprise IDE extension for the Universal Agent OS consultation-first governance framework.",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "publisher": "mehmet-aydogan",
   "repository": {
     "type": "git",
@@ -31,6 +31,18 @@
       {
         "command": "agent-os.verifyGovernance",
         "title": "Agent OS: Verify Governance Gate"
+      },
+      {
+        "command": "agent-os.fastTrack",
+        "title": "Agent OS: Copy Fast-Track Prompt"
+      },
+      {
+        "command": "agent-os.showStatus",
+        "title": "Agent OS: Show Status"
+      },
+      {
+        "command": "agent-os.closureCheck",
+        "title": "Agent OS: Copy Closure Check Prompt"
       }
     ],
     "configuration": {
