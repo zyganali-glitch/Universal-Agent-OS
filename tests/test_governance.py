@@ -248,6 +248,7 @@ class TestRealWorldAdoption:
         required = [
             "docs/BROWNFIELD_ADOPTION_PLAYBOOK.md",
             "docs/AGENT_FAILURE_PATTERNS.md",
+            "docs/REAL_WORLD_SCENARIOS.md",
             ".github/PULL_REQUEST_TEMPLATE.md",
             ".github/ISSUE_TEMPLATE/agent-task.yml"
         ]
@@ -262,6 +263,20 @@ class TestRealWorldAdoption:
         profiles = root_dir / "docs/GOVERNANCE_PROFILES.md"
         assert profiles.is_file()
         assert "Planned" in profiles.read_text(encoding="utf-8")
+        assert "Profile Matrix" in profiles.read_text(encoding="utf-8")
+
+    def test_real_world_scenarios_cross_reference_core_surfaces(self, root_dir: pathlib.Path):
+        content = (root_dir / "docs" / "REAL_WORLD_SCENARIOS.md").read_text(encoding="utf-8")
+        required_terms = [
+            "Scenario Matrix",
+            "AGENTS.md",
+            "Collective Memory",
+            "TECH_DEBT_AND_SECURITY.md",
+            "GOVERNANCE_PROFILES.md",
+            "open-source core"
+        ]
+        for term in required_terms:
+            assert term in content, f"REAL_WORLD_SCENARIOS.md missing {term}"
 
     def test_slash_commands_content(self, root_dir: pathlib.Path):
         content = (root_dir / "docs/SLASH_COMMANDS.md").read_text(encoding="utf-8")

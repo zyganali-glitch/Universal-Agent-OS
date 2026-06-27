@@ -39,6 +39,8 @@ This manifest defines what a first-time install must place in the user's workspa
   - `plans/`
   - `plans/completed/`
 
+The installed `docs/` directory includes the real-world adoption guides, including `REAL_WORLD_SCENARIOS.md`, `GOVERNANCE_PROFILES.md`, and the brownfield playbook.
+
 ## Existing Project Behavior
 
 If the workspace already contains real project files, the VS Code extension and bootstrap scripts treat it as a legacy/brownfield project. The scripts also accept an explicit legacy flag for compatibility with automated workflows.

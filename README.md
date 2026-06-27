@@ -107,6 +107,7 @@ It adds friction early so that agent-built repos are less chaotic later. The goa
 - **Fast-Track Mode:** A bypass for simple prototype scripts, explicitly triggered by the user to avoid heavy bureaucracy when not needed
 - **Multi-Role Review Stack:** Every change reviewed from 6+ perspectives (novice user, corporate maintainer, vibecoder, SV architect, SV investor, QA/security specialist + 2 project-specific roles)
 - Clearer multi-agent ownership and safer handoffs
+- Real-world adoption playbooks for empty projects, brownfield projects, solo experts, agencies, open-source maintainers, and corporate teams
 - A path toward generated domain-specific instructions, skills, roles, and prompts
 
 If you want a zero-ceremony prompt pack, this repo is probably too heavy.  
@@ -285,6 +286,21 @@ npx agent-os verify        # Run governance gate verification
 - Platform teams that need repeatable governance across multiple repos
 - Individual developers using vibecoding who want structure without losing speed
 
+## Real-World Scenarios
+
+Universal Agent OS is meant to stay universal while adapting to real workflows:
+
+- empty-folder product ideas
+- existing brownfield repositories
+- beginner VS Code users
+- solo expert Fast-Track work
+- agency/client handoffs
+- corporate and regulated teams
+- open-source maintainer workflows
+- multi-agent session handoffs
+
+See [docs/REAL_WORLD_SCENARIOS.md](docs/REAL_WORLD_SCENARIOS.md) for the scenario matrix, recommended operating patterns, and open-source-friendly product opportunities.
+
 ## Who This Is Not For
 
 - Teams that want agents to improvise without planning overhead
@@ -307,8 +323,9 @@ Universal-Agent-OS/
 │   ├── BROWNFIELD_ADOPTION_PLAYBOOK.md
 │   ├── INSTALLATION_MANIFEST.md
 │   ├── AGENT_FAILURE_PATTERNS.md
+│   ├── REAL_WORLD_SCENARIOS.md
 │   ├── GOVERNANCE_HEALTH_REPORT.md (Planned)
-│   └── GOVERNANCE_PROFILES.md (Planned)
+│   └── GOVERNANCE_PROFILES.md
 ├── examples/               # Reference implementations (Phase-0, Docker, .env)
 ├── tests/                  # pytest governance test suite
 ├── .github/                # GitHub Actions, Copilot instructions, registries

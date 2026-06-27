@@ -109,6 +109,16 @@ The installer intentionally excludes source-maintenance surfaces such as `extens
 
 ---
 
+## Real-World Adoption Layer
+
+`docs/REAL_WORLD_SCENARIOS.md` maps the universal spine to common workflows: empty projects, existing brownfield projects, beginner VS Code users, solo expert Fast-Track work, agency handoffs, corporate teams, regulated domains, open-source maintenance, and multi-agent session handoffs.
+
+This layer is advisory. It may add examples, recommended gates, and profile guidance, but it must not weaken `AGENTS.md`, the Collective Memory contract, the brownfield quarantine model, or the evidence boundary.
+
+`docs/GOVERNANCE_PROFILES.md` defines light, standard, and strict profile guidance for choosing the right ceremony level. The profile changes the amount of planning and evidence, not the truthfulness requirements.
+
+---
+
 ## Honesty Boundary
 
 This package enforces an explicit honesty boundary:

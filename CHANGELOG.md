@@ -10,6 +10,12 @@
 - Aligned PowerShell and Bash bootstrap installers with the same runtime payload and brownfield behavior.
 - Packaged `universal-agent-os-vscode-1.4.3.vsix` with a minimal VSIX payload and extension-local MIT license.
 
+## Real-World Adoption Guidance - 2026-06-28
+
+- Added `docs/REAL_WORLD_SCENARIOS.md` with a scenario matrix for empty projects, brownfield repositories, solo experts, beginners, agencies, corporate teams, regulated domains, open-source maintainers, and multi-agent handoffs.
+- Expanded `docs/GOVERNANCE_PROFILES.md` from a future CLI note into practical light, standard, and strict profile guidance while keeping profile flags marked as Planned.
+- Linked the real-world adoption layer from README, Architecture, Installation Manifest, CLI verification, and governance tests.
+
 ## 1.2.0 - 2026-06-27
 
 - Added Phase-1 registry surfaces for scoped instructions, skills, roles, prompts, and workflow routing.
