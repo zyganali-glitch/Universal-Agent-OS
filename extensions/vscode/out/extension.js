@@ -15,7 +15,7 @@ function activate(context) {
     statusBarItem.command = 'agent-os.verifyGovernance';
     statusBarItem.show();
     context.subscriptions.push(statusBarItem);
-    // Super Init Workspace (Cloud Fetch)
+    // Unified Init Workspace (Cloud Fetch to Root)
     let initWorkspace = vscode.commands.registerCommand('agent-os.initWorkspace', async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
@@ -23,8 +23,12 @@ function activate(context) {
             return;
         }
         const rootPath = workspaceFolders[0].uri.fsPath;
-        const agentsPath = path.join(rootPath, 'AGENTS.md');
-        const targetAgentOsDir = path.join(rootPath, '.agentos');
+        // Ask for locale
+        const localeSelection = await vscode.window.showQuickPick([{ label: 'English', id: 'en' }, { label: 'Turkish', id: 'tr' }], { placeHolder: 'Select your preferred Agent OS language pack' });
+        if (!localeSelection) {
+            return; // User cancelled
+        }
+        const locale = localeSelection.id;
         vscode.window.withProgress({
             location: vscode.ProgressLocation.Notification,
             title: "Universal Agent OS",
@@ -42,16 +46,7 @@ function activate(context) {
                         return;
                     }
                     try {
-                        progress.report({ message: "Configuring workspace..." });
-                        // Drop AGENTS.md at root
-                        const repoAgentsMd = path.join(tempDir, 'AGENTS.md');
-                        if (!fs.existsSync(agentsPath) && fs.existsSync(repoAgentsMd)) {
-                            fs.copyFileSync(repoAgentsMd, agentsPath);
-                        }
-                        // Setup the hidden .agentos folder for the OS internals
-                        if (!fs.existsSync(targetAgentOsDir)) {
-                            fs.mkdirSync(targetAgentOsDir, { recursive: true });
-                        }
+                        progress.report({ message: `Configuring workspace (${locale})...` });
                         const copyRecursiveSync = (src, dest) => {
                             const exists = fs.existsSync(src);
                             const stats = exists && fs.statSync(src);
@@ -67,11 +62,32 @@ function activate(context) {
                                 fs.copyFileSync(src, dest);
                             }
                         };
-                        // Check if project is legacy (has files other than .git, .vscode, etc.)
+                        // 1. Copy the selected locale pack directly to the root
+                        const localeDir = path.join(tempDir, locale);
+                        if (fs.existsSync(localeDir)) {
+                            copyRecursiveSync(localeDir, rootPath);
+                        }
+                        else {
+                            throw new Error(`Locale directory '${locale}' not found in the repository.`);
+                        }
+                        // 2. Copy essential template directories to root
+                        ['examples', 'plans'].forEach(folder => {
+                            const srcPath = path.join(tempDir, folder);
+                            if (fs.existsSync(srcPath)) {
+                                copyRecursiveSync(srcPath, path.join(rootPath, folder));
+                            }
+                        });
+                        // Ensure plans/completed exists
+                        const completedPlansDir = path.join(rootPath, 'plans', 'completed');
+                        if (!fs.existsSync(completedPlansDir)) {
+                            fs.mkdirSync(completedPlansDir, { recursive: true });
+                        }
+                        // 3. Check if project is legacy (has files other than .git, .vscode, etc.)
                         const checkIsLegacy = (dir) => {
                             try {
                                 const files = fs.readdirSync(dir);
-                                const meaningfulFiles = files.filter(f => !['.git', '.vscode', 'node_modules', '.agentos', 'AGENTS.md'].includes(f));
+                                const meaningfulFiles = files.filter(f => !['.git', '.vscode', 'node_modules', '.agentos-temp', 'AGENTS.md'].includes(f));
+                                // Consider legacy if there are existing structural files before this installation
                                 return meaningfulFiles.length > 0;
                             }
                             catch (e) {
@@ -79,27 +95,7 @@ function activate(context) {
                             }
                         };
                         const isLegacy = checkIsLegacy(rootPath);
-                        // Copy essential template directories to .agentos/
-                        ['examples', 'en', 'tr', 'plans'].forEach(folder => {
-                            const srcPath = path.join(tempDir, folder);
-                            if (fs.existsSync(srcPath)) {
-                                copyRecursiveSync(srcPath, path.join(targetAgentOsDir, folder));
-                            }
-                        });
-                        // Copy memory files to .agentos/
-                        const filesToCopy = [
-                            'AGENT_MEMORY_AND_LESSONS.md',
-                            'AGENT_ARCHITECTURE_AND_PATTERNS.md',
-                            'AGENT_USER_PREFERENCES.md',
-                            'AGENT_ENVIRONMENT_AND_API.md'
-                        ];
-                        filesToCopy.forEach(file => {
-                            const srcPath = path.join(tempDir, file);
-                            if (fs.existsSync(srcPath)) {
-                                fs.copyFileSync(srcPath, path.join(targetAgentOsDir, file));
-                            }
-                        });
-                        // Apply Legacy Quarantine if needed
+                        // 4. Apply Legacy Quarantine if needed
                         if (isLegacy) {
                             const techDebtFile = path.join(rootPath, 'TECH_DEBT_AND_SECURITY.md');
                             if (!fs.existsSync(techDebtFile)) {
@@ -107,9 +103,9 @@ function activate(context) {
                                 fs.writeFileSync(techDebtFile, legacyContent);
                             }
                         }
-                        // Clean up temporary clone
+                        // 5. Clean up temporary clone
                         fs.rmSync(tempDir, { recursive: true, force: true });
-                        vscode.window.showInformationMessage('Universal Agent OS initialized! Core brain imported.');
+                        vscode.window.showInformationMessage(`Universal Agent OS (${locale}) initialized! Core brain is directly in your root folder.`);
                         resolve();
                     }
                     catch (e) {
@@ -126,8 +122,8 @@ function activate(context) {
         let scriptExists = false;
         if (workspaceFolders) {
             const rootPath = workspaceFolders[0].uri.fsPath;
-            // Now look for the script inside the .agentos hidden folder
-            scriptPath = path.join(rootPath, '.agentos', 'examples', 'phase0-interview', 'phase0_interview.py');
+            // The script is now natively at the root's examples/ folder
+            scriptPath = path.join(rootPath, 'examples', 'phase0-interview', 'phase0_interview.py');
             scriptExists = fs.existsSync(scriptPath);
         }
         if (!scriptExists) {

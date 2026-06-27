@@ -244,12 +244,14 @@ Both scripts accept an optional locale parameter (`en` or `tr`). Default is `en`
 
 ### Method 3: VS Code Extension (Local Install)
 
-1. Download the `universal-agent-os-1.0.0.vsix` file from the root of this repository.
+1. Download the latest `universal-agent-os-vscode-1.4.0.vsix` file from the `extensions/vscode/` folder.
 2. In VS Code, open the Extensions view (`Ctrl+Shift+X`).
 3. Click the `...` menu → **"Install from VSIX..."** and choose the downloaded file.
-4. Press `Ctrl+Shift+P` and type `Agent OS: Start Phase-0 Interview` to begin.
+4. Open an empty folder (or your existing legacy project) in VS Code.
+5. Press `Ctrl+Shift+P` and run `Agent OS: Init Workspace` to download the framework into your project.
+6. Press `Ctrl+Shift+P` and run `Agent OS: Start Phase-0 Interview` to begin.
 
-> *Note: The VS Code extension is not yet published to the public Marketplace. Clone this repository to use it.*
+> *Note: The VS Code extension is not yet published to the public Marketplace. Clone this repository to use it locally.*
 
 ### Method 4: CLI (npm link)
 
