@@ -6,6 +6,16 @@
       "name": "agentos_memory",
       "path": "skills/agent-os-memory/SKILL.md",
       "purpose": "Read and update the four Collective Memory pillars."
+    },
+    {
+      "name": "corporate-intranet-access",
+      "path": "skills/corporate-intranet-access/SKILL.md",
+      "purpose": "Restricts external telemetry and API calls for enterprise intranet environments."
+    },
+    {
+      "name": "strict-finance-data-handling",
+      "path": "skills/strict-finance-data-handling/SKILL.md",
+      "purpose": "Enforces strict handling and masking of financial and PII data."
     }
   ]
 }

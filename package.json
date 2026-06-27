@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "python -m pytest tests -v",
+    "status": "node cli/index.js status",
     "verify": "node cli/index.js verify --package",
     "verify:package": "node cli/index.js verify --package",
     "verify:target": "node cli/index.js verify --target"
