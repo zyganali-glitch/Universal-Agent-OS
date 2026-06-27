@@ -115,7 +115,7 @@ The installer intentionally excludes source-maintenance surfaces such as `extens
 
 This layer is advisory. It may add examples, recommended gates, and profile guidance, but it must not weaken `AGENTS.md`, the Collective Memory contract, the brownfield quarantine model, or the evidence boundary.
 
-`docs/GOVERNANCE_PROFILES.md` defines light, standard, and strict profile guidance for choosing the right ceremony level. The profile changes the amount of planning and evidence, not the truthfulness requirements.
+`docs/GOVERNANCE_PROFILES.md` defines `solo`, `startup`, `enterprise`, and `regulated` profile guidance for choosing the right ceremony level. The profile changes the amount of planning and evidence, not the truthfulness requirements.
 
 ---
 
