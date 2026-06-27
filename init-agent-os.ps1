@@ -1,5 +1,5 @@
 # ==============================================================================
-# Universal Agent Governance OS - Zero-Leak Installer (PowerShell)
+# Universal Agent OS - Zero-Leak Installer (PowerShell)
 # ==============================================================================
 # This script installs the Agent Governance OS into any new project with
 # zero-leak depth and Universal-OS compliance.
@@ -24,7 +24,7 @@ $ErrorActionPreference = "Stop"
 $SourceDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
 Write-Host "=========================================================="
-Write-Host "🤖 Universal Agent Governance OS Installation Starting..."
+Write-Host "Universal Agent OS — Native Bootstrap Installer" -ForegroundColor Cyan
 Write-Host "=========================================================="
 
 # Validate target directory
@@ -87,7 +87,7 @@ if ($Legacy) {
 }
 
 Write-Host "=========================================================="
-Write-Host "✅ SUCCESS: Agent Governance OS installed!"
+Write-Host "✅ SUCCESS: Universal Agent OS installed!"
 Write-Host ""
 Write-Host "Next Steps (Mentor Recommendations):"
 Write-Host "1. Open your target project in an AI-enabled IDE."

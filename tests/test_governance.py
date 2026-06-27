@@ -227,3 +227,47 @@ class TestHardeningV120:
         for rc in required_checks:
             assert f"check('{rc}'" in content, f"verify.js package mode missing check for {rc}"
 
+
+class TestRealWorldAdoption:
+    """Tests for Phase-1 Registries, Playbooks, and Real-World Adoption surfaces."""
+
+    def test_phase1_registries_exist(self, root_dir: pathlib.Path):
+        required = [
+            ".github/instructions/_ARCHITECTURE.md",
+            ".github/instructions/_SCOPED_INSTRUCTION_REGISTRY.json",
+            ".agent/skills/_SKILL_TEMPLATE_REGISTRY.json",
+            ".github/agents/_AGENT_ROLE_REGISTRY.json",
+            ".github/prompts/_PROMPT_TEMPLATE_REGISTRY.json",
+            ".agent/workflows/_WORKFLOW_DOMAIN_ROUTING.json"
+        ]
+        for f in required:
+            assert (root_dir / f).is_file(), f"Phase-1 Registry file missing: {f}"
+
+    def test_real_world_adoption_docs_exist(self, root_dir: pathlib.Path):
+        required = [
+            "docs/BROWNFIELD_ADOPTION_PLAYBOOK.md",
+            "docs/AGENT_FAILURE_PATTERNS.md",
+            ".github/PULL_REQUEST_TEMPLATE.md",
+            ".github/ISSUE_TEMPLATE/agent-task.yml"
+        ]
+        for f in required:
+            assert (root_dir / f).is_file(), f"Real-world adoption doc missing: {f}"
+
+    def test_planned_health_report_and_profiles(self, root_dir: pathlib.Path):
+        report = root_dir / "docs/GOVERNANCE_HEALTH_REPORT.md"
+        assert report.is_file()
+        assert "Planned" in report.read_text(encoding="utf-8")
+
+        profiles = root_dir / "docs/GOVERNANCE_PROFILES.md"
+        assert profiles.is_file()
+        assert "Planned" in profiles.read_text(encoding="utf-8")
+
+    def test_slash_commands_content(self, root_dir: pathlib.Path):
+        content = (root_dir / "docs/SLASH_COMMANDS.md").read_text(encoding="utf-8")
+        assert "/fast-track" in content
+        assert "/closure-check" in content
+
+    def test_readme_v120_exists(self, root_dir: pathlib.Path):
+        content = (root_dir / "README.md").read_text(encoding="utf-8")
+        assert "v1.2.0" in content
+

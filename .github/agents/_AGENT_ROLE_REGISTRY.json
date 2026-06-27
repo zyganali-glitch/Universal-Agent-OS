@@ -1,0 +1,18 @@
+{
+  "version": "1.2.0",
+  "registry_type": "agent_role_registry",
+  "roles": [
+    {
+      "id": "main-agent",
+      "purpose": "Default single writer responsible for plan, evidence, implementation and validation."
+    },
+    {
+      "id": "qa-reviewer",
+      "purpose": "Reviews validation gates, evidence quality and closure honesty."
+    },
+    {
+      "id": "architecture-reviewer",
+      "purpose": "Checks cross-surface parity, modularity and memory alignment."
+    }
+  ]
+}

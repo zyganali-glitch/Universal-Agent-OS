@@ -1,0 +1,16 @@
+{
+  "version": "1.2.0",
+  "registry_type": "prompt_template_registry",
+  "prompts": [
+    {
+      "id": "phase-0-start",
+      "purpose": "Begin consultation-first project alignment.",
+      "template": "Start Phase-0. Ask exactly one question at a time. Do not write code before agreement and plan."
+    },
+    {
+      "id": "closure-check",
+      "purpose": "Prevent false completion claims.",
+      "template": "Before closure, list evidence, commands run, gate results, Tech-Debt Delta, and docs updated."
+    }
+  ]
+}

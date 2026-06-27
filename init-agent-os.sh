@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# Universal Agent Governance OS - Zero-Leak Installer
+# Universal Agent OS - Zero-Leak Installer
 # ==============================================================================
 # This script installs the Agent Governance OS into any target project.
 # Usage: ./init-agent-os.sh <target-dir> [locale]
@@ -18,7 +18,7 @@ LEGACY_FLAG="${3:-}"
 LOCALE="$LANG_CHOICE"
 
 echo "=========================================================="
-echo "🤖 Universal Agent Governance OS — Installation Starting..."
+echo "🚀 Universal Agent OS — Native Bootstrap Installer"
 echo "=========================================================="
 
 # Validate target directory
@@ -75,7 +75,7 @@ EOF
 fi
 
 echo "=========================================================="
-echo "✅ SUCCESS: Agent Governance OS installed!"
+echo "✅ SUCCESS: Universal Agent OS installed!"
 echo ""
 echo "Next Steps (Mentor Recommendations):"
 echo "1. Open your target project in an AI-enabled IDE."

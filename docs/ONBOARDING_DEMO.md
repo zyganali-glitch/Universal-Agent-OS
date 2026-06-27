@@ -1,6 +1,6 @@
 # Onboarding and Demo Guide
 
-Product name: Agent Governance OS Starter Kit
+Product name: Universal Agent OS (previously Agent Governance OS Starter Kit)
 
 ## Who This Is For
 - teams building internal AI coding agents
@@ -13,7 +13,7 @@ Product name: Agent Governance OS Starter Kit
 2. Read the locale donor file first.
 3. Read the locale `AGENTS.md` and global plan template.
 4. Open the root folder in VS Code.
-5. (Optional) Install the `universal-agent-os-1.0.0.vsix` extension file via the VS Code extensions menu.
+5. (Optional) Install the `universal-agent-os-1.0.0.vsix` local extension scaffold via the VS Code extensions menu (if available in your build).
 6. Tell the AI: *"I have an idea. Turn it into a project."* (The agent will auto-discover the Phase-0 flow).
 6. Make the agent write or harden the repo-root `AGENT_OS_PLAN_TEMPLATE.md`.
 7. Make the agent create a master roadmap plus child execution plans.

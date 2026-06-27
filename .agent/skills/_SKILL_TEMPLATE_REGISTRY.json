@@ -1,0 +1,11 @@
+{
+  "version": "1.2.0",
+  "registry_type": "skill_template_registry",
+  "skills": [
+    {
+      "name": "agentos_memory",
+      "path": "skills/agent-os-memory/SKILL.md",
+      "purpose": "Read and update the four Collective Memory pillars."
+    }
+  ]
+}

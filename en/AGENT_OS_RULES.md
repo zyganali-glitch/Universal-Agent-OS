@@ -1,6 +1,6 @@
 # Global Agent Operating Rules
 
-Product: Agent Governance OS Starter Kit
+Product: Universal Agent OS — Base Rules
 
 Purpose: This document is the package-local canonical English donor source for building or hardening governance surfaces in new repositories.
 

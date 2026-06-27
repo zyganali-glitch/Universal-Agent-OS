@@ -1,0 +1,16 @@
+{
+  "version": "1.2.0",
+  "registry_type": "workflow_domain_routing",
+  "routes": [
+    {
+      "domain": "new-project",
+      "workflow": ".agent/workflows/session-bootstrap.md",
+      "required_outputs": ["Phase-0 summary", "AGENT_OS_PLAN_TEMPLATE.md", "master roadmap"]
+    },
+    {
+      "domain": "resume-existing-work",
+      "workflow": ".agent/workflows/continue.md",
+      "required_outputs": ["active plan", "last evidence", "next safe step"]
+    }
+  ]
+}

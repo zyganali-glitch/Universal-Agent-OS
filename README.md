@@ -57,7 +57,16 @@ This repository is already usable, but it is not finished in every dimension.
 - Example implementations under `examples/`
 - pytest-based structural governance test suite
 
-**What is packaged (v1.0.0):**
+**What is new in v1.2.0 (Open Source Hardening & Verification):**
+- MIT licensing is now the explicit open-source model.
+- CLI verification supports separate package and target modes.
+- `agent-os init` supports `--en`, `--tr`, and `--locale en|tr`.
+- Bash bootstrap is non-interactive by default and CI-safe.
+- GitHub Actions and GitLab CI use package verification.
+- `examples/minimal-saas` is now a verifiable target-repo example.
+- The pytest suite includes strict checks for version sync, licensing, adapter routing, VS Code Phase-0 invocation, and demo repo evidence.
+
+**Packaged baseline introduced in v1.0.0:**
 - A local `agent-os` CLI tool (`npx agent-os init`, `npx agent-os verify`)
 - Comprehensive governance gate verification via CLI and GitHub Actions
 - A VS Code extension scaffold for IDE-native Phase-0 interviews
@@ -96,6 +105,29 @@ It adds friction early so that agent-built repos are less chaotic later. The goa
 
 If you want a zero-ceremony prompt pack, this repo is probably too heavy.  
 If you want a long-lived agent-built repo to stay legible, testable, and governable, the overhead is intentional.
+
+---
+
+## Fast-Track Mode
+
+For small, low-risk changes, users can explicitly request Fast-Track Mode.
+
+Use it for:
+- typo fixes
+- small documentation edits
+- single-file safe changes
+- tiny config updates
+
+Fast-Track does not bypass honesty:
+- scope must still be stated
+- changed files must be listed
+- relevant checks must be run
+- evidence must be reported
+- Tech-Debt Delta must be stated
+
+Example prompt:
+
+> Fast-track this typo fix. Do not run full Phase-0 unless scope expands.
 
 ---
 
@@ -257,9 +289,15 @@ Universal-Agent-OS/
 ├── skills/                 # Root skill library (agent-os-memory)
 ├── agents/                 # Agent definitions (GitLab Duo)
 ├── docs/                   # Architecture diagrams, onboarding, evidence templates
+│   ├── BROWNFIELD_ADOPTION_PLAYBOOK.md
+│   ├── AGENT_FAILURE_PATTERNS.md
+│   ├── GOVERNANCE_HEALTH_REPORT.md (Planned)
+│   └── GOVERNANCE_PROFILES.md (Planned)
 ├── examples/               # Reference implementations (Phase-0, Docker, .env)
 ├── tests/                  # pytest governance test suite
 ├── .github/                # GitHub Actions, Copilot instructions, registries
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── ISSUE_TEMPLATE/agent-task.yml
 ├── .gitlab/                # GitLab Duo configuration
 ├── AGENTS.md               # Root Supreme Constitution
 ├── CLAUDE.md               # Claude-specific adapter

@@ -1,0 +1,18 @@
+{
+  "version": "1.2.0",
+  "registry_type": "scoped_instruction_registry",
+  "description": "Maps project domains to instruction surfaces for Universal Agent OS.",
+  "default_locale": "en",
+  "scopes": [
+    {
+      "id": "governance-core",
+      "applies_to": ["AGENTS.md", "AGENT_OS_RULES.md", "AGENT_OS_PLAN_TEMPLATE.md"],
+      "instruction": "Apply Phase-0, Plan -> Evidence -> Test, Collective Memory, and Honesty Boundary rules."
+    },
+    {
+      "id": "target-repo",
+      "applies_to": ["examples/minimal-saas/**"],
+      "instruction": "Verify target repository surfaces with agent-os verify --target before claiming compliance."
+    }
+  ]
+}

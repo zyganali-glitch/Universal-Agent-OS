@@ -54,6 +54,58 @@ module.exports = function(args) {
     }
   }
 
+  function checkContains(filePath, needle, label) {
+    const fullPath = mode === 'package' ? path.join(process.cwd(), filePath) : path.join(targetDir, filePath);
+    if (fs.existsSync(fullPath)) {
+      const content = fs.readFileSync(fullPath, 'utf8');
+      if (content.includes(needle)) {
+        console.log(`  ✅ ${label} (contains '${needle}')`);
+        passed++;
+      } else {
+        console.error(`  ❌ ${label} — MISSING CONTENT: '${needle}' in ${filePath}`);
+        failed++;
+      }
+    } else {
+      console.error(`  ❌ ${label} — MISSING FILE: ${filePath}`);
+      failed++;
+    }
+  }
+
+  function checkNotContains(filePath, forbidden, label) {
+    const fullPath = mode === 'package' ? path.join(process.cwd(), filePath) : path.join(targetDir, filePath);
+    if (fs.existsSync(fullPath)) {
+      const content = fs.readFileSync(fullPath, 'utf8').toLowerCase();
+      if (!content.includes(forbidden.toLowerCase())) {
+        console.log(`  ✅ ${label} (clean of '${forbidden}')`);
+        passed++;
+      } else {
+        console.error(`  ❌ ${label} — FORBIDDEN CONTENT: '${forbidden}' found in ${filePath}`);
+        failed++;
+      }
+    } else {
+      console.error(`  ❌ ${label} — MISSING FILE: ${filePath}`);
+      failed++;
+    }
+  }
+
+  function checkVersionSync() {
+    if (mode === 'package') {
+      const vPath = path.join(process.cwd(), 'VERSION');
+      const pPath = path.join(process.cwd(), 'package.json');
+      if (fs.existsSync(vPath) && fs.existsSync(pPath)) {
+        const vText = fs.readFileSync(vPath, 'utf8').trim();
+        const pkg = JSON.parse(fs.readFileSync(pPath, 'utf8'));
+        if (vText === pkg.version) {
+          console.log(`  ✅ VERSION matches package.json (${vText})`);
+          passed++;
+        } else {
+          console.error(`  ❌ VERSION mismatch: ${vText} vs ${pkg.version}`);
+          failed++;
+        }
+      }
+    }
+  }
+
   if (mode === 'package') {
     console.log('📦 Verifying Source Package:');
     check('README.md', 'README.md');
@@ -90,6 +142,12 @@ module.exports = function(args) {
     check('.github/workflows/agent-compliance-check.yml', '.github/workflows/agent-compliance-check.yml');
     check('.gitlab-ci.yml', '.gitlab-ci.yml');
     check('walkthrough.md', 'walkthrough.md');
+    checkVersionSync();
+    checkContains('package.json', '"license": "MIT"', 'package.json MIT License');
+    checkNotContains('LICENSING.md', 'no redistribution', 'LICENSING.md clean restriction');
+    checkNotContains('LICENSING.md', 'commercial license required', 'LICENSING.md clean restriction');
+    checkContains('README.md', 'v1.2.0', 'README.md v1.2.0 mentioned');
+    checkContains('docs/EVIDENCE_MANIFEST_TEMPLATE.md', 'Tech-Debt Delta', 'EVIDENCE_MANIFEST_TEMPLATE.md Tech-Debt Delta');
   } else {
     console.log('📋 Verifying Target Repository:');
     check('AGENTS.md', 'Supreme Constitution (AGENTS.md)');

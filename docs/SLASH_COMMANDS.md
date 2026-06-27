@@ -4,6 +4,8 @@ Bu rehber, vibecoder'ların ajan mimarisiyle en hızlı, sıfır hatalı ve en g
 
 ## Kullanıma Hazır Hızlı Komutlar (Slash Commands)
 
+> **Note:** These are chat-level commands/prompt shortcuts, not native shell CLI commands. Use them directly in the chat interface of your AI IDE.
+
 ### `/bootstrap` veya `/phase-0`
 - **Ne İşe Yarar?** Ajanı, projeye dair hiçbir satır kod yazmadan hemen bir Mutabakat Mülakatına sokar.
 - **Kullanım Yeri:** Projeyi ilk kez açtığınızda veya yepyeni bir özellik setine geçiş yaptığınızda.
@@ -22,3 +24,11 @@ Bu rehber, vibecoder'ların ajan mimarisiyle en hızlı, sıfır hatalı ve en g
 - **Ne İşe Yarar?** Ajanı anında bir mentor, bir çaylak kullanıcı veya uzman bir yazılımcı gözüyle yazılmış kodları test etmeye zorlar. Zaafları tespit edip sızmayı önler.
 
 > **Mentor İpucu:** Bu komutları doğrudan GitHub Copilot Chat, Cursor Chat veya Claude arayüzüne `/resume` olarak göndermeniz, ajanlardaki "Eylemsizlik (Analysis Paralysis)" ve "Aşırı Konuşkanlık" kusurlarını anında bypass eder.
+
+### `/closure-check`
+- **Purpose:** Prevent false "done" claims.
+- **Expected agent behavior:** Report evidence, commands run, gate status, Tech-Debt Delta, docs updated, and remaining risks.
+
+### `/fast-track`
+- **Purpose:** Use the minimum governance path for tiny, well-scoped changes.
+- **Expected agent behavior:** Confirm scope, identify affected files, run the smallest relevant gate, and avoid full Phase-0 unless scope expands.

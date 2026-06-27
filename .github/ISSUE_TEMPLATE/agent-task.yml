@@ -1,0 +1,36 @@
+name: Agent Task
+description: Track an AI-agent-assisted task under Universal Agent OS
+title: "[Agent Task]: "
+labels: ["agent-os", "governance"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should the agent accomplish?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / Allowlist
+      description: Which files or areas may be changed?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence Required
+      description: What commands, files, or artifacts must prove completion?
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - Full Phase-0
+        - Fast-Track
+        - Brownfield
+    validations:
+      required: true

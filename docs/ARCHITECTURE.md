@@ -1,6 +1,6 @@
 # Architecture Overview
 
-Product: Agent Governance OS Starter Kit
+Product: Universal Agent OS (previously Agent Governance OS Starter Kit)
 
 This document provides a visual overview of the Universal Agent OS architecture, governance flow, and package structure.
 
