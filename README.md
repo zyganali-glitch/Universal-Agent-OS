@@ -76,7 +76,7 @@ This repository is a fully operational and packaged governance framework.
 - Example implementations under `examples/`
 - pytest-based structural governance test suite
 
-**What is new in v1.2.0 (Open Source Hardening & Verification):**
+**What is new in the Core Package v1.2.0 (Open Source Hardening & Verification):**
 - MIT licensing is now the explicit open-source model.
 - CLI verification supports separate package and target modes.
 - `agent-os init` supports `--en`, `--tr`, and `--locale en|tr`.
@@ -85,12 +85,18 @@ This repository is a fully operational and packaged governance framework.
 - `examples/minimal-saas` is now a verifiable target-repo example.
 - The pytest suite includes strict checks for version sync, licensing, adapter routing, VS Code Phase-0 invocation, and demo repo evidence.
 
-**What is new in the VS Code extension v1.4.3 (Install Integrity):**
-- `Agent OS: Init Workspace` installs the full runtime governance payload, not only the locale pack and examples.
-- Existing projects are detected before copying begins, so clean folders are not incorrectly marked as legacy.
-- Existing project collisions are backed up under `.agentos-backups/`.
-- Existing user `README.md` files are preserved; Agent OS documentation is installed as `AGENT_OS_README.md` when needed.
-- `Agent OS: Verify Governance Gate` verifies required workspace files locally instead of depending on unpublished npm CLI availability.
+**What is new in the Core Package v1.1.0 (Runtime Kernel Transition):**
+- **Legacy Onboarding Mode:** `npx agent-os init --legacy` to integrate cleanly into existing messy projects without triggering restrictive Phase-0 logic.
+- **MCP Server (Model Context Protocol):** A built-in `mcp-server` that exposes the `agent_memory.json` bus so agents can read/write architecture and lessons natively via tool calls.
+- **VSCode Runtime Enforcement:** The extension actively monitors saved files and issues diagnostics (Anti-Monolith size limits & Zombie Code detection).
+
+**Packaged baseline introduced in Core Package v1.0.0:**
+- A local `agent-os` CLI tool (`npx agent-os init`, `npx agent-os verify`)
+- Comprehensive governance gate verification via CLI and GitHub Actions
+- A VS Code extension scaffold for IDE-native Phase-0 interviews
+- GitLab CI and GitHub Actions enforcement pipelines
+
+---
 
 **What is new in the VS Code extension v1.4.5 (Status Intelligence):**
 - **Conditional Status Bar**: Status bar now shows `Agent OS: Active`, `Not Initialized`, or `No Workspace` based on your project's governance state, and updates dynamically.
@@ -103,16 +109,12 @@ This repository is a fully operational and packaged governance framework.
 - VS Code Command Palette now exposes Fast-Track, Status, and Closure Check workflows.
 - Governance profiles are documented as `solo`, `startup`, `enterprise`, and `regulated` without changing the universal core.
 
-**Packaged baseline introduced in v1.0.0:**
-- A local `agent-os` CLI tool (`npx agent-os init`, `npx agent-os verify`)
-- Comprehensive governance gate verification via CLI and GitHub Actions
-- A VS Code extension scaffold for IDE-native Phase-0 interviews
-- GitLab CI and GitHub Actions enforcement pipelines
-
-**What is new in v1.1.0 (Runtime Kernel Transition):**
-- **Legacy Onboarding Mode:** `npx agent-os init --legacy` to integrate cleanly into existing messy projects without triggering restrictive Phase-0 logic.
-- **MCP Server (Model Context Protocol):** A built-in `mcp-server` that exposes the `agent_memory.json` bus so agents can read/write architecture and lessons natively via tool calls.
-- **VSCode Runtime Enforcement:** The extension actively monitors saved files and issues diagnostics (Anti-Monolith size limits & Zombie Code detection).
+**What is new in the VS Code extension v1.4.3 (Install Integrity):**
+- `Agent OS: Init Workspace` installs the full runtime governance payload, not only the locale pack and examples.
+- Existing projects are detected before copying begins, so clean folders are not incorrectly marked as legacy.
+- Existing project collisions are backed up under `.agentos-backups/`.
+- Existing user `README.md` files are preserved; Agent OS documentation is installed as `AGENT_OS_README.md` when needed.
+- `Agent OS: Verify Governance Gate` verifies required workspace files locally instead of depending on unpublished npm CLI availability.
 
 **What is ahead:**
 - Pre-commit hook integration
