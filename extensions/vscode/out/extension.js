@@ -368,9 +368,17 @@ function activate(context) {
         const rootPath = workspaceFolders[0].uri.fsPath;
         const agentsExists = fs.existsSync(path.join(rootPath, 'AGENTS.md'));
         if (agentsExists) {
-            statusBarItem.text = '$(shield) Agent OS: Active';
-            statusBarItem.tooltip = 'Verify Governance Gate';
-            statusBarItem.command = 'agent-os.verifyGovernance';
+            const missing = verifyTargetWorkspace(rootPath);
+            if (missing.length > 0) {
+                statusBarItem.text = '$(shield) Agent OS: Incomplete';
+                statusBarItem.tooltip = 'Missing required surfaces. Click to view status.';
+                statusBarItem.command = 'agent-os.showStatus';
+            }
+            else {
+                statusBarItem.text = '$(shield) Agent OS: Active';
+                statusBarItem.tooltip = 'Verify Governance Gate';
+                statusBarItem.command = 'agent-os.verifyGovernance';
+            }
         }
         else {
             statusBarItem.text = '$(shield) Agent OS: Not Initialized';

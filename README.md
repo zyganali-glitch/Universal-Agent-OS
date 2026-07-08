@@ -299,13 +299,15 @@ What gets installed is defined in [docs/INSTALLATION_MANIFEST.md](docs/INSTALLAT
 3. Click the `...` menu -> **"Install from VSIX..."** and choose the downloaded file.
 4. Continue with the same `Agent OS: Init Workspace` flow above.
 
-### Method 5: CLI (npm link)
+### Method 5: CLI (NPM)
 
 ```bash
-npm link
-npx agent-os init          # Initialize governance in current directory
-npx agent-os init --legacy # Initialize in Legacy/Brownfield mode (skips Phase-0, creates quarantine)
-npx agent-os verify        # Run governance gate verification
+# Public NPM package
+npx universal-agent-os init --en
+npx universal-agent-os init --tr
+npx universal-agent-os init --legacy
+npx universal-agent-os verify --target .
+npx universal-agent-os status
 ```
 
 ---
