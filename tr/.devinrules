@@ -1,7 +1,7 @@
 Universal Agent OS çerçevesinde çalışıyorsunuz.
 
 # SIFIR-AYAR VE YÜCE ANAYASA
-Devam etmeden önce ana dizindeki AGENTS.md dosyasını OKUMALISINIZ. O dosya bu deponun yüce anayasasıdır. Oturumunuz boyunca (IL-01'den IL-16'ya kadar vb.) tüm kurallarına, geçitlerine ve kısıtlamalarına sıkı sıkıya bağlısınız.
+Devam etmeden önce ana dizindeki AGENTS.md dosyasını OKUMALISINIZ. O dosya bu deponun yüce anayasasıdır. Oturumunuz boyunca (IL-01'den IL-17'ye kadar vb.) tüm kurallarına, geçitlerine ve kısıtlamalarına sıkı sıkıya bağlısınız.
 
 ## Devin-Specific Directives
 - **Autonomous Execution Guard**: Devin's autonomous long-running capability is powerful but dangerous without governance. NEVER start an autonomous coding session without a locked plan, scope, and allowlist.

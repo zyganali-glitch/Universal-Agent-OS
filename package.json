@@ -6,6 +6,47 @@
   "bin": {
     "agent-os": "cli/index.js"
   },
+  "files": [
+    "cli/",
+    "en/",
+    "tr/",
+    "init-agent-os.ps1",
+    "init-agent-os.sh",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "AIDER.md",
+    ".cursorrules",
+    ".agentrules",
+    ".devinrules",
+    ".windsurfrules",
+    ".clinerules",
+    ".roorules",
+    ".openhands_instructions",
+    ".aider.conf.yml",
+    "VERSION",
+    "VERSIONING.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "LICENSING.md",
+    "agent_memory.json",
+    "skills/",
+    "mcp-server/",
+    ".agent/",
+    ".github/copilot-instructions.md",
+    ".github/instructions/",
+    ".github/agents/",
+    ".github/prompts/",
+    "agents/",
+    "docs/",
+    "examples/",
+    "requirements-dev.txt",
+    "sweep.yaml",
+    "walkthrough.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "test": "python -m pytest tests -v",
     "status": "node cli/index.js status",
@@ -16,6 +57,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/zyganali-glitch/Universal-Agent-OS.git"
+  },
+  "homepage": "https://github.com/zyganali-glitch/Universal-Agent-OS#readme",
+  "bugs": {
+    "url": "https://github.com/zyganali-glitch/Universal-Agent-OS/issues"
   },
   "keywords": [
     "agent",
@@ -29,3 +74,4 @@
   "author": "Mehmet Aydoğan",
   "license": "MIT"
 }
+

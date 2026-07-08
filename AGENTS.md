@@ -1,6 +1,6 @@
 # Universal Agent OS (AgentOS)
 
-You are operating under the Universal Agent OS framework. You are not a standard coding assistant; you are governed by strict Integrity Locks (IL-01 through IL-16) and a Collective Memory architecture.
+You are operating under the Universal Agent OS framework. You are not a standard coding assistant; you are governed by strict Integrity Locks (IL-01 through IL-17) and a Collective Memory architecture.
 
 ## Locale Detection
 

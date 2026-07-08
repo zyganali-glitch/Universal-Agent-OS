@@ -1,7 +1,25 @@
 # Universal Agent OS
 
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/zyganali-glitch/Universal-Agent-OS/agent-os-enforcer.yml?branch=main&label=CI)](https://github.com/zyganali-glitch/Universal-Agent-OS/actions)
+[![npm version](https://img.shields.io/npm/v/universal-agent-os)](https://www.npmjs.com/package/universal-agent-os)
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/mehmet-aydogan.universal-agent-os-vscode?label=VS%20Code)](https://marketplace.visualstudio.com/items?itemName=mehmet-aydogan.universal-agent-os-vscode)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 > **Consultation-first governance framework for AI coding agents.**
 > Turn loose agent sessions into a governed delivery model: interview first, plan before code, track evidence, force explicit validation.
+
+### 30 Seconds: What Is This?
+
+AI coding agents (Cursor, Copilot, Claude, Gemini, Codex, etc.) write code fast but leave behind unplanned, untested, undocumented repos. **Universal Agent OS** fixes this by making agents interview you first, plan before coding, prove their work, and keep documentation alive — automatically.
+
+**Works with:** Cursor · GitHub Copilot · Claude · Gemini · Aider · Devin · Windsurf · Cline · Roo · OpenHands · Codex · GitLab Duo
+
+```bash
+# Install governance into any project (no repo clone needed):
+npx universal-agent-os init --en
+
+# Or use VS Code: Ctrl+Shift+P → "Agent OS: Init Workspace"
+```
 
 [![Demo Video](https://img.youtube.com/vi/5NhIS0996zI/0.jpg)](https://www.youtube.com/watch?v=5NhIS0996zI)
 
@@ -92,8 +110,9 @@ This repository is already usable, but it is not finished in every dimension.
 - **VSCode Runtime Enforcement:** The extension actively monitors saved files and issues diagnostics (Anti-Monolith size limits & Zombie Code detection).
 
 **What is ahead:**
-- Publishing the CLI to public NPM
 - Pre-commit hook integration
+- Governance Health Report dashboard
+- Domain-specific instruction and skill generation
 
 ## Why It Feels Bureaucratic
 
