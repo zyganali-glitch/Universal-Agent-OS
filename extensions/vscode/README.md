@@ -2,7 +2,7 @@
 
 This is the official Enterprise IDE extension for the **Universal Agent OS**, a consultation-first governance framework for AI coding agents.
 
-## What's New in v1.4.6 (Repository Sync)
+## What's New in v1.4.7 (Repository Sync)
 - **Marketplace & NPM Sync**: Synchronized README versions and release history across GitHub, VS Code Marketplace, and NPM packages to ensure 100% accuracy.
 
 ## What's New in v1.4.5 (Status Intelligence)

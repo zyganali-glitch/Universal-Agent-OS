@@ -10,7 +10,7 @@
 
 - First successful public NPM publish (`universal-agent-os`).
 
-## VS Code Extension 1.4.6 - 2026-07-08
+## VS Code Extension 1.4.7 - 2026-07-08
 
 - Synchronized GitHub, VS Code Marketplace, and NPM packages to ensure consistent version history.
 - Corrected missing `1.4.5` entry in README files.

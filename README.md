@@ -106,7 +106,7 @@ This repository is a fully operational and packaged governance framework.
 
 ---
 
-**What is new in the VS Code extension v1.4.6 (Repository Sync):**
+**What is new in the VS Code extension v1.4.7 (Repository Sync):**
 - **Marketplace & NPM Sync**: Synchronized README versions and release history across GitHub, VS Code Marketplace, and NPM packages to ensure 100% accuracy.
 
 **What is new in the VS Code extension v1.4.5 (Status Intelligence):**

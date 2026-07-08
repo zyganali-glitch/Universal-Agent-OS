@@ -1,8 +1,8 @@
 {
   "name": "universal-agent-os-vscode",
   "displayName": "Universal Agent OS",
-  "description": "Enterprise IDE extension for the Universal Agent OS consultation-first governance framework.",
-  "version": "1.4.6",
+  "description": "Consultation-first governance framework for AI coding agents. Run Phase-0 interviews and enforce governance directly in VS Code.",
+  "version": "1.4.7",
   "publisher": "mehmet-aydogan",
   "repository": {
     "type": "git",
