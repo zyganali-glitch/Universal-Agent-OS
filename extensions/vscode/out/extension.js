@@ -355,13 +355,37 @@ async function copyChatCommand(commandText, label) {
 }
 function activate(context) {
     console.log('Universal Agent OS is now active!');
-    // Status Bar Item
+    // Status Bar Item (conditional on workspace state)
     const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-    statusBarItem.text = '$(shield) Agent OS: Active';
-    statusBarItem.tooltip = 'Verify Governance Gate';
-    statusBarItem.command = 'agent-os.verifyGovernance';
+    function updateStatusBar() {
+        const workspaceFolders = vscode.workspace.workspaceFolders;
+        if (!workspaceFolders) {
+            statusBarItem.text = '$(shield) Agent OS: No Workspace';
+            statusBarItem.tooltip = 'Open a folder to use Agent OS';
+            statusBarItem.command = 'agent-os.initWorkspace';
+            return;
+        }
+        const rootPath = workspaceFolders[0].uri.fsPath;
+        const agentsExists = fs.existsSync(path.join(rootPath, 'AGENTS.md'));
+        if (agentsExists) {
+            statusBarItem.text = '$(shield) Agent OS: Active';
+            statusBarItem.tooltip = 'Verify Governance Gate';
+            statusBarItem.command = 'agent-os.verifyGovernance';
+        }
+        else {
+            statusBarItem.text = '$(shield) Agent OS: Not Initialized';
+            statusBarItem.tooltip = 'Initialize Agent OS in this workspace';
+            statusBarItem.command = 'agent-os.initWorkspace';
+        }
+    }
+    updateStatusBar();
     statusBarItem.show();
     context.subscriptions.push(statusBarItem);
+    // Watch for AGENTS.md creation/deletion to update status bar
+    const agentsWatcher = vscode.workspace.createFileSystemWatcher('**/AGENTS.md');
+    agentsWatcher.onDidCreate(() => updateStatusBar());
+    agentsWatcher.onDidDelete(() => updateStatusBar());
+    context.subscriptions.push(agentsWatcher);
     // Unified Init Workspace (Cloud Fetch to Root)
     let initWorkspace = vscode.commands.registerCommand('agent-os.initWorkspace', async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -391,7 +415,10 @@ function activate(context) {
                 const gitCommand = `git clone --depth 1 ${REPOSITORY_URL} "${tempDir}"`;
                 (0, child_process_1.exec)(gitCommand, { cwd: rootPath }, (error) => {
                     if (error) {
-                        vscode.window.showErrorMessage(`Failed to fetch Agent OS: ${error.message}`);
+                        const gitHelp = error.message.includes('not recognized') || error.message.includes('not found')
+                            ? ' Git does not appear to be installed. Please install Git from https://git-scm.com and try again, or download the ZIP from https://github.com/zyganali-glitch/Universal-Agent-OS and extract it manually.'
+                            : ' Please check your internet connection and try again, or download the ZIP from https://github.com/zyganali-glitch/Universal-Agent-OS and extract it manually.';
+                        vscode.window.showErrorMessage(`Failed to fetch Agent OS: ${error.message}.${gitHelp}`);
                         reject();
                         return;
                     }

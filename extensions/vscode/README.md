@@ -2,12 +2,15 @@
 
 This is the official Enterprise IDE extension for the **Universal Agent OS**, a consultation-first governance framework for AI coding agents.
 
+## What's New in v1.4.5 (Status Intelligence)
+- **Conditional Status Bar**: Status bar now shows `Agent OS: Active`, `Not Initialized`, or `No Workspace` based on your project's governance state, and updates dynamically via file watchers.
+- **Git Error Guidance**: Improved error messaging when Git is not installed or network fails during initialization — now suggests Git install link and ZIP fallback.
+- **Changelog Cleanup**: Fixed changelog ordering and added NPM publishing badges to main README.
+
 ## What's New in v1.4.4 (Guided Workflows)
 - **Next Steps File**: Init now creates and opens `NEXT_STEPS.md` so beginners immediately know what to do after installation.
 - **Brownfield Snapshot**: Existing projects receive an initial top-level folder summary inside `TECH_DEBT_AND_SECURITY.md`.
 - **Command Palette Shortcuts**: Added Fast-Track, Status, and Closure Check commands for common governance workflows.
-- **Conditional Status Bar**: Status bar now shows `Agent OS: Not Initialized` when governance files are missing, and updates dynamically.
-- **Git Error Guidance**: Improved error messaging when Git is not installed or network fails during initialization.
 
 ## What's New in v1.4.3 (Install Integrity)
 - **Full Runtime Payload**: `Agent OS: Init Workspace` now installs the selected locale pack plus shared docs, skills, registries, workflows, examples, MCP server, and CI templates.
