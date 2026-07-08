@@ -63,7 +63,7 @@ Universal Agent OS exists to add that missing discipline without forcing every t
 
 ## Honest Status
 
-This repository is already usable, but it is not finished in every dimension.
+This repository is a fully operational and packaged governance framework.
 
 **What is real today:**
 - Installable locale packs in English and Turkish
@@ -91,6 +91,11 @@ This repository is already usable, but it is not finished in every dimension.
 - Existing project collisions are backed up under `.agentos-backups/`.
 - Existing user `README.md` files are preserved; Agent OS documentation is installed as `AGENT_OS_README.md` when needed.
 - `Agent OS: Verify Governance Gate` verifies required workspace files locally instead of depending on unpublished npm CLI availability.
+
+**What is new in the VS Code extension v1.4.5 (Status Intelligence):**
+- **Conditional Status Bar**: Status bar now shows `Agent OS: Active`, `Not Initialized`, or `No Workspace` based on your project's governance state, and updates dynamically.
+- **Git Error Guidance**: Improved error messaging when Git is not installed or network fails during initialization.
+- **Changelog Cleanup**: Fixed changelog ordering and added NPM publishing badges to main README.
 
 **What is new in the VS Code extension v1.4.4 (Guided Workflows):**
 - Init creates and opens `NEXT_STEPS.md` so beginners know what to do immediately after installation.
