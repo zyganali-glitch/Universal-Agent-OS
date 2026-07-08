@@ -1,8 +1,8 @@
 # Changelog
 
-## VS Code Extension 1.4.5 - 2026-07-08
+## VS Code Extension 1.4.6 - 2026-07-08
 
-- Added conditional status bar: Active / Not Initialized / No Workspace.
+- Added conditional status bar: Active / Incomplete / Not Initialized / No Workspace.
 - Added Git/network error guidance during workspace initialization.
 - Added NPM badge and public NPM quickstart to README.
 - Fixed root AGENTS.md IL-01 through IL-17 consistency.

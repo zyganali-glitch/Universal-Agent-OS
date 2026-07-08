@@ -2,7 +2,7 @@
   "name": "universal-agent-os-vscode",
   "displayName": "Universal Agent OS",
   "description": "Enterprise IDE extension for the Universal Agent OS consultation-first governance framework.",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "publisher": "mehmet-aydogan",
   "repository": {
     "type": "git",
