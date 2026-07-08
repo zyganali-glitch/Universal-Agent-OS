@@ -155,8 +155,10 @@ if [ "$LEGACY_FLAG" = "--legacy" ] || is_legacy_target; then
 fi
 
 BACKUP_ROOT=""
+WORKSPACE_SNAPSHOT=""
 if [ "$LEGACY_MODE" -eq 1 ]; then
     BACKUP_ROOT="$TARGET_DIR/.agentos-backups/$(date +%Y%m%d-%H%M%S)"
+    WORKSPACE_SNAPSHOT="$(workspace_snapshot "$TARGET_DIR")"
 fi
 
 resolve_destination() {
@@ -245,8 +247,7 @@ if [ "$LEGACY_MODE" -eq 1 ]; then
 > The existing codebase is quarantined. Do not refactor existing code unless explicitly requested.
 > ALL NEW code must adhere strictly to Universal Agent OS rules.
 
-## Existing Project Snapshot
-$(workspace_snapshot "$TARGET_DIR")
+${WORKSPACE_SNAPSHOT}
 
 ## Onboarding Notes
 - Onboarded by Bash bootstrap.

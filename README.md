@@ -98,7 +98,7 @@ This repository is a fully operational and packaged governance framework.
 
 ---
 
-**What is new in the VS Code extension v1.4.5 (Status Intelligence):**
+**What is new in the VS Code extension v1.4.6 (Status Intelligence):**
 - **Conditional Status Bar**: Status bar now shows `Agent OS: Active`, `Not Initialized`, or `No Workspace` based on your project's governance state, and updates dynamically.
 - **Git Error Guidance**: Improved error messaging when Git is not installed or network fails during initialization.
 - **Changelog Cleanup**: Fixed changelog ordering and added NPM publishing badges to main README.
@@ -224,7 +224,7 @@ Each root adapter includes a common governance bootstrap header plus **agent-spe
 |---------|---------|
 | `init-agent-os.ps1` | PowerShell bootstrap installer |
 | `init-agent-os.sh` | Bash bootstrap installer |
-| `cli/` | `agent-os` CLI (`npx agent-os init`, `verify`) |
+| `cli/` | `agent-os` CLI binary (`npx universal-agent-os init`, `npx universal-agent-os verify`) |
 | `extensions/vscode/` | VS Code Marketplace extension |
 
 ### CI/CD Enforcement

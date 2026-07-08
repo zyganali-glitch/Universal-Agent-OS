@@ -148,7 +148,7 @@ module.exports = function(args) {
     checkContains('package.json', '"license": "MIT"', 'package.json MIT License');
     checkNotContains('LICENSING.md', 'no redistribution', 'LICENSING.md clean restriction');
     checkNotContains('LICENSING.md', 'commercial license required', 'LICENSING.md clean restriction');
-    checkContains('README.md', 'v1.2.0', 'README.md v1.2.0 mentioned');
+    checkContains('README.md', 'What is new in the Core Package', 'README.md Core Package status section exists');
     checkContains('docs/EVIDENCE_MANIFEST_TEMPLATE.md', 'Tech-Debt Delta', 'EVIDENCE_MANIFEST_TEMPLATE.md Tech-Debt Delta');
     checkContains('docs/INSTALLATION_MANIFEST.md', 'VS Code Extension And Bootstrap Installs', 'INSTALLATION_MANIFEST.md install contract');
     checkContains('docs/REAL_WORLD_SCENARIOS.md', 'Scenario Matrix', 'REAL_WORLD_SCENARIOS.md scenario matrix');
