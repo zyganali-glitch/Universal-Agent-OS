@@ -76,6 +76,14 @@ This repository is a fully operational and packaged governance framework.
 - Example implementations under `examples/`
 - pytest-based structural governance test suite
 
+**What is new in the Core Package v1.2.2 (NPM Payload & Validation Fix):**
+- Added missing `.github/`, `.gitlab/`, and `.gitlab-ci.yml` payloads to NPM package manifest.
+- Fixed `init-agent-os.sh` to capture workspace snapshot *before* copying governance files.
+- Replaced hardcoded version check in verification with dynamic semantic checks.
+
+**What is new in the Core Package v1.2.1 (NPM Publish):**
+- First successful public NPM publish.
+
 **What is new in the Core Package v1.2.0 (Open Source Hardening & Verification):**
 - MIT licensing is now the explicit open-source model.
 - CLI verification supports separate package and target modes.
@@ -98,7 +106,10 @@ This repository is a fully operational and packaged governance framework.
 
 ---
 
-**What is new in the VS Code extension v1.4.6 (Status Intelligence):**
+**What is new in the VS Code extension v1.4.6 (Repository Sync):**
+- **Marketplace & NPM Sync**: Synchronized README versions and release history across GitHub, VS Code Marketplace, and NPM packages to ensure 100% accuracy.
+
+**What is new in the VS Code extension v1.4.5 (Status Intelligence):**
 - **Conditional Status Bar**: Status bar now shows `Agent OS: Active`, `Not Initialized`, or `No Workspace` based on your project's governance state, and updates dynamically.
 - **Git Error Guidance**: Improved error messaging when Git is not installed or network fails during initialization.
 - **Changelog Cleanup**: Fixed changelog ordering and added NPM publishing badges to main README.

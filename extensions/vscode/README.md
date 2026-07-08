@@ -2,7 +2,10 @@
 
 This is the official Enterprise IDE extension for the **Universal Agent OS**, a consultation-first governance framework for AI coding agents.
 
-## What's New in v1.4.6 (Status Intelligence)
+## What's New in v1.4.6 (Repository Sync)
+- **Marketplace & NPM Sync**: Synchronized README versions and release history across GitHub, VS Code Marketplace, and NPM packages to ensure 100% accuracy.
+
+## What's New in v1.4.5 (Status Intelligence)
 - **Conditional Status Bar**: Status bar now shows `Agent OS: Active`, `Not Initialized`, or `No Workspace` based on your project's governance state, and updates dynamically via file watchers.
 - **Git Error Guidance**: Improved error messaging when Git is not installed or network fails during initialization — now suggests Git install link and ZIP fallback.
 - **Changelog Cleanup**: Fixed changelog ordering and added NPM publishing badges to main README.

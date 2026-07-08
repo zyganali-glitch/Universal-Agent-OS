@@ -1,6 +1,21 @@
 # Changelog
 
+## Core Package 1.2.2 - 2026-07-08
+
+- Added `.github/`, `.gitlab/`, `.gitlab-ci.yml` payloads to NPM package manifest.
+- Fixed `init-agent-os.sh` brownfield snapshot timing.
+- Updated `verify.js` to use semantic checks instead of hardcoded version strings.
+
+## Core Package 1.2.1 - 2026-07-08
+
+- First successful public NPM publish (`universal-agent-os`).
+
 ## VS Code Extension 1.4.6 - 2026-07-08
+
+- Synchronized GitHub, VS Code Marketplace, and NPM packages to ensure consistent version history.
+- Corrected missing `1.4.5` entry in README files.
+
+## VS Code Extension 1.4.5 - 2026-07-08
 
 - Added conditional status bar: Active / Incomplete / Not Initialized / No Workspace.
 - Added Git/network error guidance during workspace initialization.
